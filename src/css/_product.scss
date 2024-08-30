@@ -1,0 +1,92 @@
+@use "sass:map";
+@use "variable" as *;
+
+.product {
+    &-info {
+        > div {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: 1fr 4fr 1fr;
+            &:not(:last-child) {
+                margin-bottom: 24px;
+            }
+        }
+        .one-c {
+            > div {
+                &:nth-child(1) {
+
+                }
+                &:nth-child(2) {
+
+                }
+                &:nth-child(3) {
+                    text-align: center;
+                    height: fit-content;
+                }
+            }
+        }
+    }
+    &-presence {
+
+    }
+
+    &-price-client {
+        margin-bottom: 80px;
+        display: grid;
+        justify-content: space-between;
+        gap: 24px;
+        grid-template-columns: repeat(3, 1fr);
+        > div {
+            &:nth-child(1) {
+
+            }
+            &:nth-child(2) {
+                text-align: center;
+                input {
+                    //width: 100%;
+                }
+            }
+            &:nth-child(3) {
+                text-align: end;
+            }
+        }
+    }
+    &-price-calculator {
+        margin-bottom: 80px;
+        > div {
+            &:nth-child(1) {
+                margin-bottom: 32px;
+            }
+            &:nth-child(2) {
+                display: grid;
+                gap: 24px;
+                grid-template-columns: repeat(9, 1fr);
+                align-items: center;
+                text-align: center;
+                > div:not(.sign) {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: 100%;
+                    gap: 12px;
+                }
+                .sign {
+                    margin-top: auto;
+                }
+            }
+        }
+
+    }
+    &-history-price-wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 48px;
+    }
+}
+
+.block {
+    //margin-bottom: 80px;
+    //padding: 32px;
+    //border: 1px solid $colorBorderAccent;
+}
