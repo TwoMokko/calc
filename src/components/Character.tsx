@@ -1,4 +1,6 @@
 export function Character() {
+
+
     return <>
         <section>
             <h2>Характеристики</h2>
@@ -6,7 +8,7 @@ export function Character() {
                 <div className='character-group-select'>
                     <h4>Наименование</h4>
                     <select>
-                        <option selected={true}>1</option>
+                        <option>1</option>
                         <option>2</option>
                         <option>3</option>
                         <option>4</option>

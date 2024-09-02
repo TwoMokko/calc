@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 const ru: {[key: string]: string} = {
     type: "Тип изделия",
@@ -38,29 +38,28 @@ const ru: {[key: string]: string} = {
     connectionSizes4: "Размер подсоединения 4",
 }
 
-export function InputCard({option, values}: {option: string, values: string[]}): JSX.Element {
-    const [showMore, setShowMore] = useState(true)
-    const [inputValue, setInputValue] = useState('')
+export function InputCard({option, values, onChange}: {option: string, values: string[],  onChange: (value: string) => void}): JSX.Element {
+    // TODO: !showMore при нажатии на элемент листа и при нажатии вне инпута
 
-    function showList(): void {
-        setShowMore(!showMore);
+    const [showList, setShowList] = useState<boolean>(false)
+    const [inputValue, setInputValue] = useState<string>()
+
+    function doClick(val: string): void {
+        setInputValue(val)
+        setShowList(!showList)
+        onChange(val)
     }
-
-    useEffect(() => {
-        console.log(inputValue)
-        setShowMore(!showMore)
-    }, [inputValue]);
 
     return <div className='input-search'>
         <h4>{ru[option]}</h4>
         <div className='input-search-wrap'>
-            <input onClick={showList} value={inputValue}/>
-            {showMore && <div className='input-search-list'>
+            <input onClick={() => setShowList(!showList)} value={inputValue}/>
+            {showList && <div className='input-search-list'>
                 {
                     values.map(val => {
                         return <div
                             className='input-search-list-item'
-                            onClick={() => {setInputValue(val)}}
+                            onClick={() => {doClick(val)}}
                         >{val}</div>
                     })
                 }

@@ -1,31 +1,41 @@
 import {useState} from "react";
 
-export function InputCardMultiple({title, values}: {title: string, values: string[]}): JSX.Element {
-    const [showMore, setShowMore] = useState(false)
-    // const [inputValues, setInputValues] = useState([])
+export function InputCardMultiple({title, values, onChange}: {title: string, values: string[], onChange: (types: string[]) => void}): JSX.Element {
+    const [showList, setShowList] = useState(false)
+    const [checked, setChecked] = useState<string[]>([])
 
-    function showList(): void {
-        setShowMore(!showMore);
+
+    function onClick(value: string, status: boolean) {
+        const changes = !status
+            ?checked.filter(itm => itm != value)
+            : [...checked, value]
+
+        setChecked(changes)
+        onChange(changes)
     }
 
-    function chooseValue(): void {
-        console.log('choose type')
-        // setShowMore(!showMore)
-    }
+
 
     return <div className='input-search'>
         <h4>{title}</h4>
         <div className='input-search-wrap'>
-            <input onClick={showList}/>
-            {showMore && <div className='input-search-list'>
+            <input onClick={() => {setShowList(!showList)}}/>
+            {showList && <div className='input-search-list'>
                 {
                     values.map(val => {
                         return <label className='input-search-list-item' key={val}>
-                            <input className='hide' type='checkbox' value={val}/>
-                            <div
-                                className='check'
-                                onClick={chooseValue}
-                            >{val}</div>
+                            <input
+                                className='hide'
+                                type='checkbox'
+                                value={val}
+                                checked={checked.includes(val)}
+                                onChange={
+                                    (event) => onClick(val, event.currentTarget.checked)
+                                }
+                            />
+                            <div className='check'>
+                                {val}
+                            </div>
                         </label>
                     })
                 }
