@@ -1,6 +1,6 @@
 import {connection, connections} from "../routes/CalcPage.tsx";
 // import {useEffect, useState} from "react";
-import {InputCard} from "./InputCard.tsx";
+import {SelectCard} from "./SelectCard.tsx";
 import {useState, useEffect} from "react";
 
 export function Connection({connection, onChange}: {connection: connections, onChange: (value: connection) => void}) {
@@ -8,7 +8,6 @@ export function Connection({connection, onChange}: {connection: connections, onC
     const [selectedSize, setSelectedSize] = useState<string | undefined>()
 
     useEffect(() => {
-        console.log({selectedSize, selectedType})
         onChange({
             connectionNo: connection.connectionNo,
             connectionSizes: selectedSize,
@@ -20,7 +19,7 @@ export function Connection({connection, onChange}: {connection: connections, onC
     const titleSize = `connectionSizes${connection.connectionNo}`
 
     return <>
-        <InputCard option={titleType} values={connection.connectionTypes} onChange={value => setSelectedType(value)}/>
-        <InputCard option={titleSize} values={connection.connectionSizes} onChange={value => setSelectedSize(value)}/>
+        <SelectCard option={titleType} values={connection.connectionTypes} onChange={value => setSelectedType(value)}/>
+        <SelectCard option={titleSize} values={connection.connectionSizes} onChange={value => setSelectedSize(value)}/>
     </>
 }

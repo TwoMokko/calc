@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export function InputCardMultiple({title, values, onChange}: {title: string, values: string[], onChange: (types: string[]) => void}): JSX.Element {
+export function SelectCardMultiple({title, values, onChange}: {title: string, values: string[], onChange: (types: string[]) => void}): JSX.Element {
     const [showList, setShowList] = useState(false)
     const [checked, setChecked] = useState<string[]>([])
 
@@ -19,7 +19,10 @@ export function InputCardMultiple({title, values, onChange}: {title: string, val
     return <div className='input-search'>
         <h4>{title}</h4>
         <div className='input-search-wrap'>
-            <input onClick={() => {setShowList(!showList)}}/>
+            <input
+                // onBlur={() => setTimeout(() => setShowList(false), 100)}
+                onClick={() => {setShowList(!showList)}}
+            />
             {showList && <div className='input-search-list'>
                 {
                     values.map(val => {

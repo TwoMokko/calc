@@ -9,7 +9,7 @@ function App() {
       <BrowserRouter>
           <Routes>
               <Route index element={<CalcPage />} />
-              <Route path={'/test'} element={<>test</>} />
+              <Route path={'/prod'} element={<>test</>} />
           </Routes>
       </BrowserRouter>
     </>
