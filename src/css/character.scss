@@ -56,6 +56,7 @@ button {
 }
 
 .btn {
+    height: fit-content;
     padding: 12px 24px;
     background-color: $colorBtnAccent;
     color: $colorTextLight;
@@ -90,6 +91,10 @@ h4 {
 }
 
 .loading {
+    text-align: center;
+}
+
+.not-found {
     text-align: center;
 }
 
@@ -210,7 +215,7 @@ select {
     gap: 28px;
     justify-content: center;
     width: 100%;
-    > div {
+    > button {
         color: $colorTextLight;
         cursor: pointer;
         &:not(.previous, .next) {
@@ -221,14 +226,14 @@ select {
             background-position: center;
             background-size: contain;
             background-repeat: no-repeat;
-            background-image: url("/img/arrow.svg");
+            background-image: url("/arrow.svg");
         }
         &.previous {
             width: 35px;
             background-position: center;
             background-size: contain;
             background-repeat: no-repeat;
-            background-image: url("/img/arrow.svg");
+            background-image: url("/arrow.svg");
             transform: rotate(180deg);
         }
         &.not-active {

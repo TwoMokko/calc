@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const ru: {[key: string]: string} = {
     type: "Тип изделия",
@@ -38,12 +38,16 @@ const ru: {[key: string]: string} = {
     connectionSizes4: "Размер подсоединения 4",
 }
 
-export function SelectCard({option, values, onChange}: {option: string, values: string[],  onChange: (value: string) => void}): JSX.Element {
+export function SelectCard({value, option, values, onChange}: {value?: string, option: string, values: string[],  onChange: (value: string) => void}): JSX.Element {
     // TODO: !showList при нажатии на элемент листа и при нажатии вне инпута
 
     const [showList, setShowList] = useState<boolean>(false)
     const [inputValue, setInputValue] = useState<string>('')
 
+
+    useEffect(() => {
+        setInputValue(value ?? '')
+    }, [value]);
     function doClick(val: string): void {
         setInputValue(val)
         setShowList(!showList)

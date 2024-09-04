@@ -1,7 +1,7 @@
 import {InputCard} from "./InputCard.tsx";
 import {useEffect, useState} from "react";
-import {physicalCharacteristics} from "../routes/CalcPage.tsx";
-import {useDebouncedCallback} from "use-debounce";
+import {physicalCharacteristics} from "../types/Types.tsx";
+import {isEqual} from "lodash";
 
 const characteristic: {[key: string]: string} = {
     minTemperature: 'Temp min',
@@ -13,31 +13,25 @@ const characteristic: {[key: string]: string} = {
     dn: 'Dn',
 }
 
+export function Characters({values, onChange}: {values?: physicalCharacteristics, onChange: Function}): JSX.Element {
+    const [chars, setChars] = useState<physicalCharacteristics | undefined>()
 
-
-export function Characters({onChange}: {onChange: Function}) {
-    const [chars, setChars] = useState<physicalCharacteristics>({})
-
-    const onInput = useDebouncedCallback(
-        // function
-        (key: string, value: string) => {
-            setChars(prev => {
-                return {...prev, [key]: parseInt(value)}
-            })
-        },
-        // delay in ms
-        2000
-    );
-    // function onInput(key: string, value: string) {
-    //
-    //     setChars(prev => {
-    //         return {...prev, [key]: parseInt(value)}
-    //     })
-    // }
+    const onInput = (key: string, value: string) => {
+        setChars(prev => {
+            return {...prev, [key]: parseInt(value)}
+        })
+    }
 
     useEffect(() => {
         onChange(chars)
     }, [chars]);
+
+
+    useEffect(() => {
+        if (!isEqual(values, caches))
+            setChars(values)
+    }, [values]);
+
 
     return <>
         <section>
@@ -54,15 +48,16 @@ export function Characters({onChange}: {onChange: Function}) {
                 </div>
 
                 {
-                    Object.keys(characteristic).map(key =>
-                        <InputCard
+                    Object.keys(characteristic).map(key => {
+                        // @ts-ignore
+                        return <InputCard value={values && key in values ? values[key] : undefined}
                             key={key}
                             char={key}
                             title={characteristic[key]}
                             className='character-group-select'
                             onInput={onInput}
                         />
-                    )
+                    })
                 }
             </div>
         </section>

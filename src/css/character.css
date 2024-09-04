@@ -108,6 +108,7 @@ button {
 }
 
 .btn {
+  height: fit-content;
   padding: 12px 24px;
   background-color: #83AEE4;
   color: #FFF;
@@ -141,6 +142,10 @@ h4 {
 }
 
 .loading {
+  text-align: center;
+}
+
+.not-found {
   text-align: center;
 }
 
@@ -239,26 +244,26 @@ input.show-element {
   justify-content: center;
   width: 100%;
 }
-.pagination > div {
+.pagination > button {
   color: #FFF;
   cursor: pointer;
 }
-.pagination > div.next {
+.pagination > button.next {
   width: 35px;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url("/img/arrow.svg");
+  background-image: url("/arrow.svg");
 }
-.pagination > div.previous {
+.pagination > button.previous {
   width: 35px;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url("/img/arrow.svg");
+  background-image: url("/arrow.svg");
   transform: rotate(180deg);
 }
-.pagination > div.not-active {
+.pagination > button.not-active {
   pointer-events: none;
   cursor: default;
   opacity: 0.5;
