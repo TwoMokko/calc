@@ -2,7 +2,7 @@ import {SelectCard} from "./SelectCard.tsx";
 import {useState, useEffect} from "react";
 import {connection, connections} from "../types/Types.tsx";
 
-export function Connection({value, connection, onChange}: {value?: connection,connection: connections, onChange: (value: connection) => void}): JSX.Element {
+export function Connection({value, connection, onChange, highlight}: {value?: connection,connection: connections, onChange: (value: connection) => void, highlight?: connections}): JSX.Element {
     const [selectedType, setSelectedType] = useState<string | undefined>()
     const [selectedSize, setSelectedSize] = useState<string | undefined>()
 
@@ -35,12 +35,14 @@ export function Connection({value, connection, onChange}: {value?: connection,co
             option={titleType}
             values={connection.connectionTypes}
             onChange={value => setSelectedType(value)}
+            highlight={highlight?.connectionTypes}
         />
         <SelectCard
             value={value?.connectionSizes}
             option={titleSize}
             values={connection.connectionSizes}
             onChange={value => setSelectedSize(value)}
+            highlight={highlight?.connectionSizes}
         />
     </>
 }

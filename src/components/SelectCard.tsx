@@ -38,24 +38,54 @@ const ru: {[key: string]: string} = {
     connectionSizes4: "Размер подсоединения 4",
 }
 
-export function SelectCard({value, option, values, onChange}: {value?: string, option: string, values: string[],  onChange: (value: string) => void}): JSX.Element {
+export function SelectCard({value, option, values, onChange, highlight}: {value?: string, option: string, values: string[],  onChange: (value: string) => void, highlight: string[] | undefined}): JSX.Element {
     // TODO: !showList при нажатии на элемент листа и при нажатии вне инпута
 
     const [showList, setShowList] = useState<boolean>(false)
     const [inputValue, setInputValue] = useState<string>('')
+    const [currentValues, setCurrentValues] = useState<string[]>(values)
 
 
     useEffect(() => {
         setInputValue(value ?? '')
-    }, [value]);
+    }, [value])
+
+
     function doClick(val: string): void {
         setInputValue(val)
         setShowList(!showList)
         onChange(val)
     }
 
+    useEffect(() => {
+        setCurrentValues(prev => {
+            return [
+                ...prev.sort((a, b) => {
+                    if (inputValue) {
+                        const aSearch = a.search(inputValue) != -1
+                        const bSearch = b.search(inputValue) != -1
+
+                        if (aSearch || bSearch)
+                            return aSearch ? -1 : +1
+                    }
+
+                    const aIn = highlight?.includes(a)
+                    const bIn = highlight?.includes(b)
+
+                    if (aIn && !bIn)
+                        return -1
+                    else if (bIn && !aIn)
+                        return +1;
+
+                    return 0
+                })
+            ]
+        })
+    }, [highlight, inputValue]);
+
+
     return <div className='input-search'>
-        <h4>{ru[option]}</h4>
+        <h4 className={highlight?.length ? 'suit' : ''}>{ru[option]}</h4>
         <div className='input-search-wrap'>
             <input
                 onClick={() => setShowList(!showList)}
@@ -65,12 +95,15 @@ export function SelectCard({value, option, values, onChange}: {value?: string, o
             />
             {showList && <div className='input-search-list'>
                 {
-                    values.map(val => {
+                    currentValues.map((val) => {
                         return <div
                             key={val}
-                            className='input-search-list-item'
+                            className={`input-search-list-item ${highlight?.includes(val) ? 'suit' : ''}`}
                             onClick={() => {doClick(val)}}
-                        >{val}</div>
+                        >{!inputValue
+                            ? val
+                            : <span dangerouslySetInnerHTML={{__html: val.replace(inputValue, `<mark>${inputValue}</mark>`)}} />
+                        }</div>
                     })
                 }
             </div>}

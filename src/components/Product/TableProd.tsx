@@ -1,7 +1,7 @@
 import {productDataArticle} from "../../types/Types.tsx";
 
 export function TableProd({data, className}: {data:  productDataArticle, className: string}) {
-    return <table className={className}>
+    return data.historyPrices.length > 1 && <table className={className}>
         <thead>
         <tr>
             <th>Цена закупки</th>

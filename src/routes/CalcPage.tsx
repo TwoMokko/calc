@@ -14,6 +14,7 @@ import {fetchData, sendDataForOptions} from "../api/Fetches.tsx";
 export function CalcPage(): JSX.Element {
     const [filter, setFilter] = useState<sendData>({})
     const [data, setData] = useState<optionsData | undefined>()
+    const [highlight, setHighlight] = useState<optionsData | undefined>()
 
     useEffect(() => {
         (async () => {
@@ -25,7 +26,7 @@ export function CalcPage(): JSX.Element {
     useEffect(() => {
         if (data){
             // console.log({filter})
-            sendDataForOptions(filter)
+            sendDataForOptions(filter, setHighlight)
         }
 
     }, [filter]);
@@ -76,8 +77,10 @@ export function CalcPage(): JSX.Element {
             <section className='option-type'>
                 <SelectCardMultiple
                     title='Тип изделия'
+                    value={filter.type}
                     values={data.type}
                     onChange={types=> onChangeType(types)}
+                    highlight={highlight?.type}
                 />
             </section>
 
@@ -90,6 +93,7 @@ export function CalcPage(): JSX.Element {
                             option={option.key}
                             values={option.value}
                             onChange={(value) => onChangeOption(option.key, value)}
+                            highlight={highlight?.options?.find(itm => itm.key == option.key)?.value}
                         />
                     })
                 }
@@ -103,7 +107,7 @@ export function CalcPage(): JSX.Element {
                             key={connection.connectionNo}
                             connection={connection}
                             onChange={value => onChangeConnection(value)}
-                            // highlight={}
+                            highlight={highlight?.connections?.find(itm => itm.connectionNo == connection.connectionNo)}
                         />
                     })
                 }

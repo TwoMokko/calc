@@ -10,7 +10,7 @@ export async function fetchData(): Promise<optionsData> {
     }).then(res => res.json())
 }
 
-export function sendDataForOptions(filter: sendData) {
+export function sendDataForOptions(filter: sendData, func: Function) {
     fetch(`http://192.168.0.178:5050/products/options`, {
         method: 'POST',
         headers: {
@@ -20,7 +20,7 @@ export function sendDataForOptions(filter: sendData) {
     })
         .then(async response => {
             const result = await response.json()
-            console.log('options: ', {result})
+            func(result)
         })
 }
 

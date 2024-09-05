@@ -20,7 +20,7 @@ export function TableCalc({filter, defaultPage, defaultSize}: { filter: sendData
 
     }, [filter, page, size]);
 
-    if (!rows.length) return <div className='not-found'>По вашему запросу ничего не найдено, измените данные поиска</div>
+    if (!rows?.length) return <div className='not-found'>По вашему запросу ничего не найдено, измените данные поиска</div>
 
     return <>
         <table
