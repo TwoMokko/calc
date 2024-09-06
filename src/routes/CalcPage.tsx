@@ -24,11 +24,8 @@ export function CalcPage(): JSX.Element {
 
 
     useEffect(() => {
-        if (data){
-            // console.log({filter})
+        if (data)
             sendDataForOptions(filter, setHighlight)
-        }
-
     }, [filter]);
 
 
@@ -41,18 +38,30 @@ export function CalcPage(): JSX.Element {
 
     function onChangeType(types: string[]): void {
         setFilter(prev => {
-            return {...prev, type: types}
+
+            if (!types.length)
+                delete prev.type
+            else
+                prev.type = types
+
+            return {...prev}
         })
     }
     function onChangeOption(key: string, value: string): void {
         setFilter(prev => {
-            return {...prev, options: [...(prev.options ? prev.options : []), {key, value}]}
+            return {...prev, options: [...(prev.options ? prev.options.filter(itm => itm.key != key) : []), {key, value}]}
+        })
+    }
+
+    function onDeleteOption(key: string) {
+        setFilter(prev => {
+            return {...prev, options: [...(prev.options ? prev.options.filter(itm => itm.key != key) : [])]}
         })
     }
 
     function onChangeConnection(connection: connection): void {
         setFilter(prev => {
-            return {...prev, connections: [...(prev.connections ? prev.connections : []).filter(itm => itm.connectionNo != connection.connectionNo), connection]}
+            return {...prev, connections: [...(prev.connections ? prev.connections.filter(itm => itm.connectionNo != connection.connectionNo) : []), connection]}
         })
     }
 
@@ -93,6 +102,7 @@ export function CalcPage(): JSX.Element {
                             option={option.key}
                             values={option.value}
                             onChange={(value) => onChangeOption(option.key, value)}
+                            onDelete={() => onDeleteOption(option.key)}
                             highlight={highlight?.options?.find(itm => itm.key == option.key)?.value}
                         />
                     })

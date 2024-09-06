@@ -279,6 +279,21 @@ input.show-element {
   width: fit-content;
 }
 
+.input-search-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.input-search-head .reset-option {
+  padding: 0 8px;
+  width: 1rem;
+  height: 1rem;
+  background-image: url("/cross.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
 .input-search-wrap {
   position: relative;
 }
@@ -328,6 +343,26 @@ input.show-element {
 .input-search-list-item > div.check:hover {
   color: #C7D2DE;
 }
+.input-search .checked-list {
+  display: flex;
+  padding: 12px 0;
+  gap: 8px;
+}
+.input-search .checked-list > div {
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  background-color: #D2E0F0;
+}
+.input-search .checked-list > div .unchecked {
+  width: 1rem;
+  height: 1rem;
+  background-image: url("/cross.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
 
 .block {
   display: grid;
@@ -342,12 +377,19 @@ input.show-element {
   margin-bottom: 42px;
 }
 
-.suit {
-  color: #00B1D0;
+.disable {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.3;
 }
 
-.search {
+mark {
   background-color: rgba(0, 177, 208, 0.1254901961);
+}
+
+.choose {
+  background-color: rgba(0, 177, 208, 0.1254901961);
+  color: #00B1D0;
 }
 
 .reset {

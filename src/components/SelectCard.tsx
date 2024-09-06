@@ -38,13 +38,11 @@ const ru: {[key: string]: string} = {
     connectionSizes4: "Размер подсоединения 4",
 }
 
-export function SelectCard({value, option, values, onChange, highlight}: {value?: string, option: string, values: string[],  onChange: (value: string) => void, highlight: string[] | undefined}): JSX.Element {
-    // TODO: !showList при нажатии на элемент листа и при нажатии вне инпута
+export function SelectCard({value, option, values, onChange, highlight, onDelete}: {value?: string, option: string, values: string[],  onChange: (value: string) => void, highlight: string[] | undefined, onDelete?: () => void}): JSX.Element {
 
     const [showList, setShowList] = useState<boolean>(false)
     const [inputValue, setInputValue] = useState<string>('')
     const [currentValues, setCurrentValues] = useState<string[]>(values)
-
 
     useEffect(() => {
         setInputValue(value ?? '')
@@ -57,13 +55,22 @@ export function SelectCard({value, option, values, onChange, highlight}: {value?
         onChange(val)
     }
 
+    function onReset(){
+        setInputValue('')
+        setShowList(false)
+        onDelete && onDelete()
+    }
+
+
     useEffect(() => {
         setCurrentValues(prev => {
             return [
                 ...prev.sort((a, b) => {
+
                     if (inputValue) {
-                        const aSearch = a.search(inputValue) != -1
-                        const bSearch = b.search(inputValue) != -1
+                        console.log(inputValue)
+                        const aSearch = a.search(inputValue.toUpperCase()) != -1
+                        const bSearch = b.search(inputValue.toUpperCase()) != -1
 
                         if (aSearch || bSearch)
                             return aSearch ? -1 : +1
@@ -81,16 +88,55 @@ export function SelectCard({value, option, values, onChange, highlight}: {value?
                 })
             ]
         })
-    }, [highlight, inputValue]);
+    }, [highlight, inputValue])
 
 
-    return <div className='input-search'>
-        <h4 className={highlight?.length ? 'suit' : ''}>{ru[option]}</h4>
+    // useEffect(() => {
+    //     setCurrentValues(prev => {
+    //         return [
+    //             ...prev.sort((a, b) => {
+    //
+    //                 const aIn = highlight?.includes(a)
+    //                 const bIn = highlight?.includes(b)
+    //                 let aSearch = false
+    //                 let bSearch = false
+    //
+    //                 if (inputValue) {
+    //                     aSearch = a.search(inputValue.toUpperCase()) != -1
+    //                     bSearch = b.search(inputValue.toUpperCase()) != -1
+    //                 }
+    //
+    //                 if (aIn && aSearch && !bIn)
+    //                     return -1
+    //                 else if (bIn && bSearch && !aIn)
+    //                     return +1;
+    //
+    //                 return 0
+    //             })
+    //         ]
+    //     })
+    // }, [highlight, inputValue])
+
+
+
+    return <div className={`input-search ${highlight?.length ? '' : 'disable'}`}>
+        <div className='input-search-head'>
+            <h4>{ru[option]}</h4>
+            <span
+                onClick={onReset}
+                className='reset-option'
+                title={`сбросить: ${ru[option]}`}
+            >
+            </span>
+        </div>
         <div className='input-search-wrap'>
             <input
                 onClick={() => setShowList(!showList)}
                 value={inputValue}
-                onChange={event => setInputValue(event.currentTarget.value)}
+                onChange={event => {
+                    setInputValue(event.currentTarget.value)
+                    setShowList(true)
+                }}
                 onBlur={() => setTimeout(() => setShowList(false), 100)}
             />
             {showList && <div className='input-search-list'>
@@ -98,11 +144,11 @@ export function SelectCard({value, option, values, onChange, highlight}: {value?
                     currentValues.map((val) => {
                         return <div
                             key={val}
-                            className={`input-search-list-item ${highlight?.includes(val) ? 'suit' : ''}`}
-                            onClick={() => {doClick(val)}}
+                            className={`input-search-list-item ${highlight?.includes(val) ? '' : 'disable'}`}
+                            onClick={() => doClick(val)}
                         >{!inputValue
                             ? val
-                            : <span dangerouslySetInnerHTML={{__html: val.replace(inputValue, `<mark>${inputValue}</mark>`)}} />
+                            : <span dangerouslySetInnerHTML={{__html: val.replace(inputValue.toUpperCase(), `<mark>${inputValue.toUpperCase()}</mark>`)}} />
                         }</div>
                     })
                 }

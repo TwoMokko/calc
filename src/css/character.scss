@@ -261,7 +261,19 @@ select {
 .input-search {
     //position: relative;
     &-head {
-
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        .reset-option {
+            padding: 0 8px;
+            width: 1rem;
+            height: 1rem;
+            background-image: url("/cross.svg");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+        }
     }
     &-wrap {
         position: relative;
@@ -319,6 +331,26 @@ select {
 
         }
     }
+    .checked-list {
+        display: flex;
+        padding: 12px 0;
+        gap: 8px;
+        > div {
+            display: flex;
+            gap: 8px;
+            padding: 4px;
+            background-color: $colorBackgroundBlock;
+            .unchecked {
+                width: 1rem;
+                height: 1rem;
+                background-image: url("/cross.svg");
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 .block {
@@ -334,14 +366,23 @@ select {
     margin-bottom: 42px;
 }
 
-.suit {
-    color: $colorWell;
-    //background-color: darkseagreen;
+.disable {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.3;
+    //> div:not(.input-search-wrap) {
+    //    opacity: 0.2;
+    //}
 }
 
-.search {
+mark {
     background-color: $colorSearch;
-    //border-bottom-color: $colorWell;
+    //color: $colorWell;
+}
+
+.choose {
+    background-color: $colorSearch;
+    color: $colorWell;
 }
 
 .reset {
