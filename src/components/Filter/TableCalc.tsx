@@ -3,6 +3,7 @@ import {sendData, soldProducts} from "../../types/Types.tsx";
 import {useEffect, useState} from "react";
 import {sendDataForProductTable} from "../../api/Fetches.tsx";
 import {Pagination} from "../Pagination.tsx";
+import {TiThMenu} from "react-icons/ti";
 
 export function TableCalc({filter, defaultPage, defaultSize}: { filter: sendData, defaultSize?: number, defaultPage?: number}):  JSX.Element {
     const [page, setPage] = useState(defaultPage ?? 1)
@@ -20,9 +21,42 @@ export function TableCalc({filter, defaultPage, defaultSize}: { filter: sendData
 
     }, [filter, page, size]);
 
+    function validateSize(val:  string) {
+        let size = parseInt(val ? val : '0')
+        if (size < 5)
+            size = 5
+
+        if (size > 100)
+            size = 100
+
+        setSize(size)
+    }
+
     if (!rows?.length) return <div className='not-found'>По вашему запросу ничего не найдено, измените данные поиска</div>
 
     return <>
+        <div className='table-size'>
+            <div className='table-size-head'>Результат</div>
+            <div>
+                <h4>Количество строк</h4>
+                <div className='table-size-input'>
+                    <TiThMenu
+                        width='20px'
+                        height='20px'
+                    />
+                    <input
+                        type='number'
+                        className='page-size-input'
+                        defaultValue={size}
+                        onBlur={(event) => {
+                            validateSize(event.currentTarget.value)
+                        }}
+                    />
+                </div>
+            </div>
+        </div>
+
+
         <table
             className='table'
         >
@@ -65,10 +99,8 @@ export function TableCalc({filter, defaultPage, defaultSize}: { filter: sendData
         </table>
         <Pagination
             page={page}
-            size={size}
             limit={limit}
 
-            onChangeSize={size => setSize(size)}
             onChangePage={page => setPage(page)}
         />
     </>

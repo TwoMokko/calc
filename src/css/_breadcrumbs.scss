@@ -1,0 +1,32 @@
+@use "sass:map";
+@use "variable" as *;
+
+.breadcrumbs {
+  padding-bottom: 10px;
+  > a {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+  > a:first-child {
+    color: #585757;
+    &:hover {
+      color: #3F80D0;
+    }
+  }
+  > a:not(:first-child) {
+    color: #939393;
+    &:hover {
+      color: #3F80D0;
+    }
+  }
+  > a:not(:last-child)::after {
+    content: url("/img/arrow.svg");
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0 10px;
+  }
+}

@@ -1,0 +1,35 @@
+@use "sass:map";
+@use "variable" as *;
+
+h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  height: fit-content;
+  color: $colorTextDark;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 28px;
+  margin: 0 0 20px;
+  color: $colorTextDark;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0;
+  color: $colorTextDark;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  margin: 0;
+  color: $colorTextDark;
+}

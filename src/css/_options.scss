@@ -1,0 +1,17 @@
+@use "sass:map";
+@use "variable" as *;
+
+.option {
+  padding-bottom: 32px;
+  &-type {
+    width: calc(50% - 5px);
+    margin-bottom: 20px;
+  }
+  &-main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: end;
+    row-gap: 20px;
+    column-gap: 10px;
+  }
+}

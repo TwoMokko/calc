@@ -1,0 +1,29 @@
+@use "sass:map";
+@use "variable" as *;
+
+.nav-main {
+  flex: 20%;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  > a {
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: #7E7E7E;
+    &:hover {
+      background-color: #00000008;
+    }
+    &.active {
+      color: $colorTextAccent;
+      //> svg {}
+    }
+    > svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
+}

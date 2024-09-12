@@ -1,57 +1,41 @@
-export function Pagination({page, size, limit, onChangeSize, onChangePage}: {page: number, size: number, limit: number, onChangeSize: (size: number) => void, onChangePage: (page: number) => void}): JSX.Element {
+import {
+    MdKeyboardArrowLeft,
+    MdKeyboardArrowRight,
+    MdKeyboardDoubleArrowLeft,
+    MdKeyboardDoubleArrowRight
+} from "react-icons/md";
 
-    function validateSize(val:  string) {
-        let size = parseInt(val ? val : '0')
-        if (size < 5)
-            size = 5
+export function Pagination({page, limit, onChangePage}: {page: number, limit: number, onChangePage: (page: number) => void}): JSX.Element {
 
-        if (size > 100)
-            size = 100
 
-        onChangeSize(size)
-    }
 
-    return <div
-    className='pagination-wrap'
-    >
-        <div
-            className='pagination-page-size'
+    return <div className='pagination'>
+        <button
+            className={`${page == 1 ? 'not-active' : ''}`}
+            onClick={() => onChangePage(1)}
         >
-            <div>Кол-во строк</div>
-            <input
-                className='page-size-input'
-                defaultValue={size}
-                onBlur={(event) => {validateSize(event.currentTarget.value)}}
-            />
-        </div>
-        <div
-            className='pagination'
+            <MdKeyboardDoubleArrowLeft />
+        </button>
+        <button
+            className={`${page == 1 ? 'not-active' : ''}`}
+            onClick={() => onChangePage(page - 1)}
         >
-            <button
-                className={`btn ${page == 1 ? 'not-active' : ''}`}
-                onClick={() => onChangePage(1)}
-            >
-                первая страница
-            </button>
-            <button
-                className={`previous ${page == 1 ? 'not-active' : ''}`}
-                onClick={() => onChangePage(page-1)}
-            >
-            </button>
+            <MdKeyboardArrowLeft />
+        </button>
 
-            <button className='btn'>{page}</button>
+        <button className='number'>{page}</button>
 
-            <button
-                className={`next ${page == limit ? 'not-active' : ''}`}
-                onClick={() => onChangePage(page+1)}
-            >
-            </button>
-            <button
-                className={`btn ${page == limit ? 'not-active' : ''}`}
-                onClick={() => onChangePage(limit)}
-            >
-                последняя страница
-            </button>
-        </div>
+        <button
+            className={`${page == limit ? 'not-active' : ''}`}
+            onClick={() => onChangePage(page + 1)}
+        >
+            <MdKeyboardArrowRight />
+        </button>
+        <button
+            className={`${page == limit ? 'not-active' : ''}`}
+            onClick={() => onChangePage(limit)}
+        >
+            <MdKeyboardDoubleArrowRight />
+        </button>
     </div>
 }

@@ -1,15 +1,27 @@
 import {useEffect, useState} from "react";
-import {Button} from "../components/Button.tsx";
 import {TableProd} from "../components/Product/TableProd.tsx";
 import {useParams} from "react-router-dom";
 import {getDataForProduct} from "../api/Fetches.tsx";
 import {productData} from "../types/Types.tsx";
+import {Nav} from "../components/Nav.tsx";
+import {Breadcrumbs} from "../components/Breadcrumbs.tsx";
+import {MdCalculate} from "react-icons/md";
+import {String} from "../components/Product/String.tsx";
+import {CgClose} from "react-icons/cg";
+import {PiEqualsBold} from "react-icons/pi";
 
 
 export function ProductPage(): JSX.Element {
     const [data, setData] = useState<productData | undefined>()
-    const [titleBtn, setTitleBtn] = useState<string>('копировать')
     const {article} = useParams()
+
+    function stockString(data: productData): string {
+        let str = ''
+        data.stockAvailability.map((tr: string[]) => {
+            str += tr[0] + ' ' + tr[1] + 'шт '
+        })
+        return str
+    }
 
     if (!article)
         return <div className='not-found'>Нету</div>
@@ -20,134 +32,106 @@ export function ProductPage(): JSX.Element {
         })()
     }, [])
 
-
-    function copyString(): void {
-        const string = data?.oneCString
-
-        if (string) {
-            navigator.clipboard.writeText(string)
-                .then(() => {
-                    if (titleBtn !== 'скопировано') {
-                        setTitleBtn('скопировано')
-                        setTimeout(() => {
-                            setTitleBtn('копировать')
-                        }, 1500);
-                    }
-                })
-                .catch(err => {
-                    console.log('ошибка', err);
-                })
-        }
-    }
-
     if (!data)
-        return <div className='loading'>Загрузка</div>
+        return <div className='loading'>
+            <div></div>
+            <div>Загрузка</div>
+        </div>
 
     return <>
-        <section
-            className='product-info block-prod'
-        >
-            <div>
-                <h4>Артикул: </h4>
-                <div>{data.rightArticul}</div>
+        <Nav/>
+        <main>
+            <Breadcrumbs
+                links={[
+                    {route: '/', text: 'Поиск по характеристикам'},
+                    {route: `/prod/${data.rightArticul}`, text: `${data.rightArticul}`},
+                ]}
+            />
+            <div className='calc-top'>
+                <h1>
+                    <MdCalculate/>
+                    {data.rightArticul}
+                </h1>
             </div>
-            <div>
-                <h4>Полное наименование: </h4>
-                <div>{data.title}</div>
-            </div>
-            <div className='one-c'>
-                <h4>Строка для 1С: </h4>
-                <div>{data.oneCString}</div>
-                <Button
-                    title={titleBtn}
-                    onClick={copyString}
-                />
-            </div>
-        </section>
 
-        <section
-            className='product-presence block-prod'
-        >
-            <h2>Наличие на складе</h2>
-            {
-                data.stockAvailability.length &&
-                <table className='table'>
-                    <thead>
-                    <tr>
-                        <th>Артикул</th>
-                        <th>Количество</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        data.stockAvailability.map((tr: string[], trId: number) => {
-                            return <tr key={trId}>
-                                {tr.map((td: string, tdId: number) => {
-                                    return <td key={tdId}>{td}</td>
-                                })}
-                            </tr>
-                        })
-                    }
-                    </tbody>
-                </table>
+            <section
+                className='product-info block-prod section'
+            >
+                <h2>Характеристики</h2>
+                <String head='Артикул' string={data.rightArticul}/>
+                <String head='Полное наименование' string={data.title}/>
+                <String head='Строка для 1С' string={data.oneCString}/>
+                <String head='Наличие на складе' string={stockString(data)} className='stock'/>
+                <String head='Данные о цене'
+                        string={`${data.priceInfo.priceForClient}${data.priceInfo.priceFrom ? ` (${data.priceInfo.priceFrom})` : ''}`}/>
+
+                <div className='product-price-calculator'>
+                    <h4>Расчет стоимости</h4>
+                    <div>
+                        {/*TODO:оптимизировать*/}
+                        <div>
+                            <h3>{data.priceInfo.purchasePrice}</h3>
+                            <div>Закупочная цена</div>
+                        </div>
+                        <div className='sign'>
+                            <CgClose/>
+                        </div>
+                        <div>
+                            <h3>{data.priceInfo.coefficientForProductionAndDistribution}</h3>
+                            <div>Закупочная цена</div>
+                        </div>
+                        <div className='sign'>
+                            <CgClose/>
+                        </div>
+                        <div>
+                            <h3>{data.priceInfo.marginFactor}</h3>
+                            <div>Закупочная цена</div>
+                        </div>
+                        <div className='sign'>
+                            <CgClose/>
+                        </div>
+                        <div>
+                            <h3>{data.priceInfo.salesRatio}</h3>
+                            <div>Закупочная цена</div>
+                        </div>
+                        <div className='sign'>
+                            <PiEqualsBold/>
+                        </div>
+                        <div>
+                            <h3>{data.priceInfo.priceForClient}</h3>
+                            <div>Закупочная цена</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            {data.buildArticul &&
+                <section className='block-prod section'>
+                    <h2>История изменения цен</h2>
+                    <h3>{data.buildArticul.nameTable}</h3>
+                    <div className='product-history-price-wrap'>
+                        <TableProd
+                            data={data.buildArticul}
+                            className='table'
+                        />
+                    </div>
+                </section>
             }
-        </section>
 
-        <section
-            className='block-prod'
-        >
-            <h2>Данные о цене</h2>
-            <div
-                className='product-price-client'
-            >
-                <h4>Стоимость для клиена: </h4>
-                <div>{data.priceInfo.priceForClient}</div>
-                <div>{data.priceInfo.priceFrom}</div>
-            </div>
-            <div
-                className='product-price-calculator'
-            >
-                <h4>Расчет стоимости</h4>
-                <div>
-                    {/*TODO:оптимизировать*/}
-                    <div>
-                        <div>Закупочная цена</div>
-                        <h4>{data.priceInfo.purchasePrice}</h4>
+            {data.bodydArticul &&
+                <section className='section'>
+                    <h2>История изменения цен</h2>
+                    <h3>{data.bodydArticul.nameTable}</h3>
+                    <div className='product-history-price-wrap'>
+                        <TableProd
+                            data={data.bodydArticul}
+                            className='table'
+                        />
                     </div>
-                    <h4 className='sign'>X</h4>
-                    <div>
-                        <div>Закупочная цена</div>
-                        <h4>{data.priceInfo.coefficientForProductionAndDistribution}</h4>
-                    </div>
-                    <h4 className='sign'>X</h4>
-                    <div>
-                        <div>Закупочная цена</div>
-                        <h4>{data.priceInfo.marginFactor}</h4>
-                    </div>
-                    <h4 className='sign'>X</h4>
-                    <div>
-                        <div>Закупочная цена</div>
-                        <h4>{data.priceInfo.salesRatio}</h4>
-                    </div>
-                    <h4 className='sign'>=</h4>
-                    <div>
-                        <div>Закупочная цена</div>
-                        <h4>{data.priceInfo.priceForClient}</h4>
-                    </div>
-                </div>
+                </section>
+            }
 
-                <h4>История изменения цен</h4>
-                <div className='product-history-price-wrap'>
-                    {data.buildArticul && <TableProd
-                        data={data.buildArticul}
-                        className='table'
-                    />}
-                    {data.bodydArticul && <TableProd
-                        data={data.bodydArticul}
-                        className='table'
-                    />}
-                </div>
-            </div>
-        </section>
+        </main>
     </>
 }

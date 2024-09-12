@@ -3,28 +3,56 @@
 
 .product {
     &-info {
-        > div {
-            display: grid;
-            gap: 24px;
-            grid-template-columns: 1fr 4fr 1fr;
-            &:not(:last-child) {
-                margin-bottom: 24px;
-            }
-        }
-        .one-c {
+
+        > div:not(.product-price-calculator) {
+            display: flex;
+            gap: 10px;
             > div {
                 &:nth-child(1) {
-
+                    min-width: 200px;
                 }
-                &:nth-child(2) {
-
+                &:nth-child(2):not(.stock) {
+                    flex: auto;
+                    overflow: hidden;
+                    -webkit-line-clamp: 1;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
                 }
                 &:nth-child(3) {
-                    text-align: center;
-                    height: fit-content;
+                    flex: 10%;
+                }
+                &.stock {
+                    width: 180px;
                 }
             }
         }
+        &-string {
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #F0F0F0;
+            > div:first-child {
+                color: #7B7B7B;
+            }
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+
+            &:hover .copy > svg {
+                display: revert;
+            }
+
+            .copy > svg {
+                display: none;
+                color: #969696;
+                cursor: pointer;
+            }
+
+            //&-stock {
+            //    display: flex;
+            //    gap: 20px;
+            //}
+        }
+
     }
     &-presence {
 
@@ -52,36 +80,45 @@
         }
     }
     &-price-calculator {
-        margin-bottom: 80px;
+        padding: 10px;
+        h4 {
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 28px;
+            font-weight: 400;
+            color: #7B7B7B;
+        }
         > div {
-            &:nth-child(1) {
-                margin-bottom: 32px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            > div:not(.sign) {
+                h3 {
+                    //margin-bottom: 10px;
+                }
+                > div {
+                    font-size: 13px;
+                    line-height: 28px;
+                    font-weight: 400;
+                    color: #626262;
+                }
+                //width: 130px;
+                background-color: #F0F0F0;
+                padding: 17px 10px 7px;
+                border-radius: 10px;
             }
-            &:nth-child(2) {
-                display: grid;
-                gap: 24px;
-                grid-template-columns: repeat(9, 1fr);
-                align-items: center;
-                text-align: center;
-                > div:not(.sign) {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    align-items: center;
-                    height: 100%;
-                    gap: 12px;
-                }
-                .sign {
-                    margin-top: auto;
-                }
+            .sign {
+                color: #626262;
             }
         }
 
     }
     &-history-price-wrap {
+        width: 50%;
         display: flex;
         justify-content: space-between;
         gap: 48px;
+        margin-top: 20px;
     }
 }
 

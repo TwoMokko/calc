@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {isEqual} from "lodash";
+import {MdElectricBolt, MdKeyboardArrowDown} from "react-icons/md";
 
 export function SelectCardMultiple({title, value, values, onChange, highlight}: {title: string, value?: string[], values: string[], onChange: (types: string[]) => void, highlight?: string[]}): JSX.Element {
     const [showList, setShowList] = useState(false)
@@ -8,60 +9,30 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
     const [currentValues, setCurrentValues] = useState<string[]>(values)
 
     useEffect(() => {
-        if (!isEqual(value ?? [], caches))
+        if (!isEqual(value ?? [], checked))
             setChecked(value ?? [])
     }, [value]);
-
-    useEffect(() => {
-        setCurrentValues(prev => {
-            return [
-                ...prev.sort((a, b) => {
-
-                    if (inputValue) {
-                        console.log(inputValue)
-                        const aSearch = a.search(inputValue.toUpperCase()) != -1
-                        const bSearch = b.search(inputValue.toUpperCase()) != -1
-
-                        if (aSearch || bSearch)
-                            return aSearch ? -1 : +1
-                    }
-
-                    const aIn = highlight?.includes(a)
-                    const bIn = highlight?.includes(b)
-
-                    if (aIn && !bIn)
-                        return -1
-                    else if (bIn && !aIn)
-                        return +1;
-
-                    return 0
-                })
-            ]
-        })
-    }, [highlight, inputValue])
 
     // useEffect(() => {
     //     setCurrentValues(prev => {
     //         return [
     //             ...prev.sort((a, b) => {
     //
-    //                 const aIn = highlight?.includes(a)
-    //                 const bIn = highlight?.includes(b)
-    //                 let aSearch = false
-    //                 let bSearch = false
-    //
     //                 if (inputValue) {
     //                     console.log(inputValue)
-    //                     aSearch = a.search(inputValue.toUpperCase()) != -1
-    //                     bSearch = b.search(inputValue.toUpperCase()) != -1
+    //                     const aSearch = a.search(inputValue.toUpperCase()) != -1
+    //                     const bSearch = b.search(inputValue.toUpperCase()) != -1
     //
     //                     if (aSearch || bSearch)
     //                         return aSearch ? -1 : +1
     //                 }
     //
-    //                 if (aIn && aSearch && !bIn)
+    //                 const aIn = highlight?.includes(a)
+    //                 const bIn = highlight?.includes(b)
+    //
+    //                 if (aIn && !bIn)
     //                     return -1
-    //                 else if (bIn && bSearch && !aIn)
+    //                 else if (bIn && !aIn)
     //                     return +1;
     //
     //                 return 0
@@ -70,11 +41,52 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
     //     })
     // }, [highlight, inputValue])
 
+    useEffect(() => {
+        setCurrentValues(prev => {
+            return [
+                ...prev.sort((a, b) => {
+
+                    // const aIn = highlight?.includes(a)
+                    // const bIn = highlight?.includes(b)
+
+                    // const aIn = checked?.includes(a)
+                    // const bIn = checked?.includes(b)
+
+                    if (inputValue) {
+                        let aSearch = a.search(inputValue.toUpperCase()) != -1
+                        let bSearch = b.search(inputValue.toUpperCase()) != -1
+
+                        if (aSearch && !bSearch)
+                            return -1
+                        else if (bSearch && !aSearch)
+                            return +1;
+
+                        return 0
+                    }
+                    else {
+
+                        if (a < b)
+                            return -1
+                        else if (a > b)
+                            return +1;
+
+                        return 0
+
+                        // if (aIn && !bIn)
+                        //     return -1
+                        // else if (bIn && !aIn)
+                        //     return +1;
+                        //
+                        // return 0
+                    }
+                })
+            ]
+        })
+    }, [highlight, inputValue])
+
     function onClick(value: string, status?: boolean) {
-        // TODO: оптимизировать
         if (!value) {
             setChecked([])
-            //TODO: что отправить
             onChange([])
             return
         }
@@ -91,24 +103,42 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
     return <div className='input-search'>
         <div className='input-search-head'>
             <h4>{title}</h4>
-            <span
-                //TODO:что тут отправлять
-                onClick={() => onClick('')}
-                className='reset-option'
-                title={`сбросить: ${title}`}
-            >
-
-            </span>
+            {
+                (checked.length > 0) && <div
+                    onClick={() => onClick('')}
+                    className='reset-option'
+                    title={`сбросить: ${title}`}
+                >
+                </div>
+            }
         </div>
         <div className='input-search-wrap'>
-            <input
-                // onBlur={() => setTimeout(() => setShowList(false), 100)}
-                onChange={event => setInputValue(event.currentTarget.value)}
-                value={inputValue}
-                onClick={() => {
-                    setShowList(!showList)
-                }}
-            />
+            <div className='input-search-wrap-top' onClick={() => setShowList(!showList)}>
+                <MdElectricBolt/>
+                <div className='checked-list'>
+                    {
+                        checked.map(val => {
+                            return <div key={val}>
+                                <div>{val}</div>
+                                <div
+                                    className='unchecked'
+                                    onClick={() => onClick(val, false)}
+                                ></div>
+                            </div>
+                        })
+                    }
+                </div>
+                <input
+                    onChange={event => setInputValue(event.currentTarget.value)}
+                    value={inputValue}
+                    onClick={() => {
+                        setShowList(!showList)
+                    }}
+                />
+                <MdKeyboardArrowDown
+                    className={`${showList ? 'show' : ''}`}
+                />
+            </div>
             {showList && <div className='input-search-list'>
                 {
                     currentValues.map(val => {
@@ -133,19 +163,6 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
                     })
                 }
             </div>}
-        </div>
-        <div className='checked-list'>
-            {
-                checked.map(val => {
-                    return <div key={val}>
-                        <div>{val}</div>
-                        <div
-                            className='unchecked'
-                            onClick={() => onClick(val, false)}
-                        ></div>
-                    </div>
-                })
-            }
         </div>
     </div>
 }

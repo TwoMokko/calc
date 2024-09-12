@@ -27,13 +27,13 @@ a {
 
 .btn {
   padding: 12px 24px;
-  border: 1px solid #83AEE4;
-  background-color: #83AEE4;
+  border: 1px solid #3F80D0;
+  background-color: #3F80D0;
   color: #FFF;
 }
 .btn:hover {
   background-color: transparent;
-  color: #003372;
+  color: #3F80D0;
 }
 
 .calculator {
@@ -72,10 +72,10 @@ a {
   width: 16px;
   height: 16px;
   margin-right: 8px;
-  border: 1px solid #83AEE4;
+  border: 1px solid #3F80D0;
 }
 .checkbox-wrap > label > input:checked + span:before {
-  background-color: #83AEE4;
+  background-color: #3F80D0;
 }
 
 .choose-wrap {
@@ -100,7 +100,7 @@ a {
   height: 100%;
   padding: 12px;
   background-color: transparent;
-  border: 1px solid #83AEE4;
+  border: 1px solid #3F80D0;
   resize: none;
 }
 .textarea-wrap textarea:focus {

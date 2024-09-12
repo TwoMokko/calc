@@ -3,6 +3,7 @@ export function Button({title, className, onClick}: {title: string, className?: 
         className={'btn ' + className}
         onClick={() => {onClick()}}
     >
+        <span></span>
         {title}
     </button>
 }
