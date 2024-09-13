@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     padding: 10px 14px;
-    border: 1px solid #C4C4C4;
+    border: 1px solid $colorBorderInput;
     border-radius: 10px;
     height: 39px;
     &-top {
@@ -33,7 +33,7 @@
       gap: 10px;
       width: 100%;
       svg {
-        color: #969696;
+        color: $colorIcons;
         &:last-child {
           width: 28px;
           height: auto;
@@ -58,7 +58,7 @@
     //display: none;
     font-size: 16px;
     line-height: 28px;
-    color: #707070;
+    color: $colorTextMedium;
     display: flex;
     flex-direction: column;
     max-height: 188px;
@@ -71,7 +71,7 @@
     left: 0;
     z-index: 1;
     border-radius: 10px;
-    border: 1px solid #C4C4C4;
+    border: 1px solid $colorBorderInput;
     box-shadow: 0 6px 10px 0 #243DA140;
     &.active {
       display: flex;
@@ -83,7 +83,7 @@
       }
       cursor: pointer;
       &:hover {
-        background-color: #EFEFEF;
+        background-color: $colorBackgroundMain;
       }
       > input:checked + div::before {
         border-color: $colorBtnAccent;
@@ -105,8 +105,8 @@
           display: inline-block;
           margin-right: 8px;
           border-radius: 4px;
-          border: 1px solid #E8E8E8;
-          box-shadow: 0 1px 1px 0 #0000000F;
+          border: 1px solid $colorBorderInput;
+          box-shadow: 0 1px 1px 0 $colorBoxShadow;
         }
         &:hover {
 
@@ -127,9 +127,9 @@
       font-size: 13px;
       font-weight: 400;
       line-height: 20px;
-      color: #C4C4C4;
+      color: $colorTextMediumLight;
       border-radius: 28px;
-      border: 1px solid #C4C4C4;
+      border: 1px solid $colorBorderInput;
       .unchecked {
         width: 10px;
         height: 10px;

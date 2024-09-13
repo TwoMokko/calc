@@ -92,7 +92,7 @@ h4 {
   width: 100%;
 }
 .input-search-wrap-top svg {
-  color: #969696;
+  color: #939393;
 }
 .input-search-wrap-top svg:last-child {
   width: 28px;
@@ -109,7 +109,7 @@ h4 {
 .input-search-list {
   font-size: 16px;
   line-height: 28px;
-  color: #707070;
+  color: #626262;
   display: flex;
   flex-direction: column;
   max-height: 188px;
@@ -135,7 +135,7 @@ h4 {
   padding: 10px 20px;
 }
 .input-search-list-item:hover {
-  background-color: #EFEFEF;
+  background-color: #F2F2F2;
 }
 .input-search-list-item > input:checked + div::before {
   border-color: #3F80D0;
@@ -157,8 +157,8 @@ h4 {
   display: inline-block;
   margin-right: 8px;
   border-radius: 4px;
-  border: 1px solid #E8E8E8;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.0588235294);
+  border: 1px solid #C4C4C4;
+  box-shadow: 0 1px 1px 0 #F2F2F2;
 }
 .input-search .checked-list {
   display: flex;
@@ -219,20 +219,20 @@ h4 {
   line-height: 24px;
   font-weight: 500;
   border-radius: 8px;
-  border: 1px solid #E8E8E8;
+  border: 1px solid #F2F2F2;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .pagination > button:not(.number) {
-  color: #969696;
+  color: #939393;
 }
 .pagination > button.not-active {
   pointer-events: none;
   cursor: default;
-  opacity: 0.5;
-  background-color: #E8E8E8;
+  opacity: 0.7;
+  background-color: #F2F2F2;
 }
 .pagination-page-size {
   display: flex;
@@ -265,15 +265,15 @@ h4 {
   flex: 10%;
 }
 .product-info > div:not(.product-price-calculator) > div.stock {
-  width: 180px;
+  white-space: pre-line;
 }
 .product-info-string {
   padding: 10px;
   border-radius: 10px;
-  background-color: #F0F0F0;
+  background-color: #F2F2F2;
 }
 .product-info-string > div:first-child {
-  color: #7B7B7B;
+  color: #626262;
 }
 .product-info-string:not(:last-child) {
   margin-bottom: 10px;
@@ -283,7 +283,7 @@ h4 {
 }
 .product-info-string .copy > svg {
   display: none;
-  color: #969696;
+  color: #939393;
   cursor: pointer;
 }
 .product-price-client {
@@ -315,7 +315,7 @@ h4 {
   align-items: center;
 }
 .product-price-calculator > div > div:not(.sign) {
-  background-color: #F0F0F0;
+  background-color: #F2F2F2;
   padding: 17px 10px 7px;
   border-radius: 10px;
 }
@@ -386,11 +386,11 @@ h4 {
   padding: 10px 14px;
   border-radius: 10px;
   border: 1px solid #C4C4C4;
-  color: #969696;
+  color: #939393;
 }
 .table-size-input input {
   width: 140px;
-  color: #969696;
+  color: #939393;
 }
 
 /* Colors */
@@ -408,10 +408,10 @@ h4 {
   display: flex;
   gap: 10px;
   align-items: center;
-  color: #7E7E7E;
+  color: #939393;
 }
 .nav-main > a:hover {
-  background-color: rgba(0, 0, 0, 0.031372549);
+  background-color: #F2F2F2;
 }
 .nav-main > a.active {
   color: #3F80D0;
@@ -516,7 +516,7 @@ h4 {
   font-weight: 400;
 }
 .breadcrumbs > a:first-child {
-  color: #585757;
+  color: #626262;
 }
 .breadcrumbs > a:first-child:hover {
   color: #3F80D0;
@@ -542,8 +542,8 @@ h4 {
   font-family: "Inter", sans-serif;
 }
 *:not(thead) ::selection {
-  background: #83AEE4;
-  color: #FFF;
+  background: rgba(0, 177, 208, 0.1254901961);
+  color: #000;
 }
 
 html {
@@ -565,7 +565,7 @@ main {
   flex: 80%;
   padding: 40px 30px;
   border-radius: 30px;
-  background-color: rgba(0, 0, 0, 0.0588235294);
+  background-color: #F2F2F2;
 }
 
 .container {
@@ -602,7 +602,7 @@ button {
   border-radius: 10px;
 }
 .character-group-select .input-wrap > svg {
-  color: #969696;
+  color: #939393;
 }
 
 input:not(.hide), select:not(.hide) {
@@ -645,11 +645,6 @@ mark {
   background-color: rgba(0, 177, 208, 0.1254901961);
 }
 
-.choose {
-  background-color: rgba(0, 177, 208, 0.1254901961);
-  color: #00B1D0;
-}
-
 *::-webkit-scrollbar {
   width: 14px; /* ширина всей полосы прокрутки */
 }
@@ -660,7 +655,7 @@ mark {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #EFF3F6; /* цвет бегунка */
+  background-color: #F2F2F2; /* цвет бегунка */
   border-radius: 7px; /* округлось бегунка */
   border: 3px solid #FFF; /* отступ вокруг бегунка */
 }
@@ -672,7 +667,7 @@ mark {
   padding-bottom: 30px;
 }
 .calc-top svg {
-  color: #969696;
+  color: #939393;
 }
 
 .copy {

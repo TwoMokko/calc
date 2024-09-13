@@ -1,51 +1,35 @@
 /* Colors */
 $colorBlack                     : #000;
 $colorLight                     : #FFF;
-$colorGray1                     : #585757;
-$colorGray2                     : #939393;
-$colorGray3                     : #C4C4C4;
-$colorGray4                     : #969696;
-$colorGray5                     : #707070;
-$colorGray6                     : #EFEFEF;
-$colorGray7                     : #E8E8E8;
-$colorGray8                     : #7E7E7E;
-$colorGray9                     : #00000008;
-$colorGray10                    : #F0F0F0;
-$colorGray11                    : #7B7B7B;
-$colorGray12                    : #626262;
-$colorGray13                    : #F2F2F2;
-$colorGray14                    : #0000000F;
 $colorAccent                    : #3F80D0;
 
-
-
-$colorAccentLight               : #83AEE4;
-$colorBackground                : #EFF3F6;
-$colorBackgroundSecondary       : #D2E0F0;
-$colorDanger                    : #FF7C7C;
-$colorWell                      : #00B1D0;
-$colorBoxShadow                 : #205AA180;
-$colorDisable                   : #dbdbdb;
+$colorSecondary                 : #F2F2F2;
+$colorDarker                    : #626262;
+$colorMedium                    : #939393;
+$colorMediumLight               : #C4C4C4;
 
 $colorSearch                    : #00B1D020;
 
 $colorTextDark                  : $colorBlack;
 $colorTextLight                 : $colorLight;
+$colorTextMedium                : $colorDarker;
+$colorTextMediumLight           : $colorMediumLight;
 $colorTextAccent                : $colorAccent;
-$colorTextAccentLight           : $colorAccentLight;
-$colorTextDisable               : $colorDisable;
+
+$colorIcons                     : $colorMedium;
 $colorBtnAccent                 : $colorAccent;
-$colorBtnSecondary              : $colorGray1;
-$colorBackgroundMain            : $colorBackground;
+
 $colorBackgroundLight           : $colorLight;
-$colorBackgroundBlock           : $colorBackgroundSecondary;
-$colorBorderTable               : $colorGray1;
-$colorBtnNotActive              : $colorGray1;
-
-
 $colorBackgroundAccent          : $colorAccent;
-$colorBackgroundAccentLight     : $colorAccentLight;
-$colorBackgroundAccent          : $colorAccent;
+$colorBackgroundMain            : $colorSecondary;
+$colorBorderTable               : $colorSecondary;
+$colorBorderInput               : $colorMediumLight;
+$colorBorder                    : $colorSecondary;
+
+$colorBoxShadow                 : $colorSecondary;
+
+$colorHover                     : $colorSecondary;
+
 
 /* Sizes */
 $size3XS                        : 240;

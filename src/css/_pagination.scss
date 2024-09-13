@@ -14,7 +14,7 @@
     line-height: 24px;
     font-weight: 500;
     border-radius: 8px;
-    border: 1px solid #E8E8E8;
+    border: 1px solid $colorBorder;
     cursor: pointer;
 
     display: flex;
@@ -25,14 +25,14 @@
 
     }
     &:not(.number) {
-      color: #969696;
+      color: $colorIcons;
     }
 
     &.not-active {
       pointer-events: none;
       cursor: default;
-      opacity: 0.5;
-      background-color: #E8E8E8;
+      opacity: 0.7;
+      background-color: $colorBorder;
     }
     &:hover {
       //box-shadow: 0 0 8.8px 0 $colorBoxShadow;

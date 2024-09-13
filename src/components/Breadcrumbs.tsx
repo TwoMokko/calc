@@ -4,7 +4,7 @@ export function Breadcrumbs({links}: {links: { [key: string]: string }[]}): JSX.
     return <div className='breadcrumbs'>
         {
             links.map(elem => {
-                return <Link to={elem.route}>{elem.text}</Link>
+                return <Link key={elem.route} to={elem.route}>{elem.text}</Link>
             })
         }
     </div>

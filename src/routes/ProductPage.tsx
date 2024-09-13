@@ -18,7 +18,7 @@ export function ProductPage(): JSX.Element {
     function stockString(data: productData): string {
         let str = ''
         data.stockAvailability.map((tr: string[]) => {
-            str += tr[0] + ' ' + tr[1] + 'шт '
+            str += tr[0] + ' ' + tr[1] + ' шт \r\n'
         })
         return str
     }
@@ -105,8 +105,7 @@ export function ProductPage(): JSX.Element {
                 </div>
             </section>
 
-
-            {data.buildArticul &&
+            {data.buildArticul.historyPrices.length > 0 &&
                 <section className='block-prod section'>
                     <h2>История изменения цен</h2>
                     <h3>{data.buildArticul.nameTable}</h3>
@@ -119,7 +118,7 @@ export function ProductPage(): JSX.Element {
                 </section>
             }
 
-            {data.bodydArticul &&
+            {data.bodydArticul.historyPrices.length > 0 &&
                 <section className='section'>
                     <h2>История изменения цен</h2>
                     <h3>{data.bodydArticul.nameTable}</h3>

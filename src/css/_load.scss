@@ -4,13 +4,13 @@
 .loading {
   margin: 100px auto;
   text-align: center;
-  color: #C4C4C4;
+  color: $colorBorderInput;
   > div:nth-child(1) {
     display: block;
     position: relative;
     height: 32px;
     width: 140px;
-    border: 3px solid #C4C4C4;
+    border: 3px solid $colorBorderInput;
     border-radius: 20px;
     box-sizing: border-box;
     &:before {
@@ -21,7 +21,7 @@
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: #3F80D0;
+      background: $colorAccent;
       animation: ballbns 2s ease-in-out infinite alternate;
     }
   }

@@ -11,46 +11,12 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
     useEffect(() => {
         if (!isEqual(value ?? [], checked))
             setChecked(value ?? [])
-    }, [value]);
-
-    // useEffect(() => {
-    //     setCurrentValues(prev => {
-    //         return [
-    //             ...prev.sort((a, b) => {
-    //
-    //                 if (inputValue) {
-    //                     console.log(inputValue)
-    //                     const aSearch = a.search(inputValue.toUpperCase()) != -1
-    //                     const bSearch = b.search(inputValue.toUpperCase()) != -1
-    //
-    //                     if (aSearch || bSearch)
-    //                         return aSearch ? -1 : +1
-    //                 }
-    //
-    //                 const aIn = highlight?.includes(a)
-    //                 const bIn = highlight?.includes(b)
-    //
-    //                 if (aIn && !bIn)
-    //                     return -1
-    //                 else if (bIn && !aIn)
-    //                     return +1;
-    //
-    //                 return 0
-    //             })
-    //         ]
-    //     })
-    // }, [highlight, inputValue])
+    }, [value])
 
     useEffect(() => {
         setCurrentValues(prev => {
             return [
                 ...prev.sort((a, b) => {
-
-                    // const aIn = highlight?.includes(a)
-                    // const bIn = highlight?.includes(b)
-
-                    // const aIn = checked?.includes(a)
-                    // const bIn = checked?.includes(b)
 
                     if (inputValue) {
                         let aSearch = a.search(inputValue.toUpperCase()) != -1
@@ -71,13 +37,6 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
                             return +1;
 
                         return 0
-
-                        // if (aIn && !bIn)
-                        //     return -1
-                        // else if (bIn && !aIn)
-                        //     return +1;
-                        //
-                        // return 0
                     }
                 })
             ]

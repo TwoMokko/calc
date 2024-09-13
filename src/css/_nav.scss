@@ -13,9 +13,9 @@
     display: flex;
     gap: 10px;
     align-items: center;
-    color: #7E7E7E;
+    color: $colorIcons;
     &:hover {
-      background-color: #00000008;
+      background-color: $colorHover;
     }
     &.active {
       color: $colorTextAccent;

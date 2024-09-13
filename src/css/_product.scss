@@ -22,16 +22,17 @@
                     flex: 10%;
                 }
                 &.stock {
-                    width: 180px;
+                    //width: 180px;
+                    white-space: pre-line;
                 }
             }
         }
         &-string {
             padding: 10px;
             border-radius: 10px;
-            background-color: #F0F0F0;
+            background-color: $colorBackgroundMain;
             > div:first-child {
-                color: #7B7B7B;
+                color: $colorTextMedium;
             }
             &:not(:last-child) {
                 margin-bottom: 10px;
@@ -43,7 +44,7 @@
 
             .copy > svg {
                 display: none;
-                color: #969696;
+                color: $colorIcons;
                 cursor: pointer;
             }
 
@@ -100,15 +101,15 @@
                     font-size: 13px;
                     line-height: 28px;
                     font-weight: 400;
-                    color: #626262;
+                    color: $colorTextMedium;
                 }
                 //width: 130px;
-                background-color: #F0F0F0;
+                background-color: $colorBackgroundMain;
                 padding: 17px 10px 7px;
                 border-radius: 10px;
             }
             .sign {
-                color: #626262;
+                color: $colorTextMedium;
             }
         }
 

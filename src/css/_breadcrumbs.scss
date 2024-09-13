@@ -9,15 +9,15 @@
     font-weight: 400;
   }
   > a:first-child {
-    color: #585757;
+    color: $colorTextMedium;
     &:hover {
-      color: #3F80D0;
+      color: $colorTextAccent;
     }
   }
   > a:not(:first-child) {
-    color: #939393;
+    color: $colorIcons;
     &:hover {
-      color: #3F80D0;
+      color: $colorTextAccent;
     }
   }
   > a:not(:last-child)::after {
