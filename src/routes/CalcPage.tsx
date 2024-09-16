@@ -7,7 +7,6 @@ import {TableCalc} from "../components/Filter/TableCalc.tsx";
 import {connection, optionsData, physicalCharacteristics, sendData} from "../types/Types.tsx";
 import {fetchData, sendDataForOptions} from "../api/Fetches.tsx";
 import {Top} from "../components/Filter/Top.tsx";
-import {Nav} from "../components/Nav.tsx";
 
 
 
@@ -80,66 +79,63 @@ export function CalcPage(): JSX.Element {
 
 
     return <>
-        <Nav />
-        <main>
-            <Top
-                doReset={doReset}
-            />
+        <Top
+            doReset={doReset}
+        />
 
-            <Characters
-                values={filter?.physicalCharacteristics}
-                onChange={onChangeChar}
-            />
-            <section className='option section'>
-                <h2>Опции</h2>
+        <Characters
+            values={filter?.physicalCharacteristics}
+            onChange={onChangeChar}
+        />
+        <section className='option section'>
+            <h2>Опции</h2>
 
-                <section className='option-type'>
-                    <SelectCardMultiple
-                        title='Тип изделия'
-                        value={filter.type}
-                        values={data.type}
-                        onChange={types => onChangeType(types)}
-                        highlight={highlight?.type}
-                    />
-                </section>
-
-                <section className='option-main'>
-                    {
-                        data.options.map(option => {
-                            return <SelectCard
-                                key={option.key}
-                                value={filter.options?.find(itm => itm.key == option.key)?.value}
-                                option={option.key}
-                                values={option.value}
-                                onChange={(value) => onChangeOption(option.key, value)}
-                                onDelete={() => onDeleteOption(option.key)}
-                                highlight={highlight?.options?.find(itm => itm.key == option.key)?.value}
-                            />
-                        })
-                    }
-                </section>
+            <section className='option-type'>
+                <SelectCardMultiple
+                    title='Тип изделия'
+                    value={filter.type}
+                    values={data.type}
+                    onChange={types => onChangeType(types)}
+                    highlight={highlight?.type}
+                />
             </section>
 
-            <section className='option-connections section'>
-                <h2>Подсоединения</h2>
-                <div className="block">
-                    {
-                        data.connections.map(connection => {
-                            return <Connection
-                                value={filter.connections?.find(itm => itm.connectionNo == connection.connectionNo)}
-                                key={connection.connectionNo}
-                                connection={connection}
-                                onChange={value => onChangeConnection(value)}
-                                highlight={highlight?.connections?.find(itm => itm.connectionNo == connection.connectionNo)}
-                            />
-                        })
-                    }
-                </div>
+            <section className='option-main'>
+                {
+                    data.options.map(option => {
+                        return <SelectCard
+                            key={option.key}
+                            value={filter.options?.find(itm => itm.key == option.key)?.value}
+                            option={option.key}
+                            values={option.value}
+                            onChange={(value) => onChangeOption(option.key, value)}
+                            onDelete={() => onDeleteOption(option.key)}
+                            highlight={highlight?.options?.find(itm => itm.key == option.key)?.value}
+                        />
+                    })
+                }
             </section>
+        </section>
 
-            <section className='table-wrap section'>
-                <TableCalc filter={filter}/>
-            </section>
-        </main>
+        <section className='option-connections section'>
+            <h2>Подсоединения</h2>
+            <div className="block">
+                {
+                    data.connections.map(connection => {
+                        return <Connection
+                            value={filter.connections?.find(itm => itm.connectionNo == connection.connectionNo)}
+                            key={connection.connectionNo}
+                            connection={connection}
+                            onChange={value => onChangeConnection(value)}
+                            highlight={highlight?.connections?.find(itm => itm.connectionNo == connection.connectionNo)}
+                        />
+                    })
+                }
+            </div>
+        </section>
+
+        <section className='table-wrap section'>
+            <TableCalc filter={filter}/>
+        </section>
     </>
 }

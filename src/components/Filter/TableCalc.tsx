@@ -11,15 +11,21 @@ export function TableCalc({filter, defaultPage, defaultSize}: { filter: sendData
     const [limit, setLimit] = useState(1)
     const [rows, setRows] = useState<soldProducts[]>([])
 
+    async function updateTable(page: number): Promise<void> {
+        const result = await sendDataForProductTable(filter, page, size)
+        setRows(result.soldProducts)
+        setLimit(result.availablePages)
+        setPage(page)
+    }
 
     useEffect(() => {
-        (async () => {
-            const result = await sendDataForProductTable(filter, page, size)
-            setRows(result.soldProducts)
-            setLimit(result.availablePages)
-        })()
+        updateTable(1)
+    }, [filter, size])
 
-    }, [filter, page, size]);
+    useEffect(() => {
+        updateTable(page)
+    }, [page])
+
 
     function validateSize(val:  string) {
         let size = parseInt(val ? val : '0')

@@ -6,8 +6,8 @@ export interface connections {
 
 export interface connection {
     connectionNo?: number,
-    connectionTypes?: string,
-    connectionSizes?: string
+    connectionType?: string,
+    connectionSize?: string
 }
 export interface options {
     key: string,
@@ -70,6 +70,7 @@ export interface productDataArticle {
 }
 
 export type productData = {
+    status?: number,
     rightArticul: string,
     type: string,
     title: string,

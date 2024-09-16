@@ -11,18 +11,18 @@ export function Connection({value, connection, onChange, highlight}: {value?: co
         if (selectedType || selectedSize)
             onChange({
                 connectionNo: connection.connectionNo,
-                connectionSizes: selectedSize,
-                connectionTypes: selectedType,
+                connectionSize: selectedSize,
+                connectionType: selectedType,
             })
     }, [selectedType, selectedSize]);
 
 
     useEffect(() => {
-        if (value?.connectionTypes != selectedType)
-            setSelectedType(value?.connectionTypes)
+        if (value?.connectionType != selectedType)
+            setSelectedType(value?.connectionType)
 
-        if (value?.connectionSizes != selectedSize)
-            setSelectedSize(value?.connectionSizes)
+        if (value?.connectionSize != selectedSize)
+            setSelectedSize(value?.connectionSize)
     }, [value]);
 
 
@@ -31,14 +31,14 @@ export function Connection({value, connection, onChange, highlight}: {value?: co
 
     return <>
         <SelectCard
-            value={value?.connectionTypes}
+            value={value?.connectionType}
             option={titleType}
             values={connection.connectionTypes}
             onChange={value => setSelectedType(value)}
             highlight={highlight?.connectionTypes}
         />
         <SelectCard
-            value={value?.connectionSizes}
+            value={value?.connectionSize}
             option={titleSize}
             values={connection.connectionSizes}
             onChange={value => setSelectedSize(value)}
