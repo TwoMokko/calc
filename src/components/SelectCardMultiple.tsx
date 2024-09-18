@@ -2,7 +2,13 @@ import {useEffect, useState} from "react";
 import {isEqual} from "lodash";
 import {MdElectricBolt, MdKeyboardArrowDown} from "react-icons/md";
 
-export function SelectCardMultiple({title, value, values, onChange, highlight}: {title: string, value?: string[], values: string[], onChange: (types: string[]) => void, highlight?: string[]}): JSX.Element {
+export function SelectCardMultiple({title, value, values, onChange, highlight}: {
+    title: string,
+    value?: string[],
+    values: string[],
+    onChange: (types: string[]) => void,
+    highlight?: string[]
+}): JSX.Element {
     const [showList, setShowList] = useState(false)
     const [checked, setChecked] = useState<string[]>([])
     const [inputValue, setInputValue] = useState<string>('')
@@ -18,6 +24,9 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
             return [
                 ...prev.sort((a, b) => {
 
+                    const aIn = highlight?.includes(a)
+                    const bIn = highlight?.includes(b)
+
                     if (inputValue) {
                         let aSearch = a.search(inputValue.toUpperCase()) != -1
                         let bSearch = b.search(inputValue.toUpperCase()) != -1
@@ -28,18 +37,41 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
                             return +1;
 
                         return 0
-                    }
-                    else {
+                    } else {
 
-                        if (a < b)
+                        if (aIn && !bIn)
                             return -1
-                        else if (a > b)
+                        else if (bIn && !aIn)
                             return +1;
 
                         return 0
                     }
                 })
             ]
+            // return [
+            //     ...prev.sort((a, b) => {
+            //
+            //         if (inputValue) {
+            //             let aSearch = a.search(inputValue.toUpperCase()) != -1
+            //             let bSearch = b.search(inputValue.toUpperCase()) != -1
+            //
+            //             if (aSearch && !bSearch)
+            //                 return -1
+            //             else if (bSearch && !aSearch)
+            //                 return +1;
+            //
+            //             return 0
+            //         } else {
+            //
+            //             if (a < b)
+            //                 return -1
+            //             else if (a > b)
+            //                 return +1;
+            //
+            //             return 0
+            //         }
+            //     })
+            // ]
         })
     }, [highlight, inputValue])
 
@@ -51,12 +83,11 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
         }
 
         const changes = !status
-            ?checked.filter(itm => itm != value)
+            ? checked.filter(itm => itm != value)
             : [...checked, value]
         setChecked(changes)
         onChange(changes)
     }
-
 
 
     return <div className='input-search'>
@@ -101,7 +132,9 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
             {showList && <div className='input-search-list'>
                 {
                     currentValues.map(val => {
-                        return <label className='input-search-list-item' key={val}>
+                        return <label
+                                className={`input-search-list-item ${highlight?.includes(val) ? '' : 'disable'}`}
+                                key={val}>
                             <input
                                 className='hide'
                                 type='checkbox'
