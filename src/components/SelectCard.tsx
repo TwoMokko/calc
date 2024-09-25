@@ -96,21 +96,27 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
     const [inputValue, setInputValue] = useState<string>('')
     const [currentValues, setCurrentValues] = useState<string[]>(values)
 
+    const [currentValue, setCurrentValue] = useState<string>('')
+    const [error, setError] = useState<string>()
+
     useEffect(() => {
-        setInputValue(value ?? '')
+        // setInputValue(value ?? '')
+        setCurrentValue(value ?? '')
     }, [value])
 
 
     function doClick(val: string): void {
-        setInputValue(val)
+        // setInputValue('')
+        setCurrentValue(val)
         setShowList(!showList)
         onChange(val)
     }
 
     function onReset() {
-        setInputValue('')
-        setShowList(false)
+        // setInputValue('')
         onDelete && onDelete()
+        setCurrentValue('')
+        setShowList(false)
     }
 
     useEffect(() => {
@@ -145,15 +151,26 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
         })
     }, [highlight, inputValue])
 
+    //TODO: оптимизировать
+    useEffect(() => {
+        currentValue ?
+            (highlight?.includes(currentValue) ? (highlight?.length ? setError('well') : setError('disable')) : setError('error'))
+        : (highlight?.length ? setError('well') : setError('disable'))
+    }, [highlight, currentValue]);
 
-    return <div className={`input-search ${highlight?.length ? '' : 'disable'}`}>
+
+    return <div className={`input-search ${error}`}>
         <div className='input-search-head'>
             <h4>{ru[option]}</h4>
             {
                 inputValue && <div
-                    onClick={onReset}
+                    // onClick={onReset}
+                    onClick={() => {
+                        setInputValue('')
+                        onReset()
+                    }}
                     className='reset-option'
-                    title={`сбросить: ${ru[option]}`}
+                    title={`сбросить всё для ${ru[option]}`}
                 >
                 </div>
             }
@@ -161,15 +178,30 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
         <div className='input-search-wrap'>
             <div className='input-search-wrap-top' onClick={() => setShowList(!showList)}>
                 {icon[option]}
-                <input
-                    onClick={() => setShowList(!showList)}
-                    value={inputValue}
-                    onChange={event => {
-                        setInputValue(event.currentTarget.value)
-                        setShowList(true)
-                    }}
-                    onBlur={() => setShowList(false)}
-                />
+
+                {currentValue ? <div
+                    className='checked-list-item'
+                    onMouseDown={onReset}
+                    title={`сбросить значение: ${currentValue}`}
+                >
+                    <div>{currentValue}</div>
+                    <div
+                        className='unchecked'
+                    ></div>
+                </div> : ''}
+
+
+                <div className='input-search-wrap-text'>
+                    <input
+                        onClick={() => setShowList(!showList)}
+                        value={inputValue}
+                        onChange={event => {
+                            setInputValue(event.currentTarget.value)
+                            setShowList(true)
+                        }}
+                        onBlur={() => setShowList(false)}
+                    />
+                </div>
                 <MdKeyboardArrowDown
                     className={`${showList ? 'show' : ''}`}
                 />
@@ -179,7 +211,7 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
                     currentValues.map((val) => {
                         return <div
                             key={val}
-                            className={`input-search-list-item ${highlight?.includes(val) ? '' : 'disable'}`}
+                            className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (val == currentValue ? error : 'disable')}`}
                             onMouseDown={() => doClick(val)}
                         >{!inputValue
                             ? val

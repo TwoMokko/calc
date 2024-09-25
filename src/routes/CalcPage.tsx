@@ -24,8 +24,9 @@ export function CalcPage(): JSX.Element {
 
 
     useEffect(() => {
-        if (data)
+        if (data) {
             sendDataForOptions(filter, setHighlight)
+        }
     }, [filter]);
 
 
@@ -56,6 +57,12 @@ export function CalcPage(): JSX.Element {
     function onDeleteOption(key: string) {
         setFilter(prev => {
             return {...prev, options: [...(prev.options ? prev.options.filter(itm => itm.key != key) : [])]}
+        })
+    }
+
+    function onDeleteConnection(connection: connection) {
+        setFilter(prev => {
+            return {...prev, connections: [...(prev.connections ? prev.connections.filter(itm => itm.connectionNo != connection.connectionNo) : [])]}
         })
     }
 
@@ -127,6 +134,7 @@ export function CalcPage(): JSX.Element {
                             key={connection.connectionNo}
                             connection={connection}
                             onChange={value => onChangeConnection(value)}
+                            onDelete={() => onDeleteConnection(connection)}
                             highlight={highlight?.connections?.find(itm => itm.connectionNo == connection.connectionNo)}
                         />
                     })

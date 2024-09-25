@@ -92,6 +92,7 @@ h4 {
   width: 100%;
 }
 .input-search-wrap-top svg {
+  flex: none;
   color: #939393;
 }
 .input-search-wrap-top svg:last-child {
@@ -105,6 +106,9 @@ h4 {
 }
 .input-search-wrap-top svg:last-child.show {
   transform: rotate(180deg);
+}
+.input-search-wrap-text {
+  flex: auto;
 }
 .input-search-list {
   font-size: 16px;
@@ -164,7 +168,7 @@ h4 {
   display: flex;
   gap: 8px;
 }
-.input-search .checked-list > div {
+.input-search .checked-list-item {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -175,15 +179,18 @@ h4 {
   color: #C4C4C4;
   border-radius: 28px;
   border: 1px solid #C4C4C4;
+  cursor: pointer;
 }
-.input-search .checked-list > div .unchecked {
+.input-search .checked-list-item > div:first-child {
+  text-wrap: nowrap;
+}
+.input-search .checked-list-item .unchecked {
   width: 10px;
   height: 10px;
   background-image: url("/img/cross.svg");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  cursor: pointer;
 }
 
 /* Colors */
@@ -472,6 +479,7 @@ h4 {
   color: #C4C4C4;
 }
 .loading > div:nth-child(1) {
+  margin: auto;
   display: block;
   position: relative;
   height: 32px;
@@ -615,6 +623,9 @@ input:not(.hide):not(.page-size-input), select:not(.hide):not(.page-size-input) 
   width: 100%;
 }
 
+input {
+  background-color: transparent;
+}
 input.show-element {
   width: 480px;
 }
@@ -633,12 +644,6 @@ input.show-element {
   grid-template-columns: repeat(4, 1fr);
   row-gap: 20px;
   column-gap: 10px;
-}
-
-.disable {
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.3;
 }
 
 mark {
@@ -672,6 +677,34 @@ mark {
 
 .copy {
   text-align: end;
+}
+
+.error .input-search-wrap {
+  background-color: rgba(209, 91, 91, 0.1490196078);
+}
+.error.input-search-list-item {
+  background-color: rgba(209, 91, 91, 0.1490196078);
+}
+.error .checked-list-item {
+  color: red;
+  border-color: red;
+}
+.error .checked-list-item .unchecked {
+  background-image: url("/img/cross-error.svg");
+}
+.error.checked-list-item {
+  color: red;
+  border-color: red;
+}
+.error.checked-list-item .unchecked {
+  background-image: url("/img/cross-error.svg");
+}
+
+.well .input-search-wrap {
+  background-color: #e9f7f2;
+}
+.well.input-search-list-item {
+  background-color: #e9f7f2;
 }
 
 /*# sourceMappingURL=character.css.map */

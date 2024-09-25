@@ -10,28 +10,30 @@ export async function fetchData(): Promise<optionsData> {
     }).then(res => res.json())
 }
 
-export function sendDataForOptions(filter: sendData, func: Function) {
+export function sendDataForOptions(filter: sendData, highlight: Function) {
     fetch(`http://192.168.1.202:31939/products/options`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify(filter)
+        body: JSON.stringify(filter),
+
     })
         .then(async response => {
             const result = await response.json()
-            func(result)
+            highlight(result)
         })
 }
 
-export async function sendDataForProductTable(filter: sendData, currentPage: number, sizePage: number): Promise<productsTable> {
+export async function sendDataForProductTable(filter: sendData, currentPage: number, sizePage: number, controller: AbortController): Promise<productsTable> {
 
     return await fetch(`http://192.168.1.202:31939/products/sold?PageId=${currentPage}&PageSize=${sizePage}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify(filter)
+        body: JSON.stringify(filter),
+        signal: controller.signal
     })
         .then(async response => {
             return await response.json()

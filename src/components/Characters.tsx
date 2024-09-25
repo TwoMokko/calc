@@ -10,11 +10,11 @@ import {
 } from "react-icons/md";
 
 const characteristic: {[key: string]: [string, JSX.Element]} = {
-    minTemperature: ['Temp min', <MdOutlineThermostat />],
+    minTemperature: ['Temp min (от и ниже)', <MdOutlineThermostat />],
     minPressure: ['Давление min', <MdOutlineFullscreenExit />],
     cv: ['Cv', <MdSensorWindow />],
-    bodyPressure: ['ДавлКорп', <MdExplore />],
-    maxTemperature: ['Temp max', <MdOutlineThermostat />],
+    bodyPressure: ['ДавлКорп (от и выше)', <MdExplore />],
+    maxTemperature: ['Temp max (от и выше)', <MdOutlineThermostat />],
     maxPressure: ['Давление max', <MdOutlineFullscreen />],
     dn: ['Dn', <MdOutlineCenterFocusWeak />],
 }

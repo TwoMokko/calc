@@ -33,6 +33,7 @@
       gap: 10px;
       width: 100%;
       svg {
+        flex: none;
         color: $colorIcons;
         &:last-child {
           width: 28px;
@@ -48,6 +49,13 @@
         }
       }
       input {
+
+      }
+    }
+
+    &-text {
+      flex: auto;
+      > input {
 
       }
     }
@@ -119,7 +127,7 @@
     display: flex;
     //padding: 12px 0;
     gap: 8px;
-    > div {
+    &-item {
       display: flex;
       align-items: center;
       gap: 6px;
@@ -130,6 +138,10 @@
       color: $colorTextMediumLight;
       border-radius: 28px;
       border: 1px solid $colorBorderInput;
+      cursor: pointer;
+      > div:first-child {
+        text-wrap: nowrap;
+      }
       .unchecked {
         width: 10px;
         height: 10px;
@@ -137,7 +149,7 @@
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
-        cursor: pointer;
+
       }
     }
   }

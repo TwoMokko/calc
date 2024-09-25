@@ -21,6 +21,36 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
 
     useEffect(() => {
         setCurrentValues(prev => {
+            // return [
+            //     ...prev.sort((a, b) => {
+            //
+            //         const aIn = checked?.includes(a)
+            //         const bIn = checked?.includes(b)
+            //
+            //         const aaIn = highlight?.includes(a)
+            //         const bbIn = highlight?.includes(b)
+            //
+            //         if (inputValue) {
+            //             let aSearch = a.search(inputValue.toUpperCase()) != -1
+            //             let bSearch = b.search(inputValue.toUpperCase()) != -1
+            //
+            //             if (aSearch && !bSearch)
+            //                 return -1
+            //             else if (bSearch && !aSearch)
+            //                 return +1;
+            //
+            //             return 0
+            //         } else {
+            //
+            //             if (aIn || !bIn && aaIn)
+            //                 return -1
+            //             else if (bIn || !aIn && bbIn)
+            //                 return +1;
+            //
+            //             return 0
+            //         }
+            //     })
+            // ]
             return [
                 ...prev.sort((a, b) => {
 
@@ -48,30 +78,6 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
                     }
                 })
             ]
-            // return [
-            //     ...prev.sort((a, b) => {
-            //
-            //         if (inputValue) {
-            //             let aSearch = a.search(inputValue.toUpperCase()) != -1
-            //             let bSearch = b.search(inputValue.toUpperCase()) != -1
-            //
-            //             if (aSearch && !bSearch)
-            //                 return -1
-            //             else if (bSearch && !aSearch)
-            //                 return +1;
-            //
-            //             return 0
-            //         } else {
-            //
-            //             if (a < b)
-            //                 return -1
-            //             else if (a > b)
-            //                 return +1;
-            //
-            //             return 0
-            //         }
-            //     })
-            // ]
         })
     }, [highlight, inputValue])
 
@@ -89,8 +95,7 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
         onChange(changes)
     }
 
-
-    return <div className='input-search'>
+    return <div className={`input-search ${(highlight?.length) ? 'well' : ''}`}>
         <div className='input-search-head'>
             <h4>{title}</h4>
             {
@@ -108,23 +113,28 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
                 <div className='checked-list'>
                     {
                         checked.map(val => {
-                            return <div key={val}>
+                            return <div
+                                    key={val}
+                                    className={`checked-list-item ${highlight?.includes(val) ? '' : (checked.includes(val) ? 'error' : 'disable')}`}
+                                    onClick={() => onClick(val, false)}
+                            >
                                 <div>{val}</div>
                                 <div
                                     className='unchecked'
-                                    onClick={() => onClick(val, false)}
                                 ></div>
                             </div>
                         })
                     }
                 </div>
-                <input
-                    onChange={event => setInputValue(event.currentTarget.value)}
-                    value={inputValue}
-                    onClick={() => {
-                        setShowList(!showList)
-                    }}
-                />
+                <div className='input-search-wrap-text'>
+                    <input
+                        onChange={event => setInputValue(event.currentTarget.value)}
+                        value={inputValue}
+                        onClick={() => {
+                            setShowList(!showList)
+                        }}
+                    />
+                </div>
                 <MdKeyboardArrowDown
                     className={`${showList ? 'show' : ''}`}
                 />
@@ -133,7 +143,7 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
                 {
                     currentValues.map(val => {
                         return <label
-                                className={`input-search-list-item ${highlight?.includes(val) ? '' : 'disable'}`}
+                                className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (checked.includes(val) ? 'error' : 'disable')}`}
                                 key={val}>
                             <input
                                 className='hide'

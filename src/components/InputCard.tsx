@@ -25,7 +25,9 @@ export function InputCard({value, char, title, className, onInput, icon}: {value
                 value={currentValue}
                 onChange={event => setCurrentValue(event.currentTarget.value)}
                 onInput={(event) => {
+                    //TODO: debounce
                     debounceOnInput(char, event.currentTarget.value)
+                    // onInput(char, event.currentTarget.value)
                 }}
             />
         </div>

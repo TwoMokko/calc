@@ -2,12 +2,17 @@ import {SelectCard} from "./SelectCard.tsx";
 import {useState, useEffect} from "react";
 import {connection, connections} from "../types/Types.tsx";
 
-export function Connection({value, connection, onChange, highlight}: {value?: connection,connection: connections, onChange: (value: connection) => void, highlight?: connections}): JSX.Element {
+export function Connection({value, connection, onChange, highlight, onDelete}: {
+    value?: connection,
+    connection: connections,
+    onChange: (value: connection) => void,
+    highlight?: connections,
+    onDelete?: () => void
+}): JSX.Element {
     const [selectedType, setSelectedType] = useState<string | undefined>()
     const [selectedSize, setSelectedSize] = useState<string | undefined>()
 
     useEffect(() => {
-        if (selectedType && selectedSize) return
         if (selectedType || selectedSize)
             onChange({
                 connectionNo: connection.connectionNo,
@@ -36,6 +41,7 @@ export function Connection({value, connection, onChange, highlight}: {value?: co
             values={connection.connectionTypes}
             onChange={value => setSelectedType(value)}
             highlight={highlight?.connectionTypes}
+            onDelete={onDelete}
         />
         <SelectCard
             value={value?.connectionSize}
@@ -43,6 +49,7 @@ export function Connection({value, connection, onChange, highlight}: {value?: co
             values={connection.connectionSizes}
             onChange={value => setSelectedSize(value)}
             highlight={highlight?.connectionSizes}
+            onDelete={onDelete}
         />
     </>
 }
