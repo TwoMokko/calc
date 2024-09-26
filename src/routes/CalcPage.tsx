@@ -16,6 +16,8 @@ export function CalcPage(): JSX.Element {
     const [data, setData] = useState<optionsData | undefined>()
     const [highlight, setHighlight] = useState<optionsData | undefined>()
 
+    const [colorSelect, setColorSelect] = useState(false)
+
     useEffect(() => {
         (async () => {
             setData(await fetchData())
@@ -24,6 +26,8 @@ export function CalcPage(): JSX.Element {
 
 
     useEffect(() => {
+        (!filter.physicalCharacteristics && !filter.type && !filter.options && !filter.connections)
+            ? setColorSelect(false) : setColorSelect(true)
         if (data) {
             sendDataForOptions(filter, setHighlight)
         }
@@ -94,7 +98,7 @@ export function CalcPage(): JSX.Element {
             values={filter?.physicalCharacteristics}
             onChange={onChangeChar}
         />
-        <section className='option section'>
+        <section className={`option section ${colorSelect ? '' : 'not-color'}`}>
             <h2>Опции</h2>
 
             <section className='option-type'>
@@ -124,7 +128,7 @@ export function CalcPage(): JSX.Element {
             </section>
         </section>
 
-        <section className='option-connections section'>
+        <section className={`option-connections section ${colorSelect ? '' : 'not-color'}`}>
             <h2>Подсоединения</h2>
             <div className="block">
                 {

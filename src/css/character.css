@@ -707,4 +707,11 @@ mark {
   background-color: #e9f7f2;
 }
 
+.not-color .well .input-search-wrap {
+  background-color: white !important;
+}
+.not-color .well.input-search-list-item {
+  background-color: white !important;
+}
+
 /*# sourceMappingURL=character.css.map */

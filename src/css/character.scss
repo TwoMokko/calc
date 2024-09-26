@@ -228,3 +228,18 @@ mark {
         background-color: #e9f7f2;
     }
 }
+
+.not-color {
+    .well {
+        h4 {
+            //color: #00c981;
+        }
+        .input-search-wrap {
+            //border-color: #00c981;
+            background-color: white !important;
+        }
+        &.input-search-list-item {
+            background-color: white !important;
+        }
+    }
+}
