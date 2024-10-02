@@ -173,6 +173,7 @@ h4 {
   align-items: center;
   gap: 6px;
   padding: 0 6px 0 10px;
+  background-color: #FFF;
   font-size: 13px;
   font-weight: 400;
   line-height: 20px;
@@ -644,6 +645,10 @@ input.show-element {
   grid-template-columns: repeat(4, 1fr);
   row-gap: 20px;
   column-gap: 10px;
+}
+
+.disable.input-search-list-item {
+  background-color: rgba(209, 91, 91, 0.1490196078);
 }
 
 mark {

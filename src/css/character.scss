@@ -146,6 +146,9 @@ input {
     //pointer-events: none;
     //cursor: default;
     //opacity: 0.3;
+    &.input-search-list-item {
+        background-color: #D15B5B26;
+    }
 }
 
 mark {

@@ -1,4 +1,4 @@
-import {ReactNode, useEffect, useState} from "react";
+import {ReactNode, useEffect, useRef, useState} from "react";
 import {
     MdCreate, MdDiscFull,
     MdElectricBolt,
@@ -91,7 +91,7 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
     highlight: string[] | undefined,
     onDelete?: () => void
 }): JSX.Element {
-
+    const inputRef = useRef<HTMLInputElement>(null)
     const [showList, setShowList] = useState<boolean>(false)
     const [inputValue, setInputValue] = useState<string>('')
     const [currentValues, setCurrentValues] = useState<string[]>(values)
@@ -100,24 +100,38 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
     const [error, setError] = useState<string>()
 
     useEffect(() => {
-        // setInputValue(value ?? '')
+        const method = () => {
+            if (inputRef.current != document.activeElement)
+                setShowList(false)
+        }
+
+        document.addEventListener('click', method, false)
+        return () => document.removeEventListener('click', method, false)
+    }, []);
+
+
+    const focusInput = () => {
+        if (showList && inputRef.current)
+            inputRef.current.focus()
+    }
+
+    useEffect(focusInput, [showList]);
+
+    useEffect(() => {
         setCurrentValue(value ?? '')
     }, [value])
 
 
     function doClick(val: string): void {
-        // setInputValue('')
         setCurrentValue(val)
-        setShowList(!showList)
         onChange(val)
     }
 
     function onReset() {
-        // setInputValue('')
         onDelete && onDelete()
         setCurrentValue('')
-        setShowList(false)
     }
+
 
     useEffect(() => {
         setCurrentValues(prev => {
@@ -176,7 +190,9 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
             }
         </div>
         <div className='input-search-wrap'>
-            <div className='input-search-wrap-top' onClick={() => setShowList(!showList)}>
+            <div className='input-search-wrap-top'
+                 onClick={() => setShowList(true)}
+            >
                 {icon[option]}
 
                 {currentValue ? <div
@@ -193,13 +209,11 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
 
                 <div className='input-search-wrap-text'>
                     <input
-                        onClick={() => setShowList(!showList)}
+                        ref={inputRef}
                         value={inputValue}
                         onChange={event => {
                             setInputValue(event.currentTarget.value)
-                            setShowList(true)
                         }}
-                        onBlur={() => setShowList(false)}
                     />
                 </div>
                 <MdKeyboardArrowDown
