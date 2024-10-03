@@ -97,7 +97,7 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
     const [currentValues, setCurrentValues] = useState<string[]>(values)
 
     const [currentValue, setCurrentValue] = useState<string>('')
-    const [error, setError] = useState<string>()
+    const [className, setClassName] = useState<string>()
 
     useEffect(() => {
         const method = () => {
@@ -168,12 +168,14 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
     //TODO: оптимизировать
     useEffect(() => {
         currentValue ?
-            (highlight?.includes(currentValue) ? (highlight?.length ? setError('well') : setError('disable')) : setError('error'))
-        : (highlight?.length ? setError('well') : setError('disable'))
+            ( highlight?.length ?
+                ( highlight?.includes(currentValue) ? setClassName('well') : setClassName('error') )
+                : setClassName('selected-disable') )
+            : ( highlight?.length ? setClassName('well') : setClassName('disable') )
     }, [highlight, currentValue]);
 
 
-    return <div className={`input-search ${error}`}>
+    return <div className={`input-search ${className}`}>
         <div className='input-search-head'>
             <h4>{ru[option]}</h4>
             {
@@ -225,7 +227,8 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
                     currentValues.map((val) => {
                         return <div
                             key={val}
-                            className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (val == currentValue ? error : 'disable')}`}
+                            // TODO: проверить условие на класс
+                            className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (val == currentValue ? className : 'disable')}`}
                             onMouseDown={() => doClick(val)}
                         >{!inputValue
                             ? val

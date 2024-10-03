@@ -546,6 +546,68 @@ h4 {
   padding: 0 10px;
 }
 
+/* Colors */
+/* Sizes */
+.error .input-search-wrap {
+  background-color: rgba(209, 91, 91, 0.1490196078);
+}
+.error.input-search-list-item {
+  background-color: rgba(209, 91, 91, 0.1490196078);
+}
+.error .checked-list-item {
+  color: red;
+  border-color: red;
+}
+.error .checked-list-item .unchecked {
+  background-image: url("/img/cross-error.svg");
+}
+.error.checked-list-item {
+  color: red;
+  border-color: red;
+}
+.error.checked-list-item .unchecked {
+  background-image: url("/img/cross-error.svg");
+}
+
+.disable.input-search-list-item {
+  background-color: rgba(209, 91, 91, 0.1490196078);
+}
+
+.selected-disable .input-search-wrap {
+  background-color: rgba(147, 147, 147, 0.1019607843);
+}
+.selected-disable.input-search-list-item {
+  background-color: rgba(209, 91, 91, 0.1490196078);
+}
+.selected-disable .checked-list-item {
+  color: #C4C4C4;
+  border-color: #C4C4C4;
+}
+.selected-disable .checked-list-item .unchecked {
+  background-image: url("/img/cross.svg");
+}
+.selected-disable.checked-list-item {
+  color: #C4C4C4;
+  border-color: #C4C4C4;
+}
+.selected-disable.checked-list-item .unchecked {
+  background-image: url("/img/cross.svg");
+}
+
+.well .input-search-wrap {
+  background-color: #e9f7f2;
+}
+.well.input-search-list-item {
+  background-color: #e9f7f2;
+}
+
+.not-color .well .input-search-wrap {
+  background-color: white !important;
+}
+.not-color .well.input-search-list-item {
+  background-color: white !important;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
@@ -647,10 +709,6 @@ input.show-element {
   column-gap: 10px;
 }
 
-.disable.input-search-list-item {
-  background-color: rgba(209, 91, 91, 0.1490196078);
-}
-
 mark {
   background-color: rgba(0, 177, 208, 0.1254901961);
 }
@@ -682,41 +740,6 @@ mark {
 
 .copy {
   text-align: end;
-}
-
-.error .input-search-wrap {
-  background-color: rgba(209, 91, 91, 0.1490196078);
-}
-.error.input-search-list-item {
-  background-color: rgba(209, 91, 91, 0.1490196078);
-}
-.error .checked-list-item {
-  color: red;
-  border-color: red;
-}
-.error .checked-list-item .unchecked {
-  background-image: url("/img/cross-error.svg");
-}
-.error.checked-list-item {
-  color: red;
-  border-color: red;
-}
-.error.checked-list-item .unchecked {
-  background-image: url("/img/cross-error.svg");
-}
-
-.well .input-search-wrap {
-  background-color: #e9f7f2;
-}
-.well.input-search-list-item {
-  background-color: #e9f7f2;
-}
-
-.not-color .well .input-search-wrap {
-  background-color: white !important;
-}
-.not-color .well.input-search-list-item {
-  background-color: white !important;
 }
 
 /*# sourceMappingURL=character.css.map */

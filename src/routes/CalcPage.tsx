@@ -26,7 +26,7 @@ export function CalcPage(): JSX.Element {
 
 
     useEffect(() => {
-        (!filter.physicalCharacteristics && !filter.type && !filter.options && !filter.connections)
+        (!filter.physicalCharacteristics && !filter.type && !filter.options && !filter.connections?.length)
             ? setColorSelect(false) : setColorSelect(true)
         if (data) {
             sendDataForOptions(filter, setHighlight)
@@ -66,6 +66,7 @@ export function CalcPage(): JSX.Element {
 
     function onDeleteConnection(connection: connection) {
         setFilter(prev => {
+            console.log({connection})
             return {...prev, connections: [...(prev.connections ? prev.connections.filter(itm => itm.connectionNo != connection.connectionNo) : [])]}
         })
     }

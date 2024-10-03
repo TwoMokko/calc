@@ -17,6 +17,8 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
     const [inputValue, setInputValue] = useState<string>('')
     const [currentValues, setCurrentValues] = useState<string[]>(values)
 
+    const [className, setClassName] = useState<string>('')
+
     useEffect(() => {
         const method = () => {
             if (inputRef.current != document.activeElement)
@@ -33,6 +35,14 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
     }
 
     useEffect(focusInput, [showList]);
+
+    useEffect(() => {
+        checked.length ?
+            ((highlight?.length) ?
+                (checked.some(itm => highlight.includes(itm)) ? setClassName('well') : setClassName('error'))
+                : setClassName('selected-disable'))
+            : ((highlight?.length) ? setClassName('well') : setClassName('disable'))
+    }, [highlight, checked]);
 
     useEffect(() => {
         if (!isEqual(value ?? [], checked))
@@ -85,7 +95,10 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
         onChange(changes)
     }
 
-    return <div className={`input-search ${(highlight?.length) ? 'well' : ''}`}>
+    return <div
+        className={`input-search ${className}`}
+        // className={`input-search ${checked.length ? ((highlight?.length) ? (checked.some(itm => highlight.includes(itm)) ? 'well' : 'error') : 'selected-disable') : ((highlight?.length) ? 'well' : 'disable')}`}
+    >
         <div className='input-search-head'>
             <h4>{title}</h4>
             {
@@ -107,6 +120,7 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
                         checked.map(val => {
                             return <div
                                     key={val}
+                                    // TODO: проверить className
                                     className={`checked-list-item ${highlight?.includes(val) ? '' : (checked.includes(val) ? 'error' : 'disable')}`}
                                     onClick={() => onClick(val, false)}
                             >
@@ -133,6 +147,7 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
                 {
                     currentValues.map(val => {
                         return <label
+                                // TODO: проверить className
                                 className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (checked.includes(val) ? 'error' : 'disable')}`}
                                 key={val}
                                 onClick={focusInput}

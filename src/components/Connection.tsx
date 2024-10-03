@@ -19,6 +19,7 @@ export function Connection({value, connection, onChange, highlight, onDelete}: {
                 connectionSize: selectedSize,
                 connectionType: selectedType,
             })
+        else onDelete && onDelete()
     }, [selectedType, selectedSize]);
 
 
@@ -41,7 +42,7 @@ export function Connection({value, connection, onChange, highlight, onDelete}: {
             values={connection.connectionTypes}
             onChange={value => setSelectedType(value)}
             highlight={highlight?.connectionTypes}
-            onDelete={onDelete}
+            onDelete={() => setSelectedType(undefined)}
         />
         <SelectCard
             value={value?.connectionSize}
@@ -49,7 +50,8 @@ export function Connection({value, connection, onChange, highlight, onDelete}: {
             values={connection.connectionSizes}
             onChange={value => setSelectedSize(value)}
             highlight={highlight?.connectionSizes}
-            onDelete={onDelete}
+            // onDelete={onDelete}
+            onDelete={() => setSelectedSize(undefined)}
         />
     </>
 }
