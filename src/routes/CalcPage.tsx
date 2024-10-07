@@ -4,15 +4,59 @@ import {SelectCardMultiple} from "../components/SelectCardMultiple.tsx";
 import {SelectCard} from "../components/SelectCard.tsx";
 import {Connection} from "../components/Connection.tsx";
 import {TableCalc} from "../components/Filter/TableCalc.tsx";
-import {connection, optionsData, physicalCharacteristics, sendData} from "../types/Types.tsx";
+import {connection, optionsData, physicalCharacteristics, sendData, TreeDataNode} from "../types/Types.tsx";
 import {fetchData, sendDataForOptions} from "../api/Fetches.tsx";
 import {Top} from "../components/Filter/Top.tsx";
 
 
 
+const treeData: TreeDataNode[] = [
+    {
+        title: '0-0',
+        key: '0-0',
+        children: [
+            {
+                title: '0-0-0',
+                key: '0-0-0',
+            },
+            {
+                title: '0-0-1',
+                key: '0-0-1',
+            },
+            {
+                title: '0-0-2',
+                key: '0-0-2',
+            },
+        ],
+    },
+    {
+        title: '0-1',
+        key: '0-1',
+        children: [
+            { title: '0-1-0-0', key: '0-1-0-0' },
+            { title: '0-1-0-1', key: '0-1-0-1' },
+            { title: '0-1-0-2', key: '0-1-0-2' },
+        ],
+    },
+    {
+        title: '0-2',
+        key: '0-2',
+    },
+];
+
 
 export function CalcPage(): JSX.Element {
-    const [filter, setFilter] = useState<sendData>({})
+    const [filter, setFilter] = useState<sendData>({
+
+        // TODO: GET параметры
+        // options
+        //     :
+        //     [{key: "assembly", value: "A"}],
+        // type
+        //     :
+        //     ["CBFC", "CBFU"]
+
+    })
     const [data, setData] = useState<optionsData | undefined>()
     const [highlight, setHighlight] = useState<optionsData | undefined>()
 
@@ -98,6 +142,7 @@ export function CalcPage(): JSX.Element {
         <Characters
             values={filter?.physicalCharacteristics}
             onChange={onChangeChar}
+            typeProd={treeData}
         />
         <section className={`option section ${colorSelect ? '' : 'not-color'}`}>
             <h2>Опции</h2>

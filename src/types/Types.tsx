@@ -1,3 +1,15 @@
+// TODO: string or number
+export type TreeDataNode = {
+    title: string,
+    key: string,
+    children?: TreeDataNodeChild[]
+}
+
+export interface TreeDataNodeChild {
+    title: string,
+    key: string
+}
+
 export interface connections {
     connectionNo: number,
     connectionTypes: string[],
@@ -15,6 +27,7 @@ export interface options {
 }
 
 export type optionsData = {
+    // typeProd: typeProd[],
     type: string[],
     connections: connections[],
     options: options[]
@@ -31,6 +44,7 @@ export interface physicalCharacteristics {
 }
 
 export type sendData = {
+    // typeProd?: typeProd[],
     type?: string[],
     connections?: connection[],
     options?: {

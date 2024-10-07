@@ -1,6 +1,6 @@
 import {InputCard} from "./InputCard.tsx";
 import {useEffect, useState} from "react";
-import {physicalCharacteristics} from "../types/Types.tsx";
+import {physicalCharacteristics, TreeDataNode} from "../types/Types.tsx";
 import {isEqual} from "lodash";
 import {
     MdExplore,
@@ -8,6 +8,7 @@ import {
     MdOutlineThermostat,
     MdSensorWindow,
 } from "react-icons/md";
+import {SelectCardMultipleTree} from "./SelectCardMultipleTree.tsx";
 
 const characteristic: {[key: string]: [string, JSX.Element]} = {
     minTemperature: ['Temp min (от и ниже)', <MdOutlineThermostat />],
@@ -19,7 +20,7 @@ const characteristic: {[key: string]: [string, JSX.Element]} = {
     dn: ['Dn', <MdOutlineCenterFocusWeak />],
 }
 
-export function Characters({values, onChange}: {values?: physicalCharacteristics, onChange: Function}): JSX.Element {
+export function Characters({values, onChange, typeProd}: {values?: physicalCharacteristics, onChange: Function, typeProd: TreeDataNode[]}): JSX.Element {
     const [chars, setChars] = useState<physicalCharacteristics | undefined>()
 
     const onInput = (key: string, value: string) => {
@@ -43,17 +44,23 @@ export function Characters({values, onChange}: {values?: physicalCharacteristics
         <section className='section'>
             <h2>Характеристики</h2>
             <div className='character-group block'>
-                <div className='character-group-select'>
-                    <h4>Наименование</h4>
-                    <div className="input-wrap">
-                        <select>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </div>
-                </div>
+
+                <SelectCardMultipleTree
+                    values={typeProd}
+                    onChange={() => console.log('type prod')}
+                    // highlight={}
+                />
+                {/*<div className='character-group-select'>*/}
+                {/*    <h4>Наименование</h4>*/}
+                {/*    <div className="input-wrap">*/}
+                {/*        <select>*/}
+                {/*            <option>1</option>*/}
+                {/*            <option>2</option>*/}
+                {/*            <option>3</option>*/}
+                {/*            <option>4</option>*/}
+                {/*        </select>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
                 {
                     Object.keys(characteristic).map(key => {
