@@ -4,43 +4,49 @@ import {SelectCardMultiple} from "../components/SelectCardMultiple.tsx";
 import {SelectCard} from "../components/SelectCard.tsx";
 import {Connection} from "../components/Connection.tsx";
 import {TableCalc} from "../components/Filter/TableCalc.tsx";
-import {connection, optionsData, physicalCharacteristics, sendData, TreeDataNode} from "../types/Types.tsx";
+import {
+    connection,
+    optionsData,
+    physicalCharacteristics,
+    sendData,
+    TreeDataNodes
+} from "../types/Types.tsx";
 import {fetchData, sendDataForOptions} from "../api/Fetches.tsx";
 import {Top} from "../components/Filter/Top.tsx";
 
 
 
-const treeData: TreeDataNode[] = [
+const treeData: TreeDataNodes = [
     {
-        title: '0-0',
-        key: '0-0',
+        title: 'parent 1',
+        key: 'parent 1',
         children: [
             {
-                title: '0-0-0',
-                key: '0-0-0',
+                title: 'child 1',
+                key: 'child 1.1',
             },
             {
-                title: '0-0-1',
-                key: '0-0-1',
+                title: 'child 2',
+                key: 'child 1.2',
             },
             {
-                title: '0-0-2',
-                key: '0-0-2',
+                title: 'child 3',
+                key: 'child 1.3',
             },
         ],
     },
     {
-        title: '0-1',
-        key: '0-1',
+        title: 'parent 2',
+        key: 'parent 2',
         children: [
-            { title: '0-1-0-0', key: '0-1-0-0' },
-            { title: '0-1-0-1', key: '0-1-0-1' },
-            { title: '0-1-0-2', key: '0-1-0-2' },
+            { title: 'child 1', key: 'child 2.1' },
+            { title: 'child 2', key: 'child 2.2' },
+            { title: 'child 3', key: 'child 2.3' },
         ],
     },
     {
-        title: '0-2',
-        key: '0-2',
+        title: 'parent 3',
+        key: 'parent 3',
     },
 ];
 
@@ -110,7 +116,6 @@ export function CalcPage(): JSX.Element {
 
     function onDeleteConnection(connection: connection) {
         setFilter(prev => {
-            console.log({connection})
             return {...prev, connections: [...(prev.connections ? prev.connections.filter(itm => itm.connectionNo != connection.connectionNo) : [])]}
         })
     }

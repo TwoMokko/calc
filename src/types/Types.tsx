@@ -1,5 +1,7 @@
-// TODO: string or number
-export type TreeDataNode = {
+
+export type TreeDataNodes = TreeDataNode[]
+// TODO: key string or number
+export interface TreeDataNode {
     title: string,
     key: string,
     children?: TreeDataNodeChild[]
