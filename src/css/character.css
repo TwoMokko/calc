@@ -132,14 +132,28 @@ h4 {
 .input-search-list.active {
   display: flex;
 }
+.input-search-list .tree {
+  display: flex;
+  align-items: center;
+}
+.input-search-list .tree-show {
+  margin-left: 10px;
+  cursor: pointer;
+  width: 28px;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+.input-search-list .tree-show:hover {
+  color: #3F80D0;
+}
+.input-search-list .tree-show.show {
+  transform: rotate(180deg);
+}
 .input-search-list-item {
   cursor: pointer;
 }
 .input-search-list-item:not(label) {
   padding: 10px 20px;
-}
-.input-search-list-item:hover {
-  background-color: #F2F2F2;
 }
 .input-search-list-item > input:checked + div::before {
   border-color: #3F80D0;
@@ -163,9 +177,6 @@ h4 {
   border-radius: 4px;
   border: 1px solid #C4C4C4;
   box-shadow: 0 1px 1px 0 #F2F2F2;
-}
-.input-search-list-item.subitem {
-  padding-left: 20px;
 }
 .input-search .checked-list {
   display: flex;

@@ -29,7 +29,7 @@ export interface options {
 }
 
 export type optionsData = {
-    // typeProd: typeProd[],
+    typeProd: string[],
     type: string[],
     connections: connections[],
     options: options[]
@@ -46,7 +46,7 @@ export interface physicalCharacteristics {
 }
 
 export type sendData = {
-    // typeProd?: typeProd[],
+    typeProd?: string[],
     type?: string[],
     connections?: connection[],
     options?: {

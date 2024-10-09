@@ -1,4 +1,4 @@
-import {optionsData, productData, productsTable, sendData} from "../types/Types.tsx";
+import {optionsData, productData, productsTable, sendData, TreeDataNodes} from "../types/Types.tsx";
 
 export async function fetchData(): Promise<optionsData> {
     return await fetch(`http://192.168.1.202:31939/products/options?fetchDataFirst`, {
@@ -23,6 +23,15 @@ export function sendDataForOptions(filter: sendData, highlight: Function) {
             const result = await response.json()
             highlight(result)
         })
+}
+export async function getTypeProducts(): Promise<TreeDataNodes> {
+    return await fetch(`http://192.168.1.202:31939/products/typeProducts`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({})
+    }).then(res => res.json())
 }
 
 export async function sendDataForProductTable(filter: sendData, currentPage: number, sizePage: number, controller: AbortController): Promise<productsTable> {

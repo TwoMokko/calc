@@ -9,47 +9,9 @@ import {
     optionsData,
     physicalCharacteristics,
     sendData,
-    TreeDataNodes
 } from "../types/Types.tsx";
 import {fetchData, sendDataForOptions} from "../api/Fetches.tsx";
 import {Top} from "../components/Filter/Top.tsx";
-
-
-
-const treeData: TreeDataNodes = [
-    {
-        title: 'parent 1',
-        key: 'parent 1',
-        children: [
-            {
-                title: 'child 1',
-                key: 'child 1.1',
-            },
-            {
-                title: 'child 2',
-                key: 'child 1.2',
-            },
-            {
-                title: 'child 3',
-                key: 'child 1.3',
-            },
-        ],
-    },
-    {
-        title: 'parent 2',
-        key: 'parent 2',
-        children: [
-            { title: 'child 1', key: 'child 2.1' },
-            { title: 'child 2', key: 'child 2.2' },
-            { title: 'child 3', key: 'child 2.3' },
-        ],
-    },
-    {
-        title: 'parent 3',
-        key: 'parent 3',
-    },
-];
-
 
 export function CalcPage(): JSX.Element {
     const [filter, setFilter] = useState<sendData>({
@@ -84,13 +46,24 @@ export function CalcPage(): JSX.Element {
     }, [filter]);
 
 
-    function onChangeChar(chars: physicalCharacteristics) {
+    function onChangeChar(chars?: physicalCharacteristics) {
         setFilter(prev => {
             return {...prev, physicalCharacteristics: chars}
         })
     }
 
 
+    function onChangeTypeProd(keys: string[]): void {
+        setFilter(prev => {
+
+            if (!keys.length)
+                delete prev.typeProd
+            else
+                prev.typeProd = keys
+
+            return {...prev}
+        })
+    }
     function onChangeType(types: string[]): void {
         setFilter(prev => {
 
@@ -147,7 +120,8 @@ export function CalcPage(): JSX.Element {
         <Characters
             values={filter?.physicalCharacteristics}
             onChange={onChangeChar}
-            typeProd={treeData}
+            highlightTree={filter?.typeProd}
+            onChangeSelectTree={onChangeTypeProd}
         />
         <section className={`option section ${colorSelect ? '' : 'not-color'}`}>
             <h2>Опции</h2>
