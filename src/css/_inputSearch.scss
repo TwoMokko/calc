@@ -104,6 +104,7 @@
 				width: 28px;
 				height: auto;
 				transition: transform 0.3s ease-in-out;
+				flex: none;
 
 				&:hover {
 					color: $colorTextAccent;
@@ -152,6 +153,7 @@
 					border-radius: 4px;
 					border: 1px solid $colorBorderInput;
 					box-shadow: 0 1px 1px 0 $colorBoxShadow;
+					flex: none;
 				}
 
 				&:hover {

@@ -64,7 +64,7 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 
 		{
 			showSubList &&
-			treeData.children?.map(subitem => {
+			treeData.childs?.map(subitem => {
 				return <label
 					// TODO: проверить className
 					// className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (checked.includes(val) ? 'error' : 'disable')}`}

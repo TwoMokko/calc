@@ -1,44 +1,46 @@
 import {useEffect, useRef, useState} from "react";
 // import {isEqual} from "lodash";
 import {MdElectricBolt, MdKeyboardArrowDown} from "react-icons/md";
-import {TreeDataNode, TreeDataNodeChild, TreeDataNodes} from "../types/Types.tsx";
+import {TreeDataNode, TreeDataNodeChild} from "../types/Types.tsx";
 import {SelectCardMultipleTreeSubList} from "./SelectCardMultipleTreeSubList.tsx";
+import {getTypeProducts} from "../api/Fetches.tsx";
 // import {getTypeProducts} from "../api/Fetches.tsx";
 
 
-const treeData: TreeDataNodes = [
-	{
-		title: 'parent 1',
-		key: 'parent 1',
-		children: [
-			{
-				title: 'child 1',
-				key: 'child 1.1',
-			},
-			{
-				title: 'child 2',
-				key: 'child 1.2',
-			},
-			{
-				title: 'child 3',
-				key: 'child 1.3',
-			},
-		],
-	},
-	{
-		title: 'parent 2',
-		key: 'parent 2',
-		children: [
-			{ title: 'child 1', key: 'child 2.1' },
-			{ title: 'child 2', key: 'child 2.2' },
-			{ title: 'child 3', key: 'child 2.3' },
-		],
-	},
-	{
-		title: 'parent 3',
-		key: 'parent 3',
-	},
-]
+// const treeData: TreeDataNodes = [
+// 	{
+// 		title: 'parent 1',
+// 		key: 'parent 1',
+// 		childs: [
+// 			{
+// 				title: 'child 1',
+// 				key: 'child 1.1',
+// 			},
+// 			{
+// 				title: 'child 2',
+// 				key: 'child 1.2',
+// 			},
+// 			{
+// 				title: 'child 3',
+// 				key: 'child 1.3',
+// 			},
+// 		],
+// 	},
+// 	{
+// 		title: 'parent 2',
+// 		key: 'parent 2',
+// 		childs: [
+// 			{ title: 'child 1', key: 'child 2.1' },
+// 			{ title: 'child 2', key: 'child 2.2' },
+// 			{ title: 'child 3', key: 'child 2.3' },
+// 		],
+// 	},
+// 	{
+// 		title: 'parent 3',
+// 		key: 'parent 3',
+// 		childs: []
+// 	},
+// ]
 
 export function SelectCardMultipleTree({onChange, highlight}: {
 	onChange: (types: string[]) => void,
@@ -51,11 +53,9 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 	// const [className, setClassName] = useState<string>('')
 
 	useEffect(() => {
-		// (async () => {
-		// 	setCurrentValues(await getTypeProducts())
-		// })()
-
-		setValues(treeData)
+		(async () => {
+			setValues(await getTypeProducts())
+		})()
 	}, [])
 
 	useEffect(() => {
@@ -138,7 +138,7 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 
 		if (!parentKey) {
 			values?.map(itm => {
-				itm.key === targetItm.key && itm.children?.map(subitm => {
+				itm.key === targetItm.key && itm.childs?.map(subitm => {
 					status ? changes.push(subitm.key) : changes = changes.filter(check => check != subitm.key)
 				})
 			})
@@ -148,11 +148,11 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 			values?.map(itm => {
 				if (itm.key == parentKey) {
 					let childsChecked: string[] = []
-					itm.children?.map(child => {
+					itm.childs?.map(child => {
 						changes.includes(child.key) &&
 							status ? childsChecked.push(child.key) : childsChecked = childsChecked.filter(check => check != child.key)
 					})
-					childsChecked.length == itm.children?.length && contains(changes, childsChecked) ? changes.push(parentKey) : changes = changes.filter(check => check != parentKey)
+					childsChecked.length == itm.childs?.length && contains(changes, childsChecked) ? changes.push(parentKey) : changes = changes.filter(check => check != parentKey)
 				}
 			})
 		}

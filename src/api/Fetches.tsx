@@ -25,12 +25,11 @@ export function sendDataForOptions(filter: sendData, highlight: Function) {
         })
 }
 export async function getTypeProducts(): Promise<TreeDataNodes> {
-    return await fetch(`http://192.168.1.202:31939/products/typeProducts`, {
-        method: 'POST',
+    return await fetch(`http://192.168.1.202:31939/products/types`, {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({})
+        }
     }).then(res => res.json())
 }
 

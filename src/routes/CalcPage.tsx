@@ -38,7 +38,7 @@ export function CalcPage(): JSX.Element {
 
 
     useEffect(() => {
-        (!filter.physicalCharacteristics && !filter.type && !filter.options && !filter.connections?.length)
+        (!filter.physicalCharacteristics && !filter.type && !filter.options && !filter.connections?.length && !filter.productType)
             ? setColorSelect(false) : setColorSelect(true)
         if (data) {
             sendDataForOptions(filter, setHighlight)
@@ -57,9 +57,9 @@ export function CalcPage(): JSX.Element {
         setFilter(prev => {
 
             if (!keys.length)
-                delete prev.typeProd
+                delete prev.productType
             else
-                prev.typeProd = keys
+                prev.productType = keys
 
             return {...prev}
         })
@@ -120,7 +120,7 @@ export function CalcPage(): JSX.Element {
         <Characters
             values={filter?.physicalCharacteristics}
             onChange={onChangeChar}
-            highlightTree={filter?.typeProd}
+            highlightTree={filter?.productType}
             onChangeSelectTree={onChangeTypeProd}
         />
         <section className={`option section ${colorSelect ? '' : 'not-color'}`}>

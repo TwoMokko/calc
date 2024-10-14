@@ -4,7 +4,7 @@ export type TreeDataNodes = TreeDataNode[]
 export interface TreeDataNode {
     title: string,
     key: string,
-    children?: TreeDataNodeChild[]
+    childs?: TreeDataNodeChild[]
 }
 
 export interface TreeDataNodeChild {
@@ -46,7 +46,7 @@ export interface physicalCharacteristics {
 }
 
 export type sendData = {
-    typeProd?: string[],
+    productType?: string[],
     type?: string[],
     connections?: connection[],
     options?: {
