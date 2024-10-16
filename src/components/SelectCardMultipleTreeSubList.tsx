@@ -7,7 +7,7 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 	highlight?: string[],
 	treeData: TreeDataNode,
 	focusInput: () => void,
-	checked: string[]
+	checked: string[],
 }): JSX.Element {
 	const [showSubList, setShowSubList] = useState(false)
 	// const [checked, setChecked] = useState<string[]>([])
@@ -20,6 +20,12 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 
 	useEffect(() => {
 
+
+
+		treeData.childs?.map(itm => {
+			if (showSubList) return
+			highlight?.includes(itm.key) && setShowSubList(true)
+		})
 	}, [highlight]);
 
 	function changeShowSubList(): void {
@@ -30,6 +36,8 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 	return <>
 		<div
 			className='tree'
+			// className={`tree ${className}`}
+			// className={`tree ${highlight?.includes(treeData.key) ? 'well' : (checked.includes(treeData.key) ? 'error' : 'disable')}`}
 			onClick={focusInput}
 		>
 			<MdKeyboardArrowDown
@@ -38,7 +46,7 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 			/>
 			<label
 				// TODO: проверить className
-				// className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (checked.includes(val) ? 'error' : 'disable')}`}
+				// className={`input-search-list-item ${highlight?.includes(treeData.key) ? 'well' : (checked.includes(treeData.key) ? 'error' : 'disable')}`}
 				className={`input-search-list-item`}
 				key={treeData.key}
 			>
@@ -53,6 +61,7 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 				/>
 				<div className='check'>
 					{treeData.title}
+					{treeData.key}
 					{/*{!inputValue*/}
 					{/*	? itm.title*/}
 					{/*	: <span*/}
@@ -66,9 +75,7 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 			showSubList &&
 			treeData.childs?.map(subitem => {
 				return <label
-					// TODO: проверить className
-					// className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (checked.includes(val) ? 'error' : 'disable')}`}
-					className={`input-search-list-item subitem`}
+					className={`input-search-list-item subitem ${highlight?.includes(subitem.key) ? 'well' : (checked.includes(subitem.key) ? 'error' : 'disable')}`}
 					key={subitem.key}
 					onClick={focusInput}
 				>
@@ -83,6 +90,7 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 					/>
 					<div className='check'>
 						{subitem.title}
+						{subitem.key}
 						{/*{!inputValue*/}
 						{/*	? subitem.title*/}
 						{/*	: <span*/}

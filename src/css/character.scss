@@ -79,6 +79,9 @@ button {
 }
 
 .character {
+    &-type {
+        margin-bottom: 20px;
+    }
     &-group {
         &-select {
             .input-wrap {

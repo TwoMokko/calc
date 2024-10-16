@@ -120,8 +120,9 @@ export function CalcPage(): JSX.Element {
         <Characters
             values={filter?.physicalCharacteristics}
             onChange={onChangeChar}
-            highlightTree={filter?.productType}
+            highlightTree={highlight?.productType}
             onChangeSelectTree={onChangeTypeProd}
+            colorSelect={colorSelect}
         />
         <section className={`option section ${colorSelect ? '' : 'not-color'}`}>
             <h2>Опции</h2>

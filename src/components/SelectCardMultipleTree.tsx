@@ -7,41 +7,6 @@ import {getTypeProducts} from "../api/Fetches.tsx";
 // import {getTypeProducts} from "../api/Fetches.tsx";
 
 
-// const treeData: TreeDataNodes = [
-// 	{
-// 		title: 'parent 1',
-// 		key: 'parent 1',
-// 		childs: [
-// 			{
-// 				title: 'child 1',
-// 				key: 'child 1.1',
-// 			},
-// 			{
-// 				title: 'child 2',
-// 				key: 'child 1.2',
-// 			},
-// 			{
-// 				title: 'child 3',
-// 				key: 'child 1.3',
-// 			},
-// 		],
-// 	},
-// 	{
-// 		title: 'parent 2',
-// 		key: 'parent 2',
-// 		childs: [
-// 			{ title: 'child 1', key: 'child 2.1' },
-// 			{ title: 'child 2', key: 'child 2.2' },
-// 			{ title: 'child 3', key: 'child 2.3' },
-// 		],
-// 	},
-// 	{
-// 		title: 'parent 3',
-// 		key: 'parent 3',
-// 		childs: []
-// 	},
-// ]
-
 export function SelectCardMultipleTree({onChange, highlight}: {
 	onChange: (types: string[]) => void,
 	highlight?: string[]
@@ -50,17 +15,13 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 	const [showList, setShowList] = useState(false)
 	const [checked, setChecked] = useState<string[]>([])
 	const [values, setValues] = useState<TreeDataNode[]>()
-	// const [className, setClassName] = useState<string>('')
+	const [className, setClassName] = useState<string>('')
 
 	useEffect(() => {
 		(async () => {
 			setValues(await getTypeProducts())
 		})()
 	}, [])
-
-	useEffect(() => {
-
-	}, [highlight]);
 
 	useEffect(() => {
 		const method = () => {
@@ -79,13 +40,13 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 
 	useEffect(focusInput, [showList]);
 
-	// useEffect(() => {
-	// 	checked.length ?
-	// 		((highlight?.length) ?
-	// 			(checked.some(itm => highlight.includes(itm)) ? setClassName('well') : setClassName('error'))
-	// 			: setClassName('selected-disable'))
-	// 		: ((highlight?.length) ? setClassName('well') : setClassName('disable'))
-	// }, [highlight, checked]);
+	useEffect(() => {
+		checked.length ?
+			((highlight?.length) ?
+				(checked.some(itm => highlight.includes(itm)) ? setClassName('well') : setClassName('error'))
+				: setClassName('selected-disable'))
+			: ((highlight?.length) ? setClassName('well') : setClassName('disable'))
+	}, [highlight, checked]);
 
 
 	// useEffect(() => {
@@ -168,8 +129,8 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 	}
 
 	return <div
-		// className={`input-search ${className}`}
-		className={`input-search`}
+		className={`input-search character-type ${className}`}
+		// className={`input-search character-type`}
 	>
 		<div className='input-search-head'>
 			<h4>Тип продукции</h4>
@@ -218,7 +179,14 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 			{showList && <div className='input-search-list'>
 				{
 					values?.map(itm => {
-						return <SelectCardMultipleTreeSubList treeData={itm} focusInput={focusInput} checked={checked} onChange={onClick} />
+						return <SelectCardMultipleTreeSubList
+							key={itm.key}
+							treeData={itm}
+							focusInput={focusInput}
+							checked={checked}
+							onChange={onClick}
+							highlight={highlight}
+						/>
 					})
 				}
             </div>}

@@ -216,7 +216,7 @@ h4 {
   padding-bottom: 32px;
 }
 .option-type {
-  width: calc(50% - 5px);
+  width: 100%;
   margin-bottom: 20px;
 }
 .option-main {
@@ -680,6 +680,9 @@ button {
   text-align: center;
 }
 
+.character-type {
+  margin-bottom: 20px;
+}
 .character-group-select .input-wrap {
   display: flex;
   gap: 10px;

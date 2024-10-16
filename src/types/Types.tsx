@@ -29,7 +29,7 @@ export interface options {
 }
 
 export type optionsData = {
-    typeProd: string[],
+    productType: string[],
     type: string[],
     connections: connections[],
     options: options[]
