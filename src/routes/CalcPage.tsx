@@ -120,6 +120,7 @@ export function CalcPage(): JSX.Element {
         <Characters
             values={filter?.physicalCharacteristics}
             onChange={onChangeChar}
+            valuesTree={filter?.productType}
             highlightTree={highlight?.productType}
             onChangeSelectTree={onChangeTypeProd}
             colorSelect={colorSelect}

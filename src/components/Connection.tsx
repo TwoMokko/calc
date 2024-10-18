@@ -50,7 +50,6 @@ export function Connection({value, connection, onChange, highlight, onDelete}: {
             values={connection.connectionSizes}
             onChange={value => setSelectedSize(value)}
             highlight={highlight?.connectionSizes}
-            // onDelete={onDelete}
             onDelete={() => setSelectedSize(undefined)}
         />
     </>

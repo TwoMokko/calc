@@ -20,12 +20,13 @@ const characteristic: { [key: string]: [string, JSX.Element] } = {
 	dn: ['Dn', <MdOutlineCenterFocusWeak/>],
 }
 
-export function Characters({values, onChange, highlightTree, onChangeSelectTree, colorSelect}: {
+export function Characters({values, onChange, valuesTree, highlightTree, onChangeSelectTree, colorSelect}: {
 	values?: physicalCharacteristics,
 	onChange: (chars?: physicalCharacteristics) => void,
     highlightTree: string[] | undefined,
 	onChangeSelectTree: (keys: string[]) => void,
-	colorSelect: boolean
+	colorSelect: boolean,
+	valuesTree?: string[]
 }): JSX.Element {
 	const [chars, setChars] = useState<physicalCharacteristics | undefined>()
 
@@ -52,22 +53,9 @@ export function Characters({values, onChange, highlightTree, onChangeSelectTree,
 			<SelectCardMultipleTree
 				onChange={onChangeSelectTree}
 				highlight={highlightTree}
+				valuesFilter={valuesTree}
 			/>
 			<div className='character-group block'>
-
-
-				{/*<div className='character-group-select'>*/}
-				{/*    <h4>Наименование</h4>*/}
-				{/*    <div className="input-wrap">*/}
-				{/*        <select>*/}
-				{/*            <option>1</option>*/}
-				{/*            <option>2</option>*/}
-				{/*            <option>3</option>*/}
-				{/*            <option>4</option>*/}
-				{/*        </select>*/}
-				{/*    </div>*/}
-				{/*</div>*/}
-
 				{
 					Object.keys(characteristic).map(key => {
 						// @ts-ignore

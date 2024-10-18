@@ -9,11 +9,9 @@ export function InputCard({value, char, title, className, onInput, icon}: {value
     }, [value]);
 
     const debounceOnInput = useDebouncedCallback(
-        // function
         (key: string, value: string) => {
             onInput(key, value)
         },
-        // delay in ms
         2000
     );
 
@@ -25,9 +23,7 @@ export function InputCard({value, char, title, className, onInput, icon}: {value
                 value={currentValue}
                 onChange={event => setCurrentValue(event.currentTarget.value)}
                 onInput={(event) => {
-                    //TODO: debounce
                     debounceOnInput(char, event.currentTarget.value)
-                    // onInput(char, event.currentTarget.value)
                 }}
             />
         </div>

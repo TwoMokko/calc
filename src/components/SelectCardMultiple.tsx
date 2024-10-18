@@ -97,7 +97,6 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
 
     return <div
         className={`input-search ${className}`}
-        // className={`input-search ${checked.length ? ((highlight?.length) ? (checked.some(itm => highlight.includes(itm)) ? 'well' : 'error') : 'selected-disable') : ((highlight?.length) ? 'well' : 'disable')}`}
     >
         <div className='input-search-head'>
             <h4>{title}</h4>

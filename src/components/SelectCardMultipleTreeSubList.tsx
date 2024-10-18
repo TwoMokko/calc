@@ -6,22 +6,12 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 	onChange: (targetItm: TreeDataNodeChild, status?: boolean, parentKey?: string) => void,
 	highlight?: string[],
 	treeData: TreeDataNode,
-	focusInput: () => void,
+	focusInput?: () => void,
 	checked: string[],
 }): JSX.Element {
 	const [showSubList, setShowSubList] = useState(false)
-	// const [checked, setChecked] = useState<string[]>([])
-	// const [values, setValues] = useState<TreeDataNodeChild>()
-	// const [className, setClassName] = useState<string>('')
-
-	// useEffect(() => {
-	// 	setValues(treeData)
-	// }, [])
 
 	useEffect(() => {
-
-
-
 		treeData.childs?.map(itm => {
 			if (showSubList) return
 			highlight?.includes(itm.key) && setShowSubList(true)
@@ -29,15 +19,16 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 	}, [highlight]);
 
 	function changeShowSubList(): void {
-		console.log('')
+		console.log('что-то еще в этой функции надо сделать?')
 		setShowSubList(!showSubList)
 	}
 
 	return <>
 		<div
-			className='tree'
+			// className='tree'
 			// className={`tree ${className}`}
 			// className={`tree ${highlight?.includes(treeData.key) ? 'well' : (checked.includes(treeData.key) ? 'error' : 'disable')}`}
+			className={`tree ${highlight?.includes(treeData.key) ? 'well' : ''}`}
 			onClick={focusInput}
 		>
 			<MdKeyboardArrowDown
@@ -45,7 +36,6 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 				onClick={() => changeShowSubList()}
 			/>
 			<label
-				// TODO: проверить className
 				// className={`input-search-list-item ${highlight?.includes(treeData.key) ? 'well' : (checked.includes(treeData.key) ? 'error' : 'disable')}`}
 				className={`input-search-list-item`}
 				key={treeData.key}
@@ -61,12 +51,6 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 				/>
 				<div className='check'>
 					{treeData.title}
-					{treeData.key}
-					{/*{!inputValue*/}
-					{/*	? itm.title*/}
-					{/*	: <span*/}
-					{/*		dangerouslySetInnerHTML={{__html: itm.title.replace(inputValue.toUpperCase(), `<mark>${inputValue.toUpperCase()}</mark>`)}}/>*/}
-					{/*}*/}
 				</div>
 			</label>
 		</div>
@@ -90,12 +74,6 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 					/>
 					<div className='check'>
 						{subitem.title}
-						{subitem.key}
-						{/*{!inputValue*/}
-						{/*	? subitem.title*/}
-						{/*	: <span*/}
-						{/*		dangerouslySetInnerHTML={{__html: subitem.title.replace(inputValue.toUpperCase(), `<mark>${inputValue.toUpperCase()}</mark>`)}}/>*/}
-						{/*}*/}
 					</div>
 				</label>
 			})

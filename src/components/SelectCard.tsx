@@ -165,7 +165,6 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
         })
     }, [highlight, inputValue])
 
-    //TODO: оптимизировать
     useEffect(() => {
         currentValue ?
             ( highlight?.length ?
@@ -227,7 +226,6 @@ export function SelectCard({value, option, values, onChange, highlight, onDelete
                     currentValues.map((val) => {
                         return <div
                             key={val}
-                            // TODO: проверить условие на класс
                             className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (val == currentValue ? className : 'disable')}`}
                             onMouseDown={() => doClick(val)}
                         >{!inputValue

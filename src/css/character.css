@@ -180,6 +180,9 @@ h4 {
   box-shadow: 0 1px 1px 0 #F2F2F2;
   flex: none;
 }
+.input-search-list-item.subitem {
+  padding-left: 70px;
+}
 .input-search .checked-list {
   display: flex;
   gap: 8px;
@@ -614,6 +617,9 @@ h4 {
   background-color: #e9f7f2;
 }
 .well.input-search-list-item {
+  background-color: #e9f7f2;
+}
+.well.tree {
   background-color: #e9f7f2;
 }
 

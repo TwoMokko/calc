@@ -65,7 +65,6 @@
 			background-image: url("/img/cross.svg");
 		}
 	}
-
 }
 .well {
 	h4 {
@@ -76,6 +75,9 @@
 		background-color: #e9f7f2;
 	}
 	&.input-search-list-item {
+		background-color: #e9f7f2;
+	}
+	&.tree {
 		background-color: #e9f7f2;
 	}
 }

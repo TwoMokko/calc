@@ -1,19 +1,20 @@
 import {useEffect, useRef, useState} from "react";
-// import {isEqual} from "lodash";
 import {MdElectricBolt, MdKeyboardArrowDown} from "react-icons/md";
 import {TreeDataNode, TreeDataNodeChild} from "../types/Types.tsx";
 import {SelectCardMultipleTreeSubList} from "./SelectCardMultipleTreeSubList.tsx";
 import {getTypeProducts} from "../api/Fetches.tsx";
-// import {getTypeProducts} from "../api/Fetches.tsx";
+import {isEqual} from "lodash";
 
 
-export function SelectCardMultipleTree({onChange, highlight}: {
+export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 	onChange: (types: string[]) => void,
-	highlight?: string[]
+	highlight?: string[],
+	valuesFilter?: string[]
 }): JSX.Element {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const [showList, setShowList] = useState(false)
 	const [checked, setChecked] = useState<string[]>([])
+	const [checkedTitle, setCheckedTitle] = useState<TreeDataNodeChild[] | undefined>(undefined)
 	const [values, setValues] = useState<TreeDataNode[]>()
 	const [className, setClassName] = useState<string>('')
 
@@ -22,6 +23,10 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 			setValues(await getTypeProducts())
 		})()
 	}, [])
+
+	useEffect(() => {
+		setCheckedTitle(getCheckedTitle())
+	}, [values]);
 
 	useEffect(() => {
 		const method = () => {
@@ -33,12 +38,31 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 		return () => document.removeEventListener('click', method, false)
 	}, []);
 
-	const focusInput = () => {
-		if (showList && inputRef.current)
-			inputRef.current.focus()
+	// const focusInput = () => {
+	// 	if (showList && inputRef.current)
+	// 		inputRef.current.focus()
+	// }
+
+	const getCheckedTitle = (): TreeDataNodeChild[] => {
+		let list: TreeDataNodeChild[] = []
+		values?.map(itm => {
+			list.push({key: itm.key, title: itm.title})
+			itm.childs && itm.childs.map(subitm => {
+				list.push({key: subitm.key, title: subitm.title})
+			})
+		})
+
+		return list
 	}
 
-	useEffect(focusInput, [showList]);
+	useEffect(() => {
+		console.log({showList})
+	}, [showList]);
+
+	useEffect(() => {
+		if (!isEqual(valuesFilter ?? [], checked))
+			setChecked(valuesFilter ?? [])
+	}, [valuesFilter])
 
 	useEffect(() => {
 		checked.length ?
@@ -48,47 +72,9 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 			: ((highlight?.length) ? setClassName('well') : setClassName('disable'))
 	}, [highlight, checked]);
 
-
-	// useEffect(() => {
-	// 	if (!isEqual(value ?? [], checked))
-	// 		setChecked(value ?? [])
-	// }, [value])
-	//
-	// useEffect(() => {
-	// 	setCurrentValues(prev => {
-	// 		return [
-	// 			...prev.sort((a, b) => {
-	//
-	// 				const aIn = highlight?.includes(a)
-	// 				const bIn = highlight?.includes(b)
-	//
-	// 				if (inputValue) {
-	// 					let aSearch = a.search(inputValue.toUpperCase()) != -1
-	// 					let bSearch = b.search(inputValue.toUpperCase()) != -1
-	//
-	// 					if (aSearch && !bSearch)
-	// 						return -1
-	// 					else if (bSearch && !aSearch)
-	// 						return +1;
-	//
-	// 					return 0
-	// 				} else {
-	//
-	// 					if (aIn && !bIn)
-	// 						return -1
-	// 					else if (bIn && !aIn)
-	// 						return +1;
-	//
-	// 					return 0
-	// 				}
-	// 			})
-	// 		]
-	// 	})
-	// }, [highlight, inputValue])
-
 	function contains(where: string[], what: string[]){
-		for(let i=0; i<what.length; i++){
-			if(where.indexOf(what[i]) == -1) return false;
+		for (let i  =0; i < what.length; i++){
+			if (where.indexOf(what[i]) == - 1) return false;
 		}
 		return true;
 	}
@@ -118,7 +104,6 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 			})
 		}
 
-		console.log({changes})
 		setChecked(changes)
 		onChange(changes)
 	}
@@ -130,6 +115,8 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 
 	return <div
 		className={`input-search character-type ${className}`}
+		ref={inputRef}
+		tabIndex={0}
 		// className={`input-search character-type`}
 	>
 		<div className='input-search-head'>
@@ -148,29 +135,28 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 				 onClick={() => setShowList(true)}
 			>
 				<MdElectricBolt/>
-				{/*<div className='checked-list'>*/}
-				{/*	{*/}
-				{/*		checked.map(val => {*/}
-				{/*			return <div*/}
-				{/*				key={val}*/}
-				{/*				// TODO: проверить className*/}
-				{/*				className={`checked-list-item ${highlight?.includes(val) ? '' : (checked.includes(val) ? 'error' : 'disable')}`}*/}
-				{/*				onClick={() => onClick(val, false)}*/}
-				{/*			>*/}
-				{/*				<div>{val}</div>*/}
-				{/*				<div*/}
-				{/*					className='unchecked'*/}
-				{/*				></div>*/}
-				{/*			</div>*/}
-				{/*		})*/}
-				{/*	}*/}
-				{/*</div>*/}
+				<div className='checked-list'>
+					{
+						checked.map(val => {
+							return <div
+								key={val}
+								className={`checked-list-item ${highlight?.includes(val) ? '' : (checked.includes(val) ? 'error' : 'disable')}`}
+								// onClick={() => onClick(val, false)}
+							>
+								<div>{checkedTitle?.map(itm => {
+									if (itm.key == val) return  itm.title
+								})}</div>
+								<div
+									className='unchecked'
+								></div>
+							</div>
+						})
+					}
+				</div>
 				<div className='input-search-wrap-text'>
-					<input
-						ref={inputRef}
-						// onChange={event => setInputValue(event.currentTarget.value)}
-						// value={inputValue}
-					/>
+					{/*<input*/}
+					{/*	ref={inputRef}*/}
+					{/*/>*/}
 				</div>
 				<MdKeyboardArrowDown
 					className={`${showList ? 'show' : ''}`}
@@ -182,7 +168,7 @@ export function SelectCardMultipleTree({onChange, highlight}: {
 						return <SelectCardMultipleTreeSubList
 							key={itm.key}
 							treeData={itm}
-							focusInput={focusInput}
+							// focusInput={focusInput}
 							checked={checked}
 							onChange={onClick}
 							highlight={highlight}
