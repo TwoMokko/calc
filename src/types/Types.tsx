@@ -1,6 +1,5 @@
 
 export type TreeDataNodes = TreeDataNode[]
-// TODO: key string or number
 export interface TreeDataNode {
     title: string,
     key: string,

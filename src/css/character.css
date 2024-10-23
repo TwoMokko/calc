@@ -80,10 +80,9 @@ h4 {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 10px 14px;
+  padding: 5px 10px;
   border: 1px solid #C4C4C4;
   border-radius: 10px;
-  height: 39px;
 }
 .input-search-wrap-top {
   display: flex;
@@ -110,6 +109,15 @@ h4 {
 .input-search-wrap-text {
   flex: auto;
 }
+.input-search-wrap-text-wrap {
+  flex: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.input-search-wrap-text-wrap > div:nth-child(1) {
+  max-width: 90%;
+}
 .input-search-list {
   font-size: 16px;
   line-height: 28px;
@@ -122,7 +130,7 @@ h4 {
   overflow: hidden;
   overflow-y: scroll;
   position: absolute;
-  top: 37px;
+  top: 100%;
   left: 0;
   z-index: 1;
   border-radius: 10px;
@@ -185,6 +193,7 @@ h4 {
 }
 .input-search .checked-list {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 .input-search .checked-list-item {

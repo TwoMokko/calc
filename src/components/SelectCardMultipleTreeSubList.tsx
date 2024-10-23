@@ -1,9 +1,13 @@
 import {useEffect, useState} from "react";
 import {MdKeyboardArrowDown} from "react-icons/md";
-import {TreeDataNode, TreeDataNodeChild} from "../types/Types.tsx";
+import {TreeDataNode} from "../types/Types.tsx";
+
+const arrayInclude = (array1: string[], array2: string[]) => {
+	return array1.length ? array1.filter(itm => array2.includes(itm)).length == array1.length : false
+}
 
 export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, focusInput, checked}: {
-	onChange: (targetItm: TreeDataNodeChild, status?: boolean, parentKey?: string) => void,
+	onChange: (key: string | string[], status?: boolean, parentKey?: string) => void,
 	highlight?: string[],
 	treeData: TreeDataNode,
 	focusInput?: () => void,
@@ -44,9 +48,9 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 					className='hide'
 					type='checkbox'
 					value={treeData.title}
-					checked={checked.includes(treeData.key)}
+					checked={!treeData.childs ? checked.includes(treeData.key) : arrayInclude(treeData.childs.map(itm => itm.key), checked)}
 					onChange={
-						(event) => onChange(treeData, event.currentTarget.checked)
+						(event) => onChange(!treeData.childs ? treeData.key : treeData.childs?.map(itm => itm.key), event.currentTarget.checked)
 					}
 				/>
 				<div className='check'>
@@ -69,7 +73,7 @@ export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, fo
 						value={subitem.title}
 						checked={checked.includes(subitem.key)}
 						onChange={
-							(event) => onChange(subitem, event.currentTarget.checked, treeData.key)
+							(event) => onChange(subitem.key, event.currentTarget.checked)
 						}
 					/>
 					<div className='check'>

@@ -114,29 +114,30 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
                  onClick={() => setShowList(true)}
             >
                 <MdElectricBolt/>
-                <div className='checked-list'>
+                <div className='input-search-wrap-text-wrap'>
                     {
-                        checked.map(val => {
-                            return <div
-                                    key={val}
-                                    // TODO: проверить className
-                                    className={`checked-list-item ${highlight?.includes(val) ? '' : (checked.includes(val) ? 'error' : 'disable')}`}
-                                    onClick={() => onClick(val, false)}
-                            >
-                                <div>{val}</div>
-                                <div
-                                    className='unchecked'
-                                ></div>
-                            </div>
-                        })
+                        checked.length > 0 && <div className='checked-list'>
+                            {
+                                checked.map(val => {
+                                    return <div
+                                        key={val}
+                                        className={`checked-list-item ${highlight?.includes(val) ? '' : (checked.includes(val) ? 'error' : 'disable')}`}
+                                        onClick={() => onClick(val, false)}
+                                    >
+                                        <div>{val}</div>
+                                        <div className='unchecked'></div>
+                                    </div>
+                                })
+                            }
+                        </div>
                     }
-                </div>
-                <div className='input-search-wrap-text'>
-                    <input
-                        ref={inputRef}
-                        onChange={event => setInputValue(event.currentTarget.value)}
-                        value={inputValue}
-                    />
+                    <div className='input-search-wrap-text'>
+                        <input
+                            ref={inputRef}
+                            onChange={event => setInputValue(event.currentTarget.value)}
+                            value={inputValue}
+                        />
+                    </div>
                 </div>
                 <MdKeyboardArrowDown
                     className={`${showList ? 'show' : ''}`}
@@ -146,10 +147,9 @@ export function SelectCardMultiple({title, value, values, onChange, highlight}: 
                 {
                     currentValues.map(val => {
                         return <label
-                                // TODO: проверить className
-                                className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (checked.includes(val) ? 'error' : 'disable')}`}
-                                key={val}
-                                onClick={focusInput}
+                            className={`input-search-list-item ${highlight?.includes(val) ? 'well' : (checked.includes(val) ? 'error' : 'disable')}`}
+                            key={val}
+                            onClick={focusInput}
                         >
                             <input
                                 className='hide'

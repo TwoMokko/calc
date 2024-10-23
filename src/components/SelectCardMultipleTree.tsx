@@ -3,7 +3,7 @@ import {MdElectricBolt, MdKeyboardArrowDown} from "react-icons/md";
 import {TreeDataNode, TreeDataNodeChild} from "../types/Types.tsx";
 import {SelectCardMultipleTreeSubList} from "./SelectCardMultipleTreeSubList.tsx";
 import {getTypeProducts} from "../api/Fetches.tsx";
-import {isEqual} from "lodash";
+import {isEqual, uniq} from "lodash";
 
 
 export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
@@ -56,10 +56,6 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 	}
 
 	useEffect(() => {
-		console.log({showList})
-	}, [showList]);
-
-	useEffect(() => {
 		if (!isEqual(valuesFilter ?? [], checked))
 			setChecked(valuesFilter ?? [])
 	}, [valuesFilter])
@@ -72,37 +68,12 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 			: ((highlight?.length) ? setClassName('well') : setClassName('disable'))
 	}, [highlight, checked]);
 
-	function contains(where: string[], what: string[]){
-		for (let i  =0; i < what.length; i++){
-			if (where.indexOf(what[i]) == - 1) return false;
-		}
-		return true;
-	}
-	function onClick(targetItm: TreeDataNodeChild, status?: boolean, parentKey?: string): void {
-		let changes = checked
 
-		status ? changes.push(targetItm.key) : changes = changes.filter(check => check != targetItm.key)
-
-		if (!parentKey) {
-			values?.map(itm => {
-				itm.key === targetItm.key && itm.childs?.map(subitm => {
-					status ? changes.push(subitm.key) : changes = changes.filter(check => check != subitm.key)
-				})
-			})
-		}
-
-		if (parentKey) {
-			values?.map(itm => {
-				if (itm.key == parentKey) {
-					let childsChecked: string[] = []
-					itm.childs?.map(child => {
-						changes.includes(child.key) &&
-							status ? childsChecked.push(child.key) : childsChecked = childsChecked.filter(check => check != child.key)
-					})
-					childsChecked.length == itm.childs?.length && contains(changes, childsChecked) ? changes.push(parentKey) : changes = changes.filter(check => check != parentKey)
-				}
-			})
-		}
+	function changeChecked(key: string | string[], status?: boolean): void {
+		let changes = uniq(status
+			? [...checked, ...(typeof key == 'string' ? [key]: key)]
+			: checked.filter(check => typeof key == 'string' ? check != key : !key.includes(check))
+		)
 
 		setChecked(changes)
 		onChange(changes)
@@ -141,14 +112,12 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 							return <div
 								key={val}
 								className={`checked-list-item ${highlight?.includes(val) ? '' : (checked.includes(val) ? 'error' : 'disable')}`}
-								// onClick={() => onClick(val, false)}
+								onClick={() => changeChecked(val, false)}
 							>
 								<div>{checkedTitle?.map(itm => {
 									if (itm.key == val) return  itm.title
 								})}</div>
-								<div
-									className='unchecked'
-								></div>
+								<div className='unchecked'></div>
 							</div>
 						})
 					}
@@ -170,7 +139,7 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 							treeData={itm}
 							// focusInput={focusInput}
 							checked={checked}
-							onChange={onClick}
+							onChange={changeChecked}
 							highlight={highlight}
 						/>
 					})
