@@ -6,29 +6,52 @@ const UseSearchFilterParams = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [currentFilter, setCurrentFilter] = useState<sendData | undefined>()
 
+	console.log({searchParams})
+
 	useEffect(() => {
 		changeFilter()
 	}, [searchParams]);
 
 	const changeSearchParams = (filter: sendData) => {
-		const filt: {[key: string]: string | string[]} = {}
-		filt['assembly'] = 'A'
 
-		let typeTest: string[] = []
-		filter.type?.map(t => { t !== undefined && typeTest.push(t) })
-		if (typeTest.length > 0) filt['type'] = typeTest
-
-		setSearchParams(filt)
+		// console.log('here:', filter)
+		// const filt: {[key: string]: string | string[]}  = {
+		// 	type: ['B112', 'B105' ]
+		// }
+		// // filt['assembly'] = 'A'
+		//
+		// // console.log(filter.type)
+		// // filt['type'] = filter.type ?? []
+		// // filt['productType'] = filter.productType ?? []
+		//
+		// setSearchParams(filt)
+		// setCurrentFilter(filter)
+		//
+		// console.log('changeSearchParams', filter)
 	}
 
 	const changeFilter = () => {
 
-		let typeTest: string[] = []
-		// if (typeof searchParams.get('type') == 'string') typeTest.push(searchParams.get('type'))
-		typeTest.push("CBFU")
+		// console.log(currentFilter)
+		if (!currentFilter) {
+			// console.log('here')
+			const testType: sendData = {type: []}
+			for (const entry of searchParams.entries()) {
+				const [param, value] = entry;
 
-		const newFilter = { type: typeTest }
-		setCurrentFilter(newFilter)
+				if (param == 'type') {
+					testType.type?.push(value)
+				}
+
+				// if (param == 'type') typeTest.type?.push(value)
+				// if (param == 'productType') typeTest.productType?.push(value)
+			}
+			setCurrentFilter(testType)
+		}
+
+
+		// console.log({typeTest})
+		// setCurrentFilter(typeTest)
 	}
 
 	return [currentFilter, changeSearchParams]

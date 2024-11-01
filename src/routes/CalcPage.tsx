@@ -12,8 +12,12 @@ import {
 } from "../types/Types.tsx";
 import {fetchData, sendDataForOptions} from "../api/Fetches.tsx";
 import {Top} from "../components/Filter/Top.tsx";
+import useSearchFilterParams from "../hooks/useSearchFilterParams.tsx";
+// import {useNavigate} from "react-router-dom";
 
 export function CalcPage(): JSX.Element {
+    // const navigate = useNavigate()
+    const [searchFilter, setSearchFilter] = useSearchFilterParams()
     const [filter, setFilter] = useState<sendData>({
 
         // TODO: GET параметры
@@ -25,6 +29,13 @@ export function CalcPage(): JSX.Element {
         //     ["CBFC", "CBFU"]
 
     })
+
+
+    useEffect(() => {
+        if (searchFilter)
+            setFilter(searchFilter)
+    }, [searchFilter]);
+
     const [data, setData] = useState<optionsData | undefined>()
     const [highlight, setHighlight] = useState<optionsData | undefined>()
 
@@ -43,6 +54,9 @@ export function CalcPage(): JSX.Element {
         if (data) {
             sendDataForOptions(filter, setHighlight)
         }
+
+        setSearchFilter(filter)
+        console.log({filter})
     }, [filter]);
 
 
@@ -100,6 +114,7 @@ export function CalcPage(): JSX.Element {
     }
 
     function doReset(): void {
+        setSearchFilter({})
         setFilter({})
     }
 
