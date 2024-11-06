@@ -17,39 +17,57 @@ const UseSearchFilterParams = (): [sendData, (value: (((prevState: sendData) => 
 
 	const changeSearchParams = (filter: sendData) => {
 
-		if (filter.type) {
-			const filt: { [key: string]: string | string[] } = {
-				type: filter.type
-			}
-			console.log({filt})
-			setSearchParams(filt)
-			setCurrentFilter(filter)
+		// if (!filter.type) {
+		// 	console.log('not filter')
+		// 	// searchParams.delete('type')
+		// 	setSearchParams({})
+		// 	return
+		// }
+
+		// setSearchParams(prev => {
+		// 	return {...prev, productType:  filter.productType}
+		// })
+		// setSearchParams(prev => {
+		// 	return {...prev, type:  filter.type}
+		// })
+
+		let obj: {[key: string]: string[] | string} = {}
+
+		if (filter.type) obj['type'] = filter.type
+		if (filter.productType) obj['productType'] = filter.productType
+
+		filter.options?.map(opt => {
+			obj[`opt-${opt.key}`] = opt.value
+		})
+
+		if (filter.physicalCharacteristics) for (const [key, value] of Object.entries(filter.physicalCharacteristics)) {
+			obj[key] = value
 		}
-		// filt['assembly'] = 'A'
 
-		// console.log(filter.type)
-		// filt['type'] = filter.type ?? []
-		// filt['productType'] = filter.productType ?? []
+		filter.connections?.map(conn => {
+			if (conn.connectionNo) {
+				if (conn.connectionType) obj[`${conn.connectionNo}-connectionType`] = conn.connectionType
+				if (conn.connectionSize) obj[`${conn.connectionNo}-connectionSize`] = conn.connectionSize
+			}
+		})
 
-
-
-		//
-		// console.log('changeSearchParams', filter)
+		setSearchParams(obj)
+		setCurrentFilter(filter)
 	}
 
 	const changeFilter = () => {
-		const testType: sendData = {type: []}
-		for (const entry of searchParams.entries()) {
-			const [param, value] = entry;
-
-			if (param == 'type') {
-				testType.type?.push(value)
-			}
-
-			// if (param == 'type') typeTest.type?.push(value)
-			// if (param == 'productType') typeTest.productType?.push(value)
-		}
-		setCurrentFilter(testType)
+		// const testType: sendData = {type: []}
+		// for (const entry of searchParams.entries()) {
+		// 	const [param, value] = entry;
+		//
+		// 	if (param == 'type') {
+		// 		testType.type?.push(value)
+		// 	}
+		//
+		// 	// if (param == 'type') typeTest.type?.push(value)
+		// 	// if (param == 'productType') typeTest.productType?.push(value)
+		// }
+		// setCurrentFilter(testType)
 	}
 
 	return [currentFilter, setCurrentFilter]

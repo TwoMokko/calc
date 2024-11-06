@@ -158,6 +158,8 @@ export function CalcPage(): JSX.Element {
                     })
                 }
             </section>
+
+            {/*<section className='not-options'>Выберите тип продукции или тип изделия</section>*/}
         </section>
 
         <section className={`option-connections section ${colorSelect ? '' : 'not-color'}`}>
