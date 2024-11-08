@@ -15,19 +15,6 @@ import useSearchFilterParams from "../hooks/useSearchFilterParams.tsx";
 
 export function CalcPage(): JSX.Element {
     const [filter, setFilter] = useSearchFilterParams()
-    // const [filter, setFilter] = useState<sendData>({
-    //
-    //     // TODO: GET параметры
-    //     // options
-    //     //     :
-    //     //     [{key: "assembly", value: "A"}],
-    //     // type
-    //     //     :
-    //     //     ["CBFC", "CBFU"]
-    //
-    // })
-
-
     const [data, setData] = useState<optionsData | undefined>()
     const [highlight, setHighlight] = useState<optionsData | undefined>()
 
@@ -41,20 +28,16 @@ export function CalcPage(): JSX.Element {
 
 
     useEffect(() => {
-        (!filter.physicalCharacteristics && !filter.type && !filter.options && !filter.connections?.length && !filter.productType)
-            ? setColorSelect(false) : setColorSelect(true)
-        if (data) {
+        setColorSelect(!(!filter.physicalCharacteristics && !filter.type && !filter.options && !filter.connections?.length && !filter.productType))
+        if (data)
             sendDataForOptions(filter, setHighlight)
-        }
-
-        console.log({filter})
     }, [filter]);
 
 
     function onChangeChar(chars?: physicalCharacteristics) {
         setFilter(prev => {
             return {...prev, physicalCharacteristics: chars}
-        })
+        }, 'onChangeChar')
     }
 
 
@@ -67,7 +50,7 @@ export function CalcPage(): JSX.Element {
                 prev.productType = keys
 
             return {...prev}
-        })
+        }, 'onChangeTypeProd')
     }
     function onChangeType(types: string[]): void {
         setFilter(prev => {
@@ -78,34 +61,34 @@ export function CalcPage(): JSX.Element {
                 prev.type = types
 
             return {...prev}
-        })
+        }, 'onChangeType')
     }
     function onChangeOption(key: string, value: string): void {
         setFilter(prev => {
             return {...prev, options: [...(prev.options ? prev.options.filter(itm => itm.key != key) : []), {key, value}]}
-        })
+        }, 'onChangeOption')
     }
 
     function onDeleteOption(key: string) {
         setFilter(prev => {
             return {...prev, options: [...(prev.options ? prev.options.filter(itm => itm.key != key) : [])]}
-        })
+        }, 'onDeleteOption')
     }
 
     function onDeleteConnection(connection: connection) {
         setFilter(prev => {
             return {...prev, connections: [...(prev.connections ? prev.connections.filter(itm => itm.connectionNo != connection.connectionNo) : [])]}
-        })
+        }, 'onDeleteConnection')
     }
 
     function onChangeConnection(connection: connection): void {
         setFilter(prev => {
             return {...prev, connections: [...(prev.connections ? prev.connections.filter(itm => itm.connectionNo != connection.connectionNo) : []), connection]}
-        })
+        }, 'onChangeConnection')
     }
 
     function doReset(): void {
-        setFilter({})
+        setFilter({}, 'doReset')
     }
 
 

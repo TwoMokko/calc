@@ -131,7 +131,7 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 					className={`${showList ? 'show' : ''}`}
 				/>
 			</div>
-			{showList && <div className='input-search-list'>
+			{showList && <div className='input-search-list tree'>
 				{
 					values?.map(itm => {
 						return <SelectCardMultipleTreeSubList

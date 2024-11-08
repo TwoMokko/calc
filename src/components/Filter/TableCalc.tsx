@@ -1,13 +1,20 @@
-import {Link} from "react-router-dom";
 import {sendData, soldProducts} from "../../types/Types.tsx";
 import {useEffect, useRef, useState} from "react";
 import {sendDataForProductTable} from "../../api/Fetches.tsx";
 import {Pagination} from "../Pagination.tsx";
 import {TiThMenu} from "react-icons/ti";
+import {useSearchParams} from "react-router-dom";
 
-export function TableCalc({filter, defaultPage, defaultSize}: { filter: sendData, defaultSize?: number, defaultPage?: number}):  JSX.Element {
-    const [page, setPage] = useState(defaultPage ?? 1)
-    const [size, setSize] = useState(defaultSize ?? 20)
+const pageSearchParamName = 'page'
+const pageSizeSearchParamName = 'pageSize'
+
+export function TableCalc({filter, /*defaultPage, defaultSize*/}: { filter: sendData, defaultSize?: number, defaultPage?: number}):  JSX.Element {
+    const [searchParams] = useSearchParams()
+    const pageSearch: string | null = searchParams.get(pageSearchParamName) ?? '1'
+    const pageSizeSearch: string | null = searchParams.get(pageSizeSearchParamName) ?? '20'
+
+    const [page, setPage] = useState(parseInt(pageSearch))
+    const [size, setSize] = useState(parseInt(pageSizeSearch))
     const [limit, setLimit] = useState(1)
     const [rows, setRows] = useState<soldProducts[]>([])
     const abortController = useRef<AbortController | null>(null)
@@ -100,11 +107,12 @@ export function TableCalc({filter, defaultPage, defaultSize}: { filter: sendData
                     {rows.slice(0, size).map((itm: soldProducts, id: number) => {
                         return <tr key={id}>
                             <td>
-                                <Link
-                                    to={`/prod/${itm.vendorCode}`}
+                                <a
+                                    target='_blank'
+                                    href={`/prod/${itm.vendorCode}`}
                                 >
                                     {itm.vendorCode}
-                                </Link>
+                                </a>
                             </td>
                             <td>{itm.quantityInStock}</td>
                             <td>{itm.workingPressure}</td>

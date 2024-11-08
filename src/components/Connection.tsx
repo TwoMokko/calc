@@ -9,8 +9,8 @@ export function Connection({value, connection, onChange, highlight, onDelete}: {
     highlight?: connections,
     onDelete?: () => void
 }): JSX.Element {
-    const [selectedType, setSelectedType] = useState<string | undefined>()
-    const [selectedSize, setSelectedSize] = useState<string | undefined>()
+    const [selectedType, setSelectedType] = useState<string | undefined>(value?.connectionType)
+    const [selectedSize, setSelectedSize] = useState<string | undefined>(value?.connectionSize)
 
     useEffect(() => {
         if (selectedType || selectedSize)

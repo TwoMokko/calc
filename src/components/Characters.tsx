@@ -28,7 +28,7 @@ export function Characters({values, onChange, valuesTree, highlightTree, onChang
 	colorSelect: boolean,
 	valuesTree?: string[]
 }): JSX.Element {
-	const [chars, setChars] = useState<physicalCharacteristics | undefined>()
+	const [chars, setChars] = useState<physicalCharacteristics | undefined>(values)
 
 	const onInput = (key: string, value: string) => {
 		setChars(prev => {

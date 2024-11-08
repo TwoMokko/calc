@@ -124,7 +124,6 @@ h4 {
   color: #626262;
   display: flex;
   flex-direction: column;
-  max-height: 188px;
   width: 100%;
   background-color: #FFF;
   overflow: hidden;
@@ -136,6 +135,12 @@ h4 {
   border-radius: 10px;
   border: 1px solid #C4C4C4;
   box-shadow: 0 6px 10px 0 rgba(36, 61, 161, 0.2509803922);
+}
+.input-search-list.tree {
+  max-height: 400px;
+}
+.input-search-list:not(.tree) {
+  max-height: 188px;
 }
 .input-search-list.active {
   display: flex;
@@ -149,6 +154,7 @@ h4 {
   cursor: pointer;
   width: 28px;
   height: auto;
+  transform: rotate(270deg);
   transition: transform 0.3s ease-in-out;
   flex: none;
 }
@@ -156,7 +162,7 @@ h4 {
   color: #3F80D0;
 }
 .input-search-list .tree-show.show {
-  transform: rotate(180deg);
+  transform: rotate(360deg);
 }
 .input-search-list-item {
   cursor: pointer;
