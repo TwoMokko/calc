@@ -164,7 +164,7 @@ export function CalcPage(): JSX.Element {
         </section>
 
         <section className='table-wrap section'>
-            <TableCalc filter={filter}/>
+            <TableCalc filter={filter} />
         </section>
     </>
 }

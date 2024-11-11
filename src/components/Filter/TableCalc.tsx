@@ -10,8 +10,8 @@ const pageSizeSearchParamName = 'pageSize'
 
 export function TableCalc({filter, /*defaultPage, defaultSize*/}: { filter: sendData, defaultSize?: number, defaultPage?: number}):  JSX.Element {
     const [searchParams] = useSearchParams()
-    const pageSearch: string | null = searchParams.get(pageSearchParamName) ?? '1'
-    const pageSizeSearch: string | null = searchParams.get(pageSizeSearchParamName) ?? '20'
+    const pageSearch: string = searchParams.get(pageSearchParamName) ?? '1'
+    const pageSizeSearch: string = searchParams.get(pageSizeSearchParamName) ?? '20'
 
     const [page, setPage] = useState(parseInt(pageSearch))
     const [size, setSize] = useState(parseInt(pageSizeSearch))
@@ -34,6 +34,7 @@ export function TableCalc({filter, /*defaultPage, defaultSize*/}: { filter: send
         setRows(result.soldProducts)
         setLimit(result.availablePages)
         setPage(page)
+
     }
 
     useEffect(() => {

@@ -298,8 +298,6 @@ h4 {
 }
 .product-info > div:not(.product-price-calculator) > div:nth-child(2):not(.stock) {
   flex: auto;
-  overflow: hidden;
-  -webkit-line-clamp: 1;
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
