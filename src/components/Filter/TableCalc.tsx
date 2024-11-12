@@ -62,6 +62,9 @@ export function TableCalc({filter, /*defaultPage, defaultSize*/}: { filter: send
     return <>
         <div className='table-size'>
             <div className='table-size-head'>Результат</div>
+
+            {/*вынести куда-то отдельно*/}
+
             <div>
                 <h4>Количество строк</h4>
                 <div className='table-size-input'>

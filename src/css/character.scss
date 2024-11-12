@@ -43,7 +43,9 @@ body {
 main {
     height: fit-content;
     flex: 80%;
-    padding: 40px 30px;
+    //padding: 40px 30px;
+    position: relative;
+    padding: 0 30px 40px;
     border-radius: 30px;
     background-color: $colorBackgroundMain;
     //background-color: #E8E8E8;
@@ -188,6 +190,12 @@ mark {
     align-items: center;
     justify-content: space-between;
     padding-bottom: 30px;
+
+    position: sticky;
+    top: 0;
+    background-color: $colorBackgroundMain;
+    z-index: 2;
+    padding-top: 40px;
     svg {
         color: $colorIcons;
     }
@@ -197,3 +205,10 @@ mark {
     text-align: end;
 }
 
+.choice {
+    display: flex;
+    gap: 20px;
+    div, span {
+        cursor: pointer;
+    }
+}

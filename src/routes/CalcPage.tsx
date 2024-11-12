@@ -69,16 +69,27 @@ export function CalcPage(): JSX.Element {
         }, 'onChangeOption')
     }
 
-    function onDeleteOption(key: string) {
+    function onDeleteOption(key: string): void {
         setFilter(prev => {
             return {...prev, options: [...(prev.options ? prev.options.filter(itm => itm.key != key) : [])]}
         }, 'onDeleteOption')
     }
 
-    function onDeleteConnection(connection: connection) {
+    function onDeleteConnection(connection: connection): void {
         setFilter(prev => {
             return {...prev, connections: [...(prev.connections ? prev.connections.filter(itm => itm.connectionNo != connection.connectionNo) : [])]}
         }, 'onDeleteConnection')
+    }
+
+    function onDeleteCharacterisric(key: string): void {
+        setFilter(prev => {
+            console.log(key)
+            // return {...prev, physicalCharacteristics: {...(prev.physicalCharacteristics ? Object.keys(prev.physicalCharacteristics).filter(itmKey => itmKey != key).reduce( (res: physicalCharacteristics, itmKey: string) => { res[itmKey] =  prev.physicalCharacteristics[itmKey]; return res; }, {}) : {})}}
+            return {...prev, physicalCharacteristics: {...(prev.physicalCharacteristics ? prev.physicalCharacteristics : {})}}
+
+            // если physicalCharacteristics[key] = undefined
+            // return {...prev, physicalCharacteristics: {...prev, }}
+        })
     }
 
     function onChangeConnection(connection: connection): void {
@@ -103,6 +114,8 @@ export function CalcPage(): JSX.Element {
     return <>
         <Top
             doReset={doReset}
+            filter={filter}
+            resetChar={onDeleteCharacterisric}
         />
 
         <Characters

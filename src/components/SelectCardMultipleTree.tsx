@@ -18,6 +18,8 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 	const [values, setValues] = useState<TreeDataNode[]>()
 	const [className, setClassName] = useState<string>('')
 
+	const [inputValue, setInputValue] = useState<string>('')
+
 	useEffect(() => {
 		(async () => {
 			setValues(await getTypeProducts())
@@ -38,10 +40,12 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 		return () => document.removeEventListener('click', method, false)
 	}, []);
 
-	// const focusInput = () => {
-	// 	if (showList && inputRef.current)
-	// 		inputRef.current.focus()
-	// }
+	const focusInput = () => {
+		if (showList && inputRef.current)
+			inputRef.current.focus()
+	}
+
+	useEffect(focusInput, [showList]);
 
 	const getCheckedTitle = (): TreeDataNodeChild[] => {
 		let list: TreeDataNodeChild[] = []
@@ -86,8 +90,8 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 
 	return <div
 		className={`input-search character-type ${className}`}
-		ref={inputRef}
-		tabIndex={0}
+		// ref={inputRef}
+		// tabIndex={0}
 		// className={`input-search character-type`}
 	>
 		<div className='input-search-head'>
@@ -106,26 +110,30 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 				 onClick={() => setShowList(true)}
 			>
 				<MdElectricBolt/>
-				<div className='checked-list'>
-					{
-						checked.map(val => {
-							return <div
-								key={val}
-								className={`checked-list-item ${highlight?.includes(val) ? '' : (checked.includes(val) ? 'error' : 'disable')}`}
-								onClick={() => changeChecked(val, false)}
-							>
-								<div>{checkedTitle?.map(itm => {
-									if (itm.key == val) return  itm.title
-								})}</div>
-								<div className='unchecked'></div>
-							</div>
-						})
-					}
-				</div>
-				<div className='input-search-wrap-text'>
-					{/*<input*/}
-					{/*	ref={inputRef}*/}
-					{/*/>*/}
+				<div className='input-search-wrap-text-wrap'>
+					<div className='checked-list'>
+						{
+							checked.map(val => {
+								return <div
+									key={val}
+									className={`checked-list-item ${highlight?.includes(val) ? '' : (checked.includes(val) ? 'error' : 'disable')}`}
+									onClick={() => changeChecked(val, false)}
+								>
+									<div>{checkedTitle?.map(itm => {
+										if (itm.key == val) return itm.title
+									})}</div>
+									<div className='unchecked'></div>
+								</div>
+							})
+						}
+					</div>
+					<div className='input-search-wrap-text'>
+						<input
+							ref={inputRef}
+							onChange={event => setInputValue(event.currentTarget.value)}
+							value={inputValue}
+						/>
+					</div>
 				</div>
 				<MdKeyboardArrowDown
 					className={`${showList ? 'show' : ''}`}
@@ -137,7 +145,7 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 						return <SelectCardMultipleTreeSubList
 							key={itm.key}
 							treeData={itm}
-							// focusInput={focusInput}
+							focusInput={focusInput}
 							checked={checked}
 							onChange={changeChecked}
 							highlight={highlight}

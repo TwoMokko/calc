@@ -81,28 +81,28 @@ export function ProductPage(): JSX.Element {
                     </div>
                     <div>
                         <h3>{data.priceInfo.coefficientForProductionAndDistribution}</h3>
-                        <div>Закупочная цена</div>
+                        <div>Коэффициент транспортных расходов</div>
                     </div>
                     <div className='sign'>
                         <CgClose/>
                     </div>
                     <div>
                         <h3>{data.priceInfo.marginFactor}</h3>
-                        <div>Закупочная цена</div>
+                        <div>Коэффициент наценки</div>
                     </div>
                     <div className='sign'>
                         <CgClose/>
                     </div>
                     <div>
                         <h3>{data.priceInfo.salesRatio}</h3>
-                        <div>Закупочная цена</div>
+                        <div>Коэффициент продаж</div>
                     </div>
                     <div className='sign'>
                         <PiEqualsBold/>
                     </div>
                     <div>
                         <h3>{data.priceInfo.priceForClient}</h3>
-                        <div>Закупочная цена</div>
+                        <div>Стоимость для клиента</div>
                     </div>
                 </div>
             </div>

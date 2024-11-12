@@ -103,3 +103,10 @@ export type productData = {
     oneCString: string
 }
 
+export type languageData = {
+    [key: string]: {
+        title: string,
+        icon: JSX.Element
+    }
+}
+

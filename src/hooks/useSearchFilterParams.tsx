@@ -8,7 +8,7 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [filter, setFilter] = useState<sendData>({})
 
-	const updateFilter = (changedFilter: UpdateFilter, /*where?: string*/) => {
+	const updateFilter = (changedFilter: UpdateFilter/*, where?: string*/) => {
 		// console.log({changedFilter, where})
 		setFilter(typeof changedFilter == 'function' ? changedFilter(filter) : changedFilter)
 	}
@@ -22,6 +22,12 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 	}, [filter]);
 
 	const changeSearchParams = () => {
+
+		if (!Object.keys(filter).length) {
+			setSearchParams({})
+			return;
+		}
+
 		if (!Object.keys(filter).length)
 			return;
 
@@ -46,8 +52,9 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 			}
 		})
 
+
 		setSearchParams(obj)
-		setFilter(filter)
+		updateFilter(filter)
 	}
 
 	const updateFilterFromSearchParams = () => {
@@ -98,7 +105,7 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 			}
 		}
 
-		setFilter(tempFilter)
+		updateFilter(tempFilter)
 	}
 
 	return [filter, updateFilter]
