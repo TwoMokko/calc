@@ -44,17 +44,20 @@ export function ProductPage(): JSX.Element {
         </div>
 
     return <>
-        <Breadcrumbs
-            links={[
-                {route: '/', text: 'Поиск по характеристикам'},
-                {route: `/prod/${data.rightArticul}`, text: `${data.rightArticul}`},
-            ]}
-        />
-        <div className='calc-top'>
-            <h1>
-                <MdCalculate/>
-                {data.rightArticul}
-            </h1>
+
+        <div className='calc-top-wrap'>
+            <Breadcrumbs
+                links={[
+                    {route: '/', text: 'Поиск по характеристикам'},
+                    {route: `/prod/${data.rightArticul}`, text: `${data.rightArticul}`},
+                ]}
+            />
+            <div className='calc-top'>
+                <h1>
+                    <MdCalculate/>
+                    {data.rightArticul}
+                </h1>
+            </div>
         </div>
 
         <section

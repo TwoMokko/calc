@@ -28,9 +28,6 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 			return;
 		}
 
-		if (!Object.keys(filter).length)
-			return;
-
 		let obj: {[key: string]: string[] | string} = {}
 
 		if (filter.type) obj['type'] = filter.type.join('.')

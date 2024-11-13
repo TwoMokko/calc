@@ -81,14 +81,11 @@ export function CalcPage(): JSX.Element {
         }, 'onDeleteConnection')
     }
 
-    function onDeleteCharacterisric(key: string): void {
+    function onDeleteCharacteristic(key: keyof physicalCharacteristics): void {
         setFilter(prev => {
-            console.log(key)
-            // return {...prev, physicalCharacteristics: {...(prev.physicalCharacteristics ? Object.keys(prev.physicalCharacteristics).filter(itmKey => itmKey != key).reduce( (res: physicalCharacteristics, itmKey: string) => { res[itmKey] =  prev.physicalCharacteristics[itmKey]; return res; }, {}) : {})}}
+            if (prev.physicalCharacteristics)
+                delete prev.physicalCharacteristics[key]
             return {...prev, physicalCharacteristics: {...(prev.physicalCharacteristics ? prev.physicalCharacteristics : {})}}
-
-            // если physicalCharacteristics[key] = undefined
-            // return {...prev, physicalCharacteristics: {...prev, }}
         })
     }
 
@@ -103,6 +100,21 @@ export function CalcPage(): JSX.Element {
     }
 
 
+    const onDeleteAtChoiceString = (funcName: string, key: string | connection | keyof physicalCharacteristics): void =>  {
+        switch (funcName) {
+            case 'onDeleteOption':
+                onDeleteOption(key as string)
+                break
+            case 'onDeleteConnection':
+                // @ts-ignore
+                if (key.connectionType || key.connectionSize)
+                    onChangeConnection(key as connection)
+                else onDeleteConnection(key as connection)
+                break
+            case 'onDeleteCharacteristic':
+                onDeleteCharacteristic(key as keyof physicalCharacteristics)
+        }
+    }
 
     if (!data)
         return <div className='loading'>
@@ -115,7 +127,7 @@ export function CalcPage(): JSX.Element {
         <Top
             doReset={doReset}
             filter={filter}
-            resetChar={onDeleteCharacterisric}
+            onDeleteAtChoiceString={onDeleteAtChoiceString}
         />
 
         <Characters

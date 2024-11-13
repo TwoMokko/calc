@@ -5,67 +5,97 @@
 
 }
 
+.table-loading {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+    background-color: $colorBackgroundMain;
+	opacity: 0.5;
+	transition: all 0.5s;
+
+	&-text {
+		opacity: 0.2;
+		transition: opacity 0.5s;
+	}
+}
+
 .table {
-  width: 100%;
-  height: fit-content;
-  border-spacing: 0;
-  border: 1px solid $colorBorderTable;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 22px;
-  thead {
-    padding: 14px 10px;
-    tr {
-      th {
-        padding: 10px;
-        border-bottom: 1px solid $colorBorderTable;
-        text-align: left;
-      }
-    }
-  }
-  tbody {
-    background-color: $colorBackgroundLight;
-    tr {
-      td {
-        padding: 10px;
-        text-align: left;
-        &:not(:last-child) {
-          //border-right: 1px solid #F2F2F2;
-        }
-        > a {
-          color: $colorTextAccent;
-          &:hover {
-            //color: $colorTextAccent;
-          }
-        }
-      }
-      &:not(:last-child) > td {
-        border-bottom: 1px solid $colorBorderTable;
-      }
-    }
-  }
-  &-size {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    &-head {
-      font-size: 28px;
-      font-weight: 500;
-      line-height: 28px;
-      color: $colorTextDark;
-    }
-    &-input {
-      display: flex;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1px solid $colorBorderInput;
-      color: $colorIcons;
-      input {
-        width: 140px;
-        color: $colorIcons;
-      }
-    }
-  }
+	width: 100%;
+	height: fit-content;
+	border-spacing: 0;
+	border: 1px solid $colorBorderTable;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 22px;
+
+	position: relative;
+
+	thead {
+		padding: 14px 10px;
+
+		tr {
+			th {
+				padding: 10px;
+				border-bottom: 1px solid $colorBorderTable;
+				text-align: left;
+			}
+		}
+	}
+
+	tbody {
+		background-color: $colorBackgroundLight;
+
+		tr {
+			td {
+				padding: 10px;
+				text-align: left;
+
+				&:not(:last-child) {
+					//border-right: 1px solid #F2F2F2;
+				}
+
+				> a {
+					color: $colorTextAccent;
+
+					&:hover {
+						//color: $colorTextAccent;
+					}
+				}
+			}
+
+			&:not(:last-child) > td {
+				border-bottom: 1px solid $colorBorderTable;
+			}
+		}
+	}
+
+	&-size {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+
+		&-head {
+			font-size: 28px;
+			font-weight: 500;
+			line-height: 28px;
+			color: $colorTextDark;
+		}
+
+		&-input {
+			display: flex;
+			gap: 10px;
+			padding: 10px 14px;
+			border-radius: 10px;
+			border: 1px solid $colorBorderInput;
+			color: $colorIcons;
+
+			input {
+				width: 140px;
+				color: $colorIcons;
+			}
+		}
+	}
 }
