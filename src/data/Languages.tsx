@@ -9,6 +9,7 @@ import {
 } from "react-icons/md";
 import {languageData} from "../types/Types.tsx";
 
+/* Для отрисовки селектов на странице фильтра */
 export const ru:  languageData = {
 	type: { title: "Тип изделия", icon: <MdElectricBolt /> },
 	o_type: { title: 'Тип изделия', icon: <MdElectricBolt /> },
