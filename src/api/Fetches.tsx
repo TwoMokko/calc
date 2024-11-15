@@ -35,14 +35,17 @@ export function sendDataForOptions(filter: sendData, highlight: Function) {
         })
 }
 
-/* Запрос на получение данных для отрисовки select tree */
-export async function getTypeProducts(): Promise<TreeDataNodes> {
-    return await fetch(`${domains.FILTER}/products/types`, {
+/* Запрос на получение данных для отрисовки select tree,
+inputValue - это строка, которую вводит пользователь в input Типа продукции,
+ далее обновляется дерево выпадающего списка */
+export async function getTypeProducts(inputValue: string): Promise<TreeDataNodes> {
+    return await fetch(`${domains.FILTER}/products/types${inputValue ? '?query=' + inputValue : ''}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         }
     }).then(res => res.json())
+        .catch(error => console.log(error))
 }
 
 /* Запрос на получение данных для отрисовки и перерисовки таблицы */

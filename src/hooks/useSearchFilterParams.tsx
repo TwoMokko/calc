@@ -72,14 +72,19 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 		// Создание промежуточного объекта, который в дальнейшем наполняется данными
 		const tempFilter: sendData = {}
 
-		//
+		// Получение всех параметров через entries, который возвращает пары ключ/значение. Цикл по этим парам
 		for (const [param, value] of searchParams.entries()) {
-			if (param == 'type')
-				tempFilter.type = value.split('.')
 
-			if (param == 'productType')
-				tempFilter.productType = value.replaceAll('_', ' ').split('.')
+			// Если парметр имеет ключ type, преобразовать value в массив строк,
+			// разделив через сепаратор точку, и присвоить ключу type в промежуточном объекте
+			if (param == 'type') tempFilter.type = value.split('.')
 
+			// Если парметр имеет ключ productType, преобразовать value в массив строк,
+			// разделив через сепаратор точку (сначала заменив нижнее подчеркивание на пробел)
+			// и присвоить ключу productType в промежуточном объекте
+			if (param == 'productType') tempFilter.productType = value.replaceAll('_', ' ').split('.')
+
+			// Если параметр начинается на conn-
 			if (param.startsWith('conn-')) {
 				const connectionNo = parseInt(param.substring(5))
 				if (!connectionNo)
@@ -99,7 +104,7 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 				if (size) connection.connectionSize = size
 			}
 
-
+			// Если параметр начинается на opt-
 			if (param.startsWith('opt-')) {
 				const key = param.substring(4)
 
@@ -109,6 +114,7 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 				tempFilter.options?.push({key, value})
 			}
 
+			// Если параметр начинается на char-
 			if (param.startsWith('char-')) {
 				const key = param.substring(5) as keyof physicalCharacteristics
 				if (!tempFilter.physicalCharacteristics)

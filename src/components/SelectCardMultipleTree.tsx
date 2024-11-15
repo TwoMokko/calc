@@ -1,9 +1,9 @@
-import {useEffect, useRef, useState} from "react";
-import {MdElectricBolt, MdKeyboardArrowDown} from "react-icons/md";
-import {TreeDataNode, TreeDataNodeChild} from "../types/Types.tsx";
-import {SelectCardMultipleTreeSubList} from "./SelectCardMultipleTreeSubList.tsx";
-import {getTypeProducts} from "../api/Fetches.tsx";
-import {isEqual, uniq} from "lodash";
+import { useEffect, useRef, useState } from "react";
+import { MdElectricBolt, MdKeyboardArrowDown } from "react-icons/md";
+import { TreeDataNode, TreeDataNodeChild } from "../types/Types.tsx";
+import { SelectCardMultipleTreeSubList } from "./SelectCardMultipleTreeSubList.tsx";
+import { getTypeProducts } from "../api/Fetches.tsx";
+import { isEqual, uniq } from "lodash";
 
 
 export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
@@ -22,9 +22,10 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 
 	useEffect(() => {
 		(async () => {
-			setValues(await getTypeProducts())
+			console.log(inputValue)
+			setValues(await getTypeProducts(inputValue))
 		})()
-	}, [])
+	}, [inputValue])
 
 	useEffect(() => {
 		setCheckedTitle(getCheckedTitle())
@@ -73,7 +74,7 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 	}, [highlight, checked]);
 
 
-	function changeChecked(key: string | string[], status?: boolean): void {
+	const changeChecked = (key: string | string[], status?: boolean): void => {
 		let changes = uniq(status
 			? [...checked, ...(typeof key == 'string' ? [key]: key)]
 			: checked.filter(check => typeof key == 'string' ? check != key : !key.includes(check))
@@ -83,11 +84,12 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 		onChange(changes)
 	}
 
-	function onReset(): void {
+	const onReset = (): void => {
 		setChecked([])
 		onChange([])
 	}
 
+	/* Отрисовка DOM */
 	return <div
 		className={`input-search character-type ${className}`}
 		// ref={inputRef}
@@ -135,24 +137,24 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 						/>
 					</div>
 				</div>
-				<MdKeyboardArrowDown
-					className={`${showList ? 'show' : ''}`}
-				/>
+				<MdKeyboardArrowDown className={`${showList ? 'show' : ''}`} />
 			</div>
-			{showList && <div className='input-search-list tree'>
-				{
-					values?.map(itm => {
-						return <SelectCardMultipleTreeSubList
-							key={itm.key}
-							treeData={itm}
-							focusInput={focusInput}
-							checked={checked}
-							onChange={changeChecked}
-							highlight={highlight}
-						/>
-					})
-				}
-            </div>}
+			{
+				showList && <div className='input-search-list tree'>
+					{
+						values?.map(itm => {
+							return <SelectCardMultipleTreeSubList
+								key={itm.key}
+								treeData={itm}
+								focusInput={focusInput}
+								checked={checked}
+								onChange={changeChecked}
+								highlight={highlight}
+							/>
+						})
+					}
+				</div>
+			}
 		</div>
 	</div>
 }
