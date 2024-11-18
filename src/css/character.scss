@@ -207,11 +207,20 @@ mark {
     text-align: end;
 }
 
-.choice {
+.option-line {
     display: flex;
     gap: 20px;
+    padding-bottom: 40px;
+
+    margin-top: -40px;
+
+    transition: all 0.3s ease;
     div, span {
         cursor: pointer;
+    }
+
+    &.show {
+        margin-top: 0;
     }
 }
 

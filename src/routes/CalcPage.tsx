@@ -105,9 +105,10 @@ export const CalcPage = (): JSX.Element => {
     /* Удаление по ключу определенного элемента из объекта filter.physicalCharacteristics */
     const onDeleteCharacteristic = (key: keyof physicalCharacteristics): void => {
         setFilter(prev => {
-            if (prev.physicalCharacteristics)
-                delete prev.physicalCharacteristics[key]
-            return {...prev, physicalCharacteristics: {...prev.physicalCharacteristics}}
+            const result = {...prev}
+            if (result.physicalCharacteristics)
+                delete result.physicalCharacteristics[key]
+            return {...result, physicalCharacteristics: {...result.physicalCharacteristics}}
         })
     }
 

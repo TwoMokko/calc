@@ -86,44 +86,56 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 
 			// Если параметр начинается на conn-
 			if (param.startsWith('conn-')) {
+				// Забираем из ключа параметра номер подсоединения
 				const connectionNo = parseInt(param.substring(5))
 				if (!connectionNo)
 					continue;
 
+				// Если в промежуточном объекте tempFilter еще не существует connections, создаем его (если есть: например, уже добавили один объект типа connection[], то будем добавлять дальше)
 				if (!tempFilter.connections)
 					tempFilter.connections = []
 
+				// Забираем из значения параметра тип и размер (первую точку заменяем на SPLIT_ME_HERE, а потом по SPLIT_ME_HERE разделяем на тип и размер)
 				const [type, size] = value.replace('.', 'SPLIT_ME_HERE').split('SPLIT_ME_HERE')
+				// Находим по номеру подсоединения нужный элемент массива connections в промежуточном объекте tempFilter (если уже добавили тип или размер)
 				let connection = tempFilter.connections?.find(connect => connect.connectionNo == connectionNo)
 
+				// Если еще не создавали объект с connectionNo, то создаем и добавляем в массив tempFilter.connections
 				if (!connection) {
 					connection = {connectionNo}
 					tempFilter.connections?.push(connection)
 				}
-				if (type) connection.connectionType = type
-				if (size) connection.connectionSize = size
+				if (type) connection.connectionType = type						// если type есть, то создаем ключ и присваиваем значение
+				if (size) connection.connectionSize = size						// если size есть, то создаем ключ и присваиваем значение
 			}
 
 			// Если параметр начинается на opt-
 			if (param.startsWith('opt-')) {
+				// Забираем из ключа параметра ключ опции
 				const key = param.substring(4)
 
+				// Если в промежуточном объекте еще нет ни одной опции, создаем пустой массив tempFilter.options
 				if (!tempFilter.options)
 					tempFilter.options = []
 
+				// Добавляем в массив объект ключ/значение
 				tempFilter.options?.push({key, value})
 			}
 
 			// Если параметр начинается на char-
 			if (param.startsWith('char-')) {
+				// Забираем из ключа параметра ключ характеристики
 				const key = param.substring(5) as keyof physicalCharacteristics
+				// Если в промежуточном объекте еще нет ни одной характеристики, создаем пустой объект tempFilter.physicalCharacteristics
 				if (!tempFilter.physicalCharacteristics)
 					tempFilter.physicalCharacteristics = {}
 
+				// Добавляем в объект значение по ключу
 				tempFilter.physicalCharacteristics[key] = parseInt(value)
 			}
 		}
 
+		// Обновляем filter на наш промежуточный объект
 		updateFilter(tempFilter)
 	}
 

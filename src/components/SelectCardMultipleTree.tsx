@@ -3,8 +3,10 @@ import { MdElectricBolt, MdKeyboardArrowDown } from "react-icons/md";
 import { TreeDataNode, TreeDataNodeChild } from "../types/Types.tsx";
 import { SelectCardMultipleTreeSubList } from "./SelectCardMultipleTreeSubList.tsx";
 import { getTypeProducts } from "../api/Fetches.tsx";
-import { isEqual, uniq } from "lodash";
+import {isEqual, uniq} from "lodash";
+import {useDebouncedCallback} from "use-debounce";
 
+const titles = new Map<string, string>()
 
 export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 	onChange: (types: string[]) => void,
@@ -14,21 +16,28 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const [showList, setShowList] = useState(false)
 	const [checked, setChecked] = useState<string[]>([])
-	const [checkedTitle, setCheckedTitle] = useState<TreeDataNodeChild[] | undefined>(undefined)
+	// const [checkedTitle, setCheckedTitle] = useState<TreeDataNodeChild[] | undefined>(undefined)
 	const [values, setValues] = useState<TreeDataNode[]>()
 	const [className, setClassName] = useState<string>('')
 
 	const [inputValue, setInputValue] = useState<string>('')
+
+	// const [checkedList, setCheckedList] = useState<TreeDataNodeChild>()
 
 	useEffect(() => {
 		(async () => {
 			console.log(inputValue)
 			setValues(await getTypeProducts(inputValue))
 		})()
-	}, [inputValue])
+	}, [])
 
 	useEffect(() => {
-		setCheckedTitle(getCheckedTitle())
+		// setCheckedTitle(getCheckedTitle())
+
+		getCheckedTitle().map(itm => {
+			if (itm.title)
+				titles.set(itm.key, itm.title)
+		})
 	}, [values]);
 
 	useEffect(() => {
@@ -63,6 +72,8 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 	useEffect(() => {
 		if (!isEqual(valuesFilter ?? [], checked))
 			setChecked(valuesFilter ?? [])
+
+
 	}, [valuesFilter])
 
 	useEffect(() => {
@@ -84,10 +95,18 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 		onChange(changes)
 	}
 
+	const debounceOnInput = useDebouncedCallback(
+		async () => {
+			setValues(await getTypeProducts(inputValue))
+		},
+		500
+	)
+
 	const onReset = (): void => {
 		setChecked([])
 		onChange([])
 	}
+
 
 	/* Отрисовка DOM */
 	return <div
@@ -121,9 +140,12 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 									className={`checked-list-item ${highlight?.includes(val) ? '' : (checked.includes(val) ? 'error' : 'disable')}`}
 									onClick={() => changeChecked(val, false)}
 								>
-									<div>{checkedTitle?.map(itm => {
-										if (itm.key == val) return itm.title
-									})}</div>
+									{/*<div>{checkedTitle?.map(itm => {*/}
+									{/*	if (itm.key == val) return itm.title*/}
+									{/*})}</div>*/}
+									<div>
+										{titles.get(val)}
+									</div>
 									<div className='unchecked'></div>
 								</div>
 							})
@@ -133,6 +155,7 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 						<input
 							ref={inputRef}
 							onChange={event => setInputValue(event.currentTarget.value)}
+							onInput={debounceOnInput}
 							value={inputValue}
 						/>
 					</div>

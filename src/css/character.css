@@ -197,12 +197,13 @@ h4 {
 .input-search-list-item.subitem {
   padding-left: 70px;
 }
-.input-search .checked-list {
+
+.checked-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
-.input-search .checked-list-item {
+.checked-list-item {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -216,10 +217,10 @@ h4 {
   border: 1px solid #C4C4C4;
   cursor: pointer;
 }
-.input-search .checked-list-item > div:first-child {
+.checked-list-item > div:first-child {
   text-wrap: nowrap;
 }
-.input-search .checked-list-item .unchecked {
+.checked-list-item .unchecked {
   width: 10px;
   height: 10px;
   background-image: url("/img/cross.svg");
@@ -813,12 +814,18 @@ mark {
   text-align: end;
 }
 
-.choice {
+.option-line {
   display: flex;
   gap: 20px;
+  padding-bottom: 40px;
+  margin-top: -40px;
+  transition: all 0.3s ease;
 }
-.choice div, .choice span {
+.option-line div, .option-line span {
   cursor: pointer;
+}
+.option-line.show {
+  margin-top: 0;
 }
 
 .error-page {

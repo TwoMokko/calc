@@ -6,14 +6,14 @@ export function InputCard({value, char, title, className, onInput, icon}: {value
 
     useEffect(() => {
         setCurrentValue(value ? value + '' : '')
-    }, [value]);
+    }, [value])
 
     const debounceOnInput = useDebouncedCallback(
         (key: string, value: string) => {
             onInput(key, value)
         },
-        2000
-    );
+        1000
+    )
 
     return <div className={className}>
         <h4>{title}</h4>
