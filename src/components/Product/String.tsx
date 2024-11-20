@@ -1,10 +1,19 @@
-import {MdOutlineContentCopy, MdOutlineDoneAll} from "react-icons/md";
-import {useState} from "react";
+import { FC, useState } from "react";
+import { MdOutlineContentCopy, MdOutlineDoneAll } from "react-icons/md";
 
-export function String({head, string, className}: {head: string, string: string, className? : string}): JSX.Element{
-    const [copied, setCopied] = useState(false)
+interface StringProps {
+    head: string,
+    string: string,
+    className? : string
+}
 
-    function copyString(string: string): void {
+export const String: FC<StringProps> = ({head, string, className}): JSX.Element => {
+    /** Constants */
+    const [copied, setCopied] = useState(false)                 // Если состояние true, пользователю будет показано, что у него получилось скопировать
+
+    /** Constants (functions) */
+    /* Копирование строки в буфер обмена */
+    const copyString = (string: string): void => {
         if (string) {
             navigator.clipboard.writeText(string)
                 .then(() => {
@@ -21,6 +30,7 @@ export function String({head, string, className}: {head: string, string: string,
         }
     }
 
+    /** Build DOM */
     return <div className='product-info-string'>
         <div>{head}</div>
         <div className={className}>{string}</div>

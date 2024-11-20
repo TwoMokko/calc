@@ -1,62 +1,43 @@
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { MdElectricBolt, MdKeyboardArrowDown } from "react-icons/md";
 import { TreeDataNode, TreeDataNodeChild } from "../types/Types.tsx";
 import { SelectCardMultipleTreeSubList } from "./SelectCardMultipleTreeSubList.tsx";
 import { getTypeProducts } from "../api/Fetches.tsx";
-import {isEqual, uniq} from "lodash";
-import {useDebouncedCallback} from "use-debounce";
+import { isEqual, uniq } from "lodash";
+import { useDebouncedCallback } from "use-debounce";
 
-const titles = new Map<string, string>()
+// TODO: одинаковые методы, вынести куда-то?
 
-export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
+const titles = new Map<string, string>()				// TODO: дописать
+
+interface SelectCardMultipleTreeProps {
 	onChange: (types: string[]) => void,
 	highlight?: string[],
 	valuesFilter?: string[]
-}): JSX.Element {
-	const inputRef = useRef<HTMLInputElement>(null)
-	const [showList, setShowList] = useState(false)
-	const [checked, setChecked] = useState<string[]>([])
-	// const [checkedTitle, setCheckedTitle] = useState<TreeDataNodeChild[] | undefined>(undefined)
-	const [values, setValues] = useState<TreeDataNode[]>()
-	const [className, setClassName] = useState<string>('')
+}
 
-	const [inputValue, setInputValue] = useState<string>('')
+export const SelectCardMultipleTree: FC<SelectCardMultipleTreeProps> = ({onChange, highlight, valuesFilter}): JSX.Element => {
+	/** Constants */
+	const inputRef = useRef<HTMLInputElement>(null)											// TODO: дописать
+	const [showList, setShowList] = useState(false)											// TODO: дописать
+	const [checked, setChecked] = useState<string[]>([])										// TODO: дописать
+	const [values, setValues] = useState<TreeDataNode[]>()												// TODO: дописать
+	const [className, setClassName] = useState<string>('')									// TODO: дописать
+	const [inputValue, setInputValue] = useState<string>('')									// TODO: дописать
+	// const [checkedTitle, setCheckedTitle] = useState<TreeDataNodeChild[] | undefined>(undefined)
 
 	// const [checkedList, setCheckedList] = useState<TreeDataNodeChild>()
 
-	useEffect(() => {
-		(async () => {
-			console.log(inputValue)
-			setValues(await getTypeProducts(inputValue))
-		})()
-	}, [])
-
-	useEffect(() => {
-		// setCheckedTitle(getCheckedTitle())
-
-		getCheckedTitle().map(itm => {
-			if (itm.title)
-				titles.set(itm.key, itm.title)
-		})
-	}, [values]);
-
-	useEffect(() => {
-		const method = () => {
-			if (inputRef.current != document.activeElement)
-				setShowList(false)
-		}
-
-		document.addEventListener('click', method, false)
-		return () => document.removeEventListener('click', method, false)
-	}, []);
-
+	/** Constants (functions) */
+	/* TODO: дописать */
 	const focusInput = () => {
 		if (showList && inputRef.current)
 			inputRef.current.focus()
 	}
 
-	useEffect(focusInput, [showList]);
-
+	/* Записать все ключи/значения (родителей и детей)
+	в один массив с объектами ключ/значение и вернуть этот массив
+	Нужно, чтобы потом по этому массиву было удобнее бежать */
 	const getCheckedTitle = (): TreeDataNodeChild[] => {
 		let list: TreeDataNodeChild[] = []
 		values?.map(itm => {
@@ -69,22 +50,7 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 		return list
 	}
 
-	useEffect(() => {
-		if (!isEqual(valuesFilter ?? [], checked))
-			setChecked(valuesFilter ?? [])
-
-
-	}, [valuesFilter])
-
-	useEffect(() => {
-		checked.length ?
-			((highlight?.length) ?
-				(checked.some(itm => highlight.includes(itm)) ? setClassName('well') : setClassName('error'))
-				: setClassName('selected-disable'))
-			: ((highlight?.length) ? setClassName('well') : setClassName('disable'))
-	}, [highlight, checked]);
-
-
+	/*  */
 	const changeChecked = (key: string | string[], status?: boolean): void => {
 		let changes = uniq(status
 			? [...checked, ...(typeof key == 'string' ? [key]: key)]
@@ -95,6 +61,7 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 		onChange(changes)
 	}
 
+	/* Посласть запрос на получение новых данных дерева через указанное кол-во миллисекунд бездействия */
 	const debounceOnInput = useDebouncedCallback(
 		async () => {
 			setValues(await getTypeProducts(inputValue))
@@ -102,13 +69,63 @@ export function SelectCardMultipleTree({onChange, highlight, valuesFilter}: {
 		500
 	)
 
+	/* Сбросить значения для выбранных значений (checkbox) и в основных данных через callback */
 	const onReset = (): void => {
 		setChecked([])
 		onChange([])
 	}
 
 
-	/* Отрисовка DOM */
+	/** UseEffects */
+	/* При инициализации компонента отправить запрос и получить дерево данных, записать в состояние values */
+	useEffect(() => {
+		(async () => {
+			setValues(await getTypeProducts(inputValue))
+		})()
+	}, [])
+
+	/* При инициализации компонента TODO: дописать */
+	useEffect(() => {
+		const method = () => {
+			if (inputRef.current != document.activeElement)
+				setShowList(false)
+		}
+
+		document.addEventListener('click', method, false)
+		return () => document.removeEventListener('click', method, false)
+	}, []);
+
+	/* При изменении данных всего дерева TODO: дописать */
+	useEffect(() => {
+		// setCheckedTitle(getCheckedTitle())
+
+		getCheckedTitle().map(itm => {
+			if (itm.title)
+				titles.set(itm.key, itm.title)
+		})
+	}, [values]);
+
+	/* При изменении состояние видимости списка с деревом, вызвать фокус на инпуте */
+	useEffect(focusInput, [showList]);
+
+	/* При изменении данных извне, проверить отличаются ли эти данные от текущих в компоненте, если да, то обновить */
+	useEffect(() => {
+		if (!isEqual(valuesFilter ?? [], checked))
+			setChecked(valuesFilter ?? [])
+	}, [valuesFilter])
+
+
+	/* При изменении списка совместимых параметров или списка выбранных изменить покраску */
+	useEffect(() => {
+		checked.length ?
+			((highlight?.length) ?
+				(checked.some(itm => highlight.includes(itm)) ? setClassName('well') : setClassName('error'))
+				: setClassName('selected-disable'))
+			: ((highlight?.length) ? setClassName('well') : setClassName('disable'))
+	}, [highlight, checked]);
+
+
+	/** Build DOM */
 	return <div
 		className={`input-search character-type ${className}`}
 		// ref={inputRef}

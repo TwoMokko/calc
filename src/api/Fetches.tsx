@@ -1,4 +1,4 @@
-import {optionsData, productData, productsTable, sendData, TreeDataNodes} from "../types/Types.tsx";
+import { optionsData, productData, productsTable, sendData, TreeDataNodes } from "../types/Types.tsx";
 
 /** Domains */
 enum domains {
@@ -9,7 +9,7 @@ enum domains {
 
 /** Запросы на странице с фильтром */
 /* Запрос на получение данных для отрисовки DOM (?fetchDataFirst) */
-export async function fetchData(): Promise<optionsData> {
+export const fetchData = async (): Promise<optionsData> => {
     return await fetch(`${domains.FILTER}/products/options?fetchDataFirst`, {
         method: 'POST',
         headers: {
@@ -20,7 +20,7 @@ export async function fetchData(): Promise<optionsData> {
 }
 
 /* Запрос на получение данных для перерисовки DOM */
-export function sendDataForOptions(filter: sendData, highlight: Function) {
+export const sendDataForOptions = (filter: sendData, highlight: Function) => {
     fetch(`${domains.FILTER}/products/options`, {
         method: 'POST',
         headers: {
@@ -38,7 +38,7 @@ export function sendDataForOptions(filter: sendData, highlight: Function) {
 /* Запрос на получение данных для отрисовки select tree,
 inputValue - это строка, которую вводит пользователь в input Типа продукции,
  далее обновляется дерево выпадающего списка */
-export async function getTypeProducts(inputValue: string): Promise<TreeDataNodes> {
+export const getTypeProducts = async (inputValue: string): Promise<TreeDataNodes> => {
     return await fetch(`${domains.FILTER}/products/types${inputValue ? '?query=' + inputValue : ''}`, {
         method: 'GET',
         headers: {
@@ -49,7 +49,7 @@ export async function getTypeProducts(inputValue: string): Promise<TreeDataNodes
 }
 
 /* Запрос на получение данных для отрисовки и перерисовки таблицы */
-export async function sendDataForProductTable(filter: sendData, currentPage: number, sizePage: number, controller: AbortController): Promise<productsTable> {
+export const sendDataForProductTable = async (filter: sendData, currentPage: number, sizePage: number, controller: AbortController): Promise<productsTable> => {
     return await fetch(`${domains.FILTER}/products/sold?PageId=${currentPage}&PageSize=${sizePage}`, {
         method: 'POST',
         headers: {
@@ -66,7 +66,7 @@ export async function sendDataForProductTable(filter: sendData, currentPage: num
 
 /** Запросы на странице с одним товаром продукции */
 /* Запрос на получение данных для отрисовки страницы товара продукции по артикулу */
-export async function getDataForProduct(string: string): Promise<productData> {
+export const getDataForProduct = async (string: string): Promise<productData> => {
     return await fetch(`${domains.PRODUCT}/api/Specification/${string}`)
         .then(async response => {
             return await response.json()

@@ -10,7 +10,7 @@ import { Top } from "../components/Filter/Top.tsx";
 import useSearchFilterParams from "../hooks/useSearchFilterParams.tsx";
 
 export const CalcPage = (): JSX.Element => {
-    /** States */
+    /** Constants */
     const [filter, setFilter] = useSearchFilterParams()                             // Данные, которые отправляются на сервер (выбранные опции и прочее)
     const [data, setData] = useState<optionsData | undefined>()                     // Данные для каждой опции, которые приходят от сервера один раз в самом начале (select list: все опции)
     const [highlight, setHighlight] = useState<optionsData | undefined>()           // Данные для каждой опции, которые приходят от сервера каждый раз (select list: опции, которые можно выбрать)
@@ -19,8 +19,9 @@ export const CalcPage = (): JSX.Element => {
 
 
     /** UseEffects */
+    /* Запрос при инициализации компонента,
+    получение и установка данных для отрисовки страницы */
     useEffect(() => {
-        // Запрос при инициализации компонента, получение и установка данных для отрисовки страницы
         (async () => {
             setData(await fetchData())
         })()
@@ -37,8 +38,7 @@ export const CalcPage = (): JSX.Element => {
     }, [filter]);
 
 
-    /** Constants */
-
+    /** Constants (functions) */
     /* Изменение конкретной характеристики в объекте filter.physicalCharacteristics */
     const onChangeChar = (chars?: physicalCharacteristics): void => {
         setFilter(prev => {
@@ -139,7 +139,6 @@ export const CalcPage = (): JSX.Element => {
 
 
     /** Build DOM */
-
     /* Проверка, пришли ли данные для отрисовки DOM  */
     if (!data)
         return <div className='loading'>

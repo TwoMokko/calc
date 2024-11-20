@@ -1,5 +1,5 @@
-import {Outlet} from "react-router-dom";
-import {Nav} from "../components/Nav.tsx";
+import { Outlet } from "react-router-dom";
+import { Nav } from "../components/Nav.tsx";
 
 
 export default function Layout () {

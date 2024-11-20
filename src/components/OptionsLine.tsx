@@ -1,20 +1,25 @@
-import {FC, useEffect, useState} from "react";
-import {connection, physicalCharacteristics, sendData} from "../types/Types.tsx";
-import {ru} from "../data/Languages.tsx";
+import { FC, useEffect, useState } from "react";
+import { connection, physicalCharacteristics, sendData } from "../types/Types.tsx";
+import { ru } from "../data/Languages.tsx";
 
 interface ChoiceOptionsStringProps {
 	filter: sendData,
 	onDeleteAtChoiceString: (funcName: string, key: string | connection | keyof physicalCharacteristics) => void,
 }
 
-const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceString}): JSX.Element => {
+export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceString}): JSX.Element => {
+	/** Constants */
 	const [show, setShow] = useState<boolean>(false)					// отвечает за то, показать или срыть весь компонент
 
-	/* Если нечего показывать в строке, то меняем стейт, чтобы поменялся класс (для плавного появления-исчезновения) */
+
+	/** UseEffects */
+	/* Если нечего показывать в строке, то меняем состояние, чтобы поменялся класс (для плавного появления-исчезновения) */
 	useEffect(() => {
 		(!filter.options && !filter.physicalCharacteristics && !filter.connections?.length) ? setShow(false) : setShow(true)
 	}, [filter]);
 
+
+	/** Build DOM */
 	return <div className={`option-line ${show ? 'show' : ''}`}>
 		{
 			// Бежим по выбранным опциям и отрисовываем их в строке
@@ -24,6 +29,7 @@ const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceStri
 				onClick={() => onDeleteAtChoiceString('onDeleteOption', opt.key)}
 				className='checked-list-item'
 			>
+				{ru[opt.key].icon}
 				<div>{opt.value}</div>
 				<div className='unchecked'></div>
 			</div>)
@@ -40,24 +46,26 @@ const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceStri
 				{
 					// Если в цикле массив connection имеет тип подсоединения, то отрисовываем его, иначе ничего не делаем
 					con.connectionType &&
-						<div onClick={() => onDeleteAtChoiceString('onDeleteConnection', {
-							connectionNo: con.connectionNo,
-							connectionSize: con.connectionSize
-						})} title={`Тип ${con.connectionNo}`} className='checked-list-item'>
-							<div>{con.connectionType}</div>
-							<div className='unchecked'></div>
-						</div>
+                    <div onClick={() => onDeleteAtChoiceString('onDeleteConnection', {
+						connectionNo: con.connectionNo,
+						connectionSize: con.connectionSize
+					})} title={`Тип ${con.connectionNo}`} className='checked-list-item'>
+						{ru[`connectionTypes${con.connectionNo}`].icon}
+                        <div>{con.connectionType}</div>
+                        <div className='unchecked'></div>
+                    </div>
 				}
 				{
 					// Если в цикле массив connection имеет размер подсоединения, то отрисовываем его, иначе ничего не делаем
 					con.connectionSize &&
-						<div onClick={() => onDeleteAtChoiceString('onDeleteConnection', {
-							connectionNo: con.connectionNo,
-							connectionType: con.connectionType
-						})} title={`Размер ${con.connectionNo}`} className='checked-list-item'>
-							<div>{con.connectionSize}</div>
-							<div className='unchecked'></div>
-						</div>
+                    <div onClick={() => onDeleteAtChoiceString('onDeleteConnection', {
+						connectionNo: con.connectionNo,
+						connectionType: con.connectionType
+					})} title={`Размер ${con.connectionNo}`} className='checked-list-item'>
+						{ru[`connectionSizes${con.connectionNo}`].icon}
+                        <div>{con.connectionSize}</div>
+                        <div className='unchecked'></div>
+                    </div>
 				}
 			</>)
 		}
@@ -69,11 +77,10 @@ const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceStri
 				onClick={() => onDeleteAtChoiceString('onDeleteCharacteristic', char[0])}
 				className='checked-list-item'
 			>
+				{ru[char[0]].icon}
 				<div>{char[1]}</div>
 				<div className='unchecked'></div>
 			</div>)
 		}
 	</div>
 }
-
-export default OptionsLine

@@ -1,12 +1,12 @@
-import {physicalCharacteristics, sendData} from "../types/Types.tsx";
-import {useSearchParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { physicalCharacteristics, sendData } from "../types/Types.tsx";
+import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 type UpdateFilter = ((prevState: sendData) => sendData) | sendData
 
 const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where?: string) => void] => {
-	const [searchParams, setSearchParams] = useSearchParams()
-	const [filter, setFilter] = useState<sendData>({})				// данные такие, как filter в calcPage
+	const [searchParams, setSearchParams] = useSearchParams()					// Данные, которые находятся в адресной строке, и функция обновления этих данных
+	const [filter, setFilter] = useState<sendData>({})				// Данные такие, как filter в calcPage
 
 	/* Эта функция нужна, чтобы узнать, где именно вызывается setFilter, если раскомментировать where */
 	const updateFilter = (changedFilter: UpdateFilter/*, where?: string*/) => {

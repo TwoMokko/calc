@@ -1,3 +1,4 @@
+import {FC} from "react";
 import {
     MdKeyboardArrowLeft,
     MdKeyboardArrowRight,
@@ -5,9 +6,13 @@ import {
     MdKeyboardDoubleArrowRight
 } from "react-icons/md";
 
-export function Pagination({page, limit, onChangePage}: {page: number, limit: number, onChangePage: (page: number) => void}): JSX.Element {
+interface PaginationProps {
+    page: number,
+    limit: number,
+    onChangePage: (page: number) => void
+}
 
-
+export const Pagination: FC<PaginationProps> = ({page, limit, onChangePage}): JSX.Element => {
 
     return <div className='pagination'>
         <button

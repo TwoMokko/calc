@@ -1,9 +1,16 @@
-import {MdCalculate} from "react-icons/md";
-import {Button} from "../Button.tsx";
-import OptionsLine from "../OptionsLine.tsx";
-import {connection, physicalCharacteristics, sendData} from "../../types/Types.tsx";
+import {FC} from "react";
+import { MdCalculate } from "react-icons/md";
+import { Button } from "../Button.tsx";
+import { OptionsLine } from "../OptionsLine.tsx";
+import { connection, physicalCharacteristics, sendData } from "../../types/Types.tsx";
 
-export function Top({doReset, filter, onDeleteAtChoiceString}: {doReset: () => void, filter: sendData, onDeleteAtChoiceString: (funcName: string, key: string | connection | keyof physicalCharacteristics) => void}): JSX.Element {
+interface TopProps {
+    doReset: () => void,
+    filter: sendData,
+    onDeleteAtChoiceString: (funcName: string, key: string | connection | keyof physicalCharacteristics) => void
+}
+
+export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString}): JSX.Element => {
     return <div className='calc-top-wrap'>
         <div className='calc-top'>
             <h1>

@@ -8,13 +8,16 @@ import { MdCalculate } from "react-icons/md";
 import { String } from "../components/Product/String.tsx";
 import { CgClose } from "react-icons/cg";
 import { PiEqualsBold } from "react-icons/pi";
-import Error from "../components/Error.tsx";
+import { Error } from "../components/Error.tsx";
 
 
 export function ProductPage(): JSX.Element {
+    /** Constants */
     const [data, setData] = useState<productData | undefined>()         // Данные, получаемые из запроса по артикулу
     const {article} = useParams()                                       // Артикль продукции, из адресной строки
 
+
+    /** Constants (functions) */
     /* Формирование строки для поля (Наличие на складе), составляется из массива stockAvailability */
     const getStockString = (data: productData): string => {
         let str = ''
@@ -28,6 +31,8 @@ export function ProductPage(): JSX.Element {
     if (!article)
         return <div className='not-found'>Нету</div>
 
+
+    /** UseEffects */
     useEffect(() => {
         // Запрос при инициализации компонента, получение и установка данных для отрисовки страницы
         (async () => {
@@ -35,6 +40,8 @@ export function ProductPage(): JSX.Element {
         })()
     }, [])
 
+
+    /** Build DOM */
     /* Проверка, пришли ли данные для отрисовки DOM  */
     if (!data)
         return <div className='loading'>
