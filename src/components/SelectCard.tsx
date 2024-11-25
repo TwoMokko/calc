@@ -10,10 +10,15 @@ interface SelectCardProps {
 	values: string[],
 	onChange: (value: string) => void,
 	highlight: string[] | undefined,
-	onDelete?: () => void
+	onDelete?: () => void,
+	not?: {
+		color?: boolean,
+		search?: boolean,
+		reset?: boolean
+	}
 }
 
-export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange, highlight, onDelete}): JSX.Element => {
+export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange, highlight, onDelete, not}): JSX.Element => {
 	/** Constants */
 	const inputRef = useRef<HTMLInputElement>(null)							// TODO: дописать
 	const [showList, setShowList] = useState<boolean>(false)					// TODO: дописать
@@ -99,6 +104,11 @@ export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange
 
 	/* При изменении списка совместимых параметров или выбранного значения изменить покраску */
 	useEffect(() => {
+		if (not?.color) {
+			setClassName('not-color')
+			return
+		}
+
 		currentValue ?
 			(highlight?.length ?
 				(highlight?.includes(currentValue) ? setClassName('well') : setClassName('error'))
@@ -131,21 +141,24 @@ export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange
 				{ ru[option].icon }
 
 				{
-					currentValue ? <div
-						className='checked-list-item'
-						onMouseDown={onReset}
-						title={`сбросить значение: ${currentValue}`}
-					>
-						<div>{currentValue}</div>
-						<div
-							className='unchecked'
-						></div>
-					</div> : ''
+					!not?.reset
+						? (currentValue ? <div
+							className='checked-list-item'
+							onMouseDown={onReset}
+							title={`сбросить значение: ${currentValue}`}
+						>
+							<div>{currentValue}</div>
+							<div
+								className='unchecked'
+							></div>
+						</div> : '')
+						: currentValue
 				}
 
 
-				<div className='input-search-wrap-text'>
+				<div className={`input-search-wrap-text ${not?.search ? 'flex-null' : ''}`}>
 					<input
+						readOnly={not?.search}
 						ref={inputRef}
 						value={inputValue}
 						onChange={event => {

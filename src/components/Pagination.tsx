@@ -19,28 +19,33 @@ export const Pagination: FC<PaginationProps> = ({page, limit, onChangePage}): JS
             className={`${page == 1 ? 'not-active' : ''}`}
             onClick={() => onChangePage(1)}
         >
-            <MdKeyboardDoubleArrowLeft />
+            <MdKeyboardDoubleArrowLeft/>
         </button>
         <button
             className={`${page == 1 ? 'not-active' : ''}`}
             onClick={() => onChangePage(page - 1)}
         >
-            <MdKeyboardArrowLeft />
+            <MdKeyboardArrowLeft/>
         </button>
 
         <button className='number'>{page}</button>
+        {/*<input*/}
+        {/*    className='number'*/}
+        {/*    onBlur={event => onChangePage(parseInt(event.currentTarget.value))}*/}
+        {/*    defaultValue={page}*/}
+        {/*/>*/}
 
         <button
             className={`${page == limit ? 'not-active' : ''}`}
             onClick={() => onChangePage(page + 1)}
         >
-            <MdKeyboardArrowRight />
+            <MdKeyboardArrowRight/>
         </button>
         <button
             className={`${page == limit ? 'not-active' : ''}`}
             onClick={() => onChangePage(limit)}
         >
-            <MdKeyboardDoubleArrowRight />
+            <MdKeyboardDoubleArrowRight/>
         </button>
     </div>
 }

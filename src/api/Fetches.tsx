@@ -49,8 +49,8 @@ export const getTypeProducts = async (inputValue: string): Promise<TreeDataNodes
 }
 
 /* Запрос на получение данных для отрисовки и перерисовки таблицы */
-export const sendDataForProductTable = async (filter: sendData, currentPage: number, sizePage: number, controller: AbortController): Promise<productsTable> => {
-    return await fetch(`${domains.FILTER}/products/sold?PageId=${currentPage}&PageSize=${sizePage}`, {
+export const sendDataForProductTable = async (filter: sendData, currentPage: number, sizePage: number, sortState: string, controller: AbortController): Promise<productsTable> => {
+    return await fetch(`${domains.FILTER}/products/sold?PageId=${currentPage}&PageSize=${sizePage}&State=${sortState}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

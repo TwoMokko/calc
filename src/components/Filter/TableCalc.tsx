@@ -4,6 +4,7 @@ import { sendDataForProductTable } from "../../api/Fetches.tsx";
 import { Pagination } from "../Pagination.tsx";
 import { TiThMenu } from "react-icons/ti";
 import { useSearchParams } from "react-router-dom";
+import {SelectCard} from "../SelectCard.tsx";
 
 interface TableCalcProps {
 	filter: sendData,
@@ -13,6 +14,13 @@ interface TableCalcProps {
 
 const pageSearchParamName = 'page'
 const pageSizeSearchParamName = 'pageSize'
+
+const states: { [key: string]: string } = {
+	rating: 'по рейтингу',
+	pressure: 'по давлению'
+}
+
+const stateDefault = 'rating'
 
 export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSize*/}): JSX.Element => {
 	/** Constants */
@@ -25,6 +33,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 	const [limit, setLimit] = useState<number>(1)											// Номер последней страницы (кол-во страниц)
 	const [rows, setRows] = useState<soldProducts[]>([])									// Данные для строк в таблице, которые приходят с сервера
 	const [loading, setLoading] = useState<boolean>(false)								// Состояние загрузки
+	const [sort, setSort] = useState<string>(stateDefault)
 
 	const abortController = useRef<AbortController | null>(null)							// Для прерывания запроса, если поступил новый запрос, а от предыдущего ответ ещё не получен
 
@@ -41,7 +50,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		// Установка состояния загрузки, чтобы пользователь видел, что идет запрос
 		setLoading(true)
 		// Отправка запроса на получание данных для таблицы, получение результата
-		const result = await sendDataForProductTable(filter, page, size, abortController.current)
+		const result = await sendDataForProductTable(filter, page, size, sort, abortController.current)
 		// Снятие состояния загрузки
 		setLoading(false)
 
@@ -61,10 +70,16 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		if (size < 5)
 			size = 5
 
-		if (size > 100)
-			size = 100
+		if (size > 50)
+			size = 50
 
 		setSize(size)
+	}
+
+	const prepareSetSort = (newValue:  string): void => {
+		for (const [key, value] of Object.entries(states)) {
+			if (value === newValue) setSort(key)
+		}
 	}
 
 
@@ -74,7 +89,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 	получить и обновить данные таблицы для первой страницы */
 	useEffect(() => {
 		updateTable(1)
-	}, [filter, size])
+	}, [filter, size, sort])
 
 
 	/* Когда меняется номер страницы,
@@ -94,7 +109,14 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		<div className='table-size'>
 			<div className='table-size-head'>Результат</div>
 
-			{/*вынести куда-то отдельно*/}
+			<div className='sort-state-wrap'>
+				<SelectCard value={states[sort]} option='sortState' values={Object.values(states)} onChange={prepareSetSort} highlight={Object.values(states)} not={{
+					color: true,
+					search: true,
+					reset: true
+				}} />
+			</div>
+			{/* TODO вынести куда-то отдельно */}
 
 			<div>
 				<h4>Количество строк</h4>

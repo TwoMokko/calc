@@ -65,6 +65,7 @@ import {
 	MdZoomInMap
 } from "react-icons/md";
 import {languageData} from "../types/Types.tsx";
+import {BiSortAlt2} from "react-icons/bi";
 
 /* Для отрисовки селектов на странице фильтра */
 export const ru:  languageData = {
@@ -133,4 +134,5 @@ export const ru:  languageData = {
 	maxTemperature: { title: 'Макс температура рабочей среды', icon: <MdOutlineThermostat /> },
 	maxPressure: { title: 'Макс давление настройки', icon: <MdOutlineFullscreen /> },
 	dn: { title: 'Dn', icon: <MdOutlineCenterFocusWeak /> },
+	sortState: { title: 'Сортировка', icon: <BiSortAlt2 /> },
 }

@@ -98,6 +98,7 @@ h4 {
   width: 28px;
   height: auto;
   cursor: pointer;
+  margin-left: auto;
   transition: transform 0.3s ease-in-out;
 }
 .input-search-wrap-top svg:last-child:hover {
@@ -828,6 +829,16 @@ mark {
 
 .error-page {
   padding-top: 40px;
+}
+
+.sort-state-wrap {
+  width: 210px;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.flex-null {
+  flex: 0;
 }
 
 /*# sourceMappingURL=character.css.map */
