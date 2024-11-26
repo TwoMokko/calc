@@ -64,8 +64,8 @@ import {
 	MdWater,
 	MdZoomInMap
 } from "react-icons/md";
-import {languageData} from "../types/Types.tsx";
-import {BiSortAlt2} from "react-icons/bi";
+import { languageData } from "../types/Types.tsx";
+import { BiSortAlt2 } from "react-icons/bi";
 
 /* Для отрисовки селектов на странице фильтра */
 export const ru:  languageData = {

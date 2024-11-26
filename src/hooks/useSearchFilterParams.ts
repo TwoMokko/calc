@@ -1,11 +1,14 @@
 import { physicalCharacteristics, sendData } from "../types/Types.tsx";
-import { useSearchParams } from "react-router-dom";
+// import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import UseSearchAllParams, {searchParamsFrom} from "./useSearchAllParams.ts";
+// import UseSearchAllParams, {searchParamsFrom} from "./useSearchAllParams.ts";
 
 type UpdateFilter = ((prevState: sendData) => sendData) | sendData
 
 const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where?: string) => void] => {
-	const [searchParams, setSearchParams] = useSearchParams()					// Данные, которые находятся в адресной строке, и функция обновления этих данных
+	const [searchParams, setSearchParams] = UseSearchAllParams()					// Данные, которые находятся в адресной строке, и функция обновления этих данных
+	// const [searchParams, setSearchParams] = useSearchParams()					// Данные, которые находятся в адресной строке, и функция обновления этих данных
 	const [filter, setFilter] = useState<sendData>({})				// Данные такие, как filter в calcPage
 
 	/* Эта функция нужна, чтобы узнать, где именно вызывается setFilter, если раскомментировать where */
@@ -30,12 +33,12 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 	const changeSearchParams = () => {
 		// Если filter пустой, то сделать searchParams пустыми тоже
 		if (!Object.keys(filter).length) {
-			setSearchParams({})
+			setSearchParams({}, searchParamsFrom.FROM_FILTER)
 			return;
 		}
 
 		// Создание промежуточного объекта, который в дальнейшем наполняется данными
-		let obj: {[key: string]: string[] | string} = {}
+		let obj: {[key: string]: string} = {}
 
 		// Если есть type, typeProduct записать из в промежуточный объект под одноименным ключом со значением ввиде строки (через точку, заменяя пробелы на нижнее подчеркивание)
 		if (filter.type) obj['type'] = filter.type.join('.')
@@ -60,9 +63,13 @@ const UseSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where
 			}
 		})
 
+		// for (const [key, val] of Object.entries(obj)) {
+		// 	searchParams.set(key, val)
+		// }
+		// setSearchParams(searchParams)
 
 		// Обновить searchParams на данные, собранные в промежуточный объект (obj)
-		setSearchParams(obj)
+		setSearchParams(obj, searchParamsFrom.FROM_FILTER)
 		// Обновить фильтр, надо ли?
 		updateFilter(filter)
 	}

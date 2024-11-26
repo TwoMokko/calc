@@ -7,7 +7,7 @@ import { TableCalc } from "../components/Filter/TableCalc.tsx";
 import { connection, optionsData, physicalCharacteristics } from "../types/Types.tsx";
 import { fetchData, sendDataForOptions } from "../api/Fetches.tsx";
 import { Top } from "../components/Filter/Top.tsx";
-import useSearchFilterParams from "../hooks/useSearchFilterParams.tsx";
+import useSearchFilterParams from "../hooks/useSearchFilterParams.ts";
 
 export const CalcPage = (): JSX.Element => {
     /** Constants */

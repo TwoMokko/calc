@@ -3,8 +3,9 @@ import { sendData, soldProducts } from "../../types/Types.tsx";
 import { sendDataForProductTable } from "../../api/Fetches.tsx";
 import { Pagination } from "../Pagination.tsx";
 import { TiThMenu } from "react-icons/ti";
-import { useSearchParams } from "react-router-dom";
-import {SelectCard} from "../SelectCard.tsx";
+import { SelectCard } from "../SelectCard.tsx";
+import UseSearchTableParams from "../../hooks/useSearchTableParams.ts";
+// import UseSearchTableParams from "../../hooks/useSearchTableParams.ts";
 
 interface TableCalcProps {
 	filter: sendData,
@@ -12,30 +13,30 @@ interface TableCalcProps {
 	defaultPage?: number
 }
 
-const pageSearchParamName = 'page'
-const pageSizeSearchParamName = 'pageSize'
-
 const states: { [key: string]: string } = {
 	rating: 'по рейтингу',
 	pressure: 'по давлению'
 }
 
-const stateDefault = 'rating'
+export const stateDefault = 'rating'
 
 export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSize*/}): JSX.Element => {
 	/** Constants */
-	const [searchParams] = useSearchParams()														// TODO: searchParams (сохранение размера и номера страницы)
-	const pageSearch: string = searchParams.get(pageSearchParamName) ?? '1'							// Номер страницы (либо из адресной строки, либо по дефолту = 1)
-	const pageSizeSearch: string = searchParams.get(pageSizeSearchParamName) ?? '20'				// Количество строк, отображаемых в таблице (либо из адресной строки, либо по дефолту = 20)
+	const [searchParams, setSearchParams] = UseSearchTableParams()									// TODO: searchParams (сохранение размера и номера страницы)
 
-	const [page, setPage] = useState<number>(parseInt(pageSearch))									// Номер страницы
-	const [size, setSize] = useState<number>(parseInt(pageSizeSearch))								// Количество строк, отображаемых в таблице
+	const [page, setPage] = useState<number>(searchParams.page)										// Номер страницы
+	const [size, setSize] = useState<number>(searchParams.size)										// Количество строк, отображаемых в таблице
+	const [sort, setSort] = useState<string>(searchParams.sort)										// Параметр сортировки таблицы (ключ на английском)
+
+	// const [page, setPage] = useState<number>(1)
+	// const [size, setSize] = useState<number>(20)
+	// const [sort, setSort] = useState<string>(stateDefault)
 	const [limit, setLimit] = useState<number>(1)											// Номер последней страницы (кол-во страниц)
 	const [rows, setRows] = useState<soldProducts[]>([])									// Данные для строк в таблице, которые приходят с сервера
 	const [loading, setLoading] = useState<boolean>(false)								// Состояние загрузки
-	const [sort, setSort] = useState<string>(stateDefault)
 
 	const abortController = useRef<AbortController | null>(null)							// Для прерывания запроса, если поступил новый запрос, а от предыдущего ответ ещё не получен
+
 
 
 	/** Constants (functions) */
@@ -76,6 +77,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		setSize(size)
 	}
 
+	/* Обновление состояния сортировки по значению (рус) */
 	const prepareSetSort = (newValue:  string): void => {
 		for (const [key, value] of Object.entries(states)) {
 			if (value === newValue) setSort(key)
@@ -90,6 +92,14 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 	useEffect(() => {
 		updateTable(1)
 	}, [filter, size, sort])
+
+	useEffect(() => {
+		setSearchParams({
+			page: page,
+			size: size,
+			sort: sort
+		})
+	}, [size, sort, page]);
 
 
 	/* Когда меняется номер страницы,
