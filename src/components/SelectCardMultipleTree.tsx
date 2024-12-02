@@ -1,22 +1,24 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { MdElectricBolt, MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown } from "react-icons/md";
 import { TreeDataNode, TreeDataNodeChild } from "../types/Types.tsx";
 import { SelectCardMultipleTreeSubList } from "./SelectCardMultipleTreeSubList.tsx";
 import { getTypeProducts } from "../api/Fetches.tsx";
 import { isEqual, uniq } from "lodash";
 import { useDebouncedCallback } from "use-debounce";
+import {ru} from "../data/Languages.tsx";
 
 // TODO: одинаковые методы, вынести куда-то?
 
 const titles = new Map<string, string>()				// TODO: дописать
 
 interface SelectCardMultipleTreeProps {
+	title: string,
 	onChange: (types: string[]) => void,
 	highlight?: string[],
 	valuesFilter?: string[]
 }
 
-export const SelectCardMultipleTree: FC<SelectCardMultipleTreeProps> = ({onChange, highlight, valuesFilter}): JSX.Element => {
+export const SelectCardMultipleTree: FC<SelectCardMultipleTreeProps> = ({title, onChange, highlight, valuesFilter}): JSX.Element => {
 	/** Constants */
 	const inputRef = useRef<HTMLInputElement>(null)											// TODO: дописать
 	const [showList, setShowList] = useState(false)											// TODO: дописать
@@ -133,12 +135,12 @@ export const SelectCardMultipleTree: FC<SelectCardMultipleTreeProps> = ({onChang
 		// className={`input-search character-type`}
 	>
 		<div className='input-search-head'>
-			<h4>Тип продукции</h4>
+			<h4>{ru[title].title}</h4>
 			{
 				(checked.length > 0) && <div
                     onClick={onReset}
                     className='reset-option'
-                    title={'сбросить: Тип продукции'}
+                    title={`сбросить: ${ru[title].title}`}
                 >
                 </div>
 			}
@@ -147,7 +149,7 @@ export const SelectCardMultipleTree: FC<SelectCardMultipleTreeProps> = ({onChang
 			<div className='input-search-wrap-top'
 				 onClick={() => setShowList(true)}
 			>
-				<MdElectricBolt/>
+				{ ru[title].icon }
 				<div className='input-search-wrap-text-wrap'>
 					<div className='checked-list'>
 						{

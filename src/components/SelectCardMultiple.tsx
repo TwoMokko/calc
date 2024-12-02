@@ -1,6 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { isEqual } from "lodash";
-import { MdElectricBolt, MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import {ru} from "../data/Languages.tsx";
 
 // TODO: одинаковые методы, вынести куда-то?
 
@@ -113,12 +114,12 @@ export const SelectCardMultiple: FC<SelectCardMultipleProps> = ({title, value, v
 		className={`input-search ${className}`}
 	>
 		<div className='input-search-head'>
-			<h4>{title}</h4>
+			<h4>{ru[title].title}</h4>
 			{
 				(checked.length > 0) && <div
                     onClick={() => onClick('')}
                     className='reset-option'
-                    title={`сбросить: ${title}`}
+                    title={`сбросить: ${ru[title].title}`}
                 >
                 </div>
 			}
@@ -127,7 +128,7 @@ export const SelectCardMultiple: FC<SelectCardMultipleProps> = ({title, value, v
 			<div className='input-search-wrap-top'
 				 onClick={() => setShowList(true)}
 			>
-				<MdElectricBolt/>
+				{ ru[title].icon }
 				<div className='input-search-wrap-text-wrap'>
 					{
 						checked.length > 0 && <div className='checked-list'>

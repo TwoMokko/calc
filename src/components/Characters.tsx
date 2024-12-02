@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from "react";
 import { InputCard } from "./InputCard.tsx";
-import { physicalCharacteristics } from "../types/Types.tsx";
+import {FilterOptionType, physicalCharacteristics} from "../types/Types.tsx";
 import { isEqual } from "lodash";
 import { SelectCardMultipleTree } from "./SelectCardMultipleTree.tsx";
 import { ru } from "../data/Languages.tsx";
@@ -8,11 +8,10 @@ import { ru } from "../data/Languages.tsx";
 /* Нужно, чтобы создать определенное количество полей */
 const characteristic: string[] = [
 	'minTemperature',
-	'minPressure',
 	'cv',
+	'pressure',
 	'bodyPressure',
 	'maxTemperature',
-	'maxPressure',
 	'dn',
 ]
 
@@ -57,6 +56,7 @@ export const Characters: FC<CharactersProps> = ({values, onChange, valuesTree, h
 		<section className={`section ${colorSelect ? '' : 'not-color'}`}>
 			<h2>Характеристики</h2>
 			<SelectCardMultipleTree
+				title={FilterOptionType.TYPE_PRODUCT}
 				onChange={onChangeSelectTree}
 				highlight={highlightTree}
 				valuesFilter={valuesTree}

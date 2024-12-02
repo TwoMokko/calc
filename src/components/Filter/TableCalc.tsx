@@ -1,10 +1,10 @@
-import {FC, useEffect, useRef, useState} from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { sendData, soldProducts } from "../../types/Types.tsx";
 import { sendDataForProductTable } from "../../api/Fetches.tsx";
 import { Pagination } from "../Pagination.tsx";
 import { TiThMenu } from "react-icons/ti";
 import { SelectCard } from "../SelectCard.tsx";
-import UseSearchTableParams from "../../hooks/useSearchTableParams.ts";
+import useSearchController from "../../hooks/useSearchController.ts";
 // import UseSearchTableParams from "../../hooks/useSearchTableParams.ts";
 
 interface TableCalcProps {
@@ -18,16 +18,11 @@ const states: { [key: string]: string } = {
 	pressure: 'по давлению'
 }
 
-export const stateDefault = 'rating'
-
 export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSize*/}): JSX.Element => {
 	/** Constants */
-	const [searchParams, setSearchParams] = UseSearchTableParams()									// TODO: searchParams (сохранение размера и номера страницы)
+	const [{page, sort, size}, setUrl] =  useSearchController()
 
-	const [page, setPage] = useState<number>(searchParams.page)										// Номер страницы
-	const [size, setSize] = useState<number>(searchParams.size)										// Количество строк, отображаемых в таблице
-	const [sort, setSort] = useState<string>(searchParams.sort)										// Параметр сортировки таблицы (ключ на английском)
-
+	console.log({page, sort, size})
 	// const [page, setPage] = useState<number>(1)
 	// const [size, setSize] = useState<number>(20)
 	// const [sort, setSort] = useState<string>(stateDefault)
@@ -41,7 +36,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 
 	/** Constants (functions) */
 	/* Обновление данных , от которых зависит перерисовка таблицы */
-	const updateTable = async (page: number): Promise<void> => {
+	const updateTable = async (page: string): Promise<void> => {
 		// Прерывание предыдущего запроса
 		if (abortController.current)
 			abortController.current.abort()
@@ -51,7 +46,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		// Установка состояния загрузки, чтобы пользователь видел, что идет запрос
 		setLoading(true)
 		// Отправка запроса на получание данных для таблицы, получение результата
-		const result = await sendDataForProductTable(filter, page, size, sort, abortController.current)
+		const result = await sendDataForProductTable(filter, parseInt(page), parseInt(size), sort, abortController.current)
 		// Снятие состояния загрузки
 		setLoading(false)
 
@@ -60,7 +55,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		// Установить новые значения переменных: строк таблицы (продукция), кол-во страниц, номер текущей страницы
 		setRows(result.soldProducts)
 		setLimit(result.availablePages)
-		setPage(page)
+		setUrl('page', page)
 	}
 
 	/* Проверка того, что ввёл пользователь
@@ -74,13 +69,13 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		if (size > 50)
 			size = 50
 
-		setSize(size)
+		setUrl('size', size.toString())
 	}
 
 	/* Обновление состояния сортировки по значению (рус) */
 	const prepareSetSort = (newValue:  string): void => {
 		for (const [key, value] of Object.entries(states)) {
-			if (value === newValue) setSort(key)
+			if (value === newValue) setUrl('sort', key)
 		}
 	}
 
@@ -90,16 +85,14 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 	или количество отображаемых строк в таблице,
 	получить и обновить данные таблицы для первой страницы */
 	useEffect(() => {
-		updateTable(1)
+		updateTable('1')
 	}, [filter, size, sort])
 
-	useEffect(() => {
-		setSearchParams({
-			page: page,
-			size: size,
-			sort: sort
-		})
-	}, [size, sort, page]);
+	// useEffect(() => {
+	// 	setUrl('page', page)
+	// 	setUrl('size', size)
+	// 	setUrl('sort', sort)
+	// }, [size, sort, page]);
 
 
 	/* Когда меняется номер страницы,
@@ -164,7 +157,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 			</tr>
 			</thead>
 			<tbody>
-			{rows.slice(0, size).map((itm: soldProducts, id: number) => {
+			{rows.slice(0, parseInt(size)).map((itm: soldProducts, id: number) => {
 				return <tr key={id}>
 					<td>
 						<a
@@ -192,10 +185,10 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 			// !loading &&
 			limit > 1 ?
 			<Pagination
-				page={page}
+				page={parseInt(page)}
 				limit={limit}
 
-				onChangePage={page => setPage(page)}
+				onChangePage={page => setUrl('page', page.toString())}
 			/> : ''
 		}
 	</>

@@ -3,11 +3,11 @@ import { Characters } from "../components/Characters.tsx";
 import { SelectCardMultiple } from "../components/SelectCardMultiple.tsx";
 import { SelectCard } from "../components/SelectCard.tsx";
 import { Connection } from "../components/Connection.tsx";
-import { TableCalc } from "../components/Filter/TableCalc.tsx";
-import { connection, optionsData, physicalCharacteristics } from "../types/Types.tsx";
+// import { TableCalc } from "../components/Filter/TableCalc.tsx";
+import {connection, FilterOptionType, optionsData, physicalCharacteristics} from "../types/Types.tsx";
 import { fetchData, sendDataForOptions } from "../api/Fetches.tsx";
 import { Top } from "../components/Filter/Top.tsx";
-import useSearchFilterParams from "../hooks/useSearchFilterParams.ts";
+import { useSearchFilterParams } from "../hooks/useSearchFilterParams.ts";
 
 export const CalcPage = (): JSX.Element => {
     /** Constants */
@@ -168,7 +168,7 @@ export const CalcPage = (): JSX.Element => {
 
             <section className='option-type'>
                 <SelectCardMultiple
-                    title='Тип изделия'
+                    title={FilterOptionType.TYPE}
                     value={filter.type}
                     values={data.type}
                     onChange={types => onChangeType(types)}
@@ -214,7 +214,7 @@ export const CalcPage = (): JSX.Element => {
         </section>
 
         <section className='table-wrap section'>
-            <TableCalc filter={filter} />
+            {/*<TableCalc filter={filter} />*/}
         </section>
     </>
 }
