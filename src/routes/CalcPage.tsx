@@ -3,7 +3,7 @@ import { Characters } from "../components/Characters.tsx";
 import { SelectCardMultiple } from "../components/SelectCardMultiple.tsx";
 import { SelectCard } from "../components/SelectCard.tsx";
 import { Connection } from "../components/Connection.tsx";
-// import { TableCalc } from "../components/Filter/TableCalc.tsx";
+import { TableCalc } from "../components/Filter/TableCalc.tsx";
 import {connection, FilterOptionType, optionsData, physicalCharacteristics} from "../types/Types.tsx";
 import { fetchData, sendDataForOptions } from "../api/Fetches.tsx";
 import { Top } from "../components/Filter/Top.tsx";
@@ -29,8 +29,9 @@ export const CalcPage = (): JSX.Element => {
 
 
     useEffect(() => {
+        // TODO: переписать
         // После измениня фильтра проверка: если фильтр пустой, то не подкрашивать все опции
-        setColorSelect(!(!filter.physicalCharacteristics && !filter.type && !filter.options && !filter.connections?.length && !filter.productType))
+        setColorSelect(!((!filter.physicalCharacteristics || !Object.keys(filter.physicalCharacteristics).length) && (!filter.type || !filter.type.length) && (!filter.options || !filter.options.length) && !filter.connections?.length && (!filter.productType || !filter.productType.length)))
 
         // После измениня фильтра отправка запроса (с новым фильтром и функцией, которая устанавливает новые данные, которые можно выбрать )
         if (data)
@@ -214,7 +215,7 @@ export const CalcPage = (): JSX.Element => {
         </section>
 
         <section className='table-wrap section'>
-            {/*<TableCalc filter={filter} />*/}
+            <TableCalc filter={filter} />
         </section>
     </>
 }

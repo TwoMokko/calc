@@ -4,8 +4,7 @@ import { sendDataForProductTable } from "../../api/Fetches.tsx";
 import { Pagination } from "../Pagination.tsx";
 import { TiThMenu } from "react-icons/ti";
 import { SelectCard } from "../SelectCard.tsx";
-import useSearchController from "../../hooks/useSearchController.ts";
-// import UseSearchTableParams from "../../hooks/useSearchTableParams.ts";
+import useSearchController from "../../hooks/useSearchController.tsx";
 
 interface TableCalcProps {
 	filter: sendData,
@@ -18,20 +17,14 @@ const states: { [key: string]: string } = {
 	pressure: 'по давлению'
 }
 
-export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSize*/}): JSX.Element => {
+export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 	/** Constants */
-	const [{page, sort, size}, setUrl] =  useSearchController()
-
-	console.log({page, sort, size})
-	// const [page, setPage] = useState<number>(1)
-	// const [size, setSize] = useState<number>(20)
-	// const [sort, setSort] = useState<string>(stateDefault)
+	const {urls: {page, sort, size}, setValue} =  useSearchController()
 	const [limit, setLimit] = useState<number>(1)											// Номер последней страницы (кол-во страниц)
 	const [rows, setRows] = useState<soldProducts[]>([])									// Данные для строк в таблице, которые приходят с сервера
 	const [loading, setLoading] = useState<boolean>(false)								// Состояние загрузки
 
 	const abortController = useRef<AbortController | null>(null)							// Для прерывания запроса, если поступил новый запрос, а от предыдущего ответ ещё не получен
-
 
 
 	/** Constants (functions) */
@@ -46,7 +39,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		// Установка состояния загрузки, чтобы пользователь видел, что идет запрос
 		setLoading(true)
 		// Отправка запроса на получание данных для таблицы, получение результата
-		const result = await sendDataForProductTable(filter, parseInt(page), parseInt(size), sort, abortController.current)
+		const result = await sendDataForProductTable(filter, parseInt(page), parseInt(size ?? '20'), sort ?? 'rating', abortController.current)
 		// Снятие состояния загрузки
 		setLoading(false)
 
@@ -55,7 +48,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		// Установить новые значения переменных: строк таблицы (продукция), кол-во страниц, номер текущей страницы
 		setRows(result.soldProducts)
 		setLimit(result.availablePages)
-		setUrl('page', page)
+		setValue('page', page)
 	}
 
 	/* Проверка того, что ввёл пользователь
@@ -69,13 +62,13 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		if (size > 50)
 			size = 50
 
-		setUrl('size', size.toString())
+		setValue('size', size.toString())
 	}
 
 	/* Обновление состояния сортировки по значению (рус) */
 	const prepareSetSort = (newValue:  string): void => {
 		for (const [key, value] of Object.entries(states)) {
-			if (value === newValue) setUrl('sort', key)
+			if (value === newValue) setValue('sort', key)
 		}
 	}
 
@@ -88,17 +81,10 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 		updateTable('1')
 	}, [filter, size, sort])
 
-	// useEffect(() => {
-	// 	setUrl('page', page)
-	// 	setUrl('size', size)
-	// 	setUrl('sort', sort)
-	// }, [size, sort, page]);
-
-
 	/* Когда меняется номер страницы,
 	получить и обновить данные таблицы для этой страницы */
 	useEffect(() => {
-		updateTable(page)
+		updateTable(page ?? '1')
 	}, [page])
 
 
@@ -113,14 +99,14 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 			<div className='table-size-head'>Результат</div>
 
 			<div className='sort-state-wrap'>
-				<SelectCard value={states[sort]} option='sortState' values={Object.values(states)} onChange={prepareSetSort} highlight={Object.values(states)} not={{
+				<SelectCard value={states[sort ?? 'rating']} option='sort' values={Object.values(states)} onChange={prepareSetSort} highlight={Object.values(states)} not={{
 					color: true,
 					search: true,
 					reset: true
 				}} />
 			</div>
-			{/* TODO вынести куда-то отдельно */}
 
+			{/* TODO вынести куда-то отдельно */}
 			<div>
 				<h4>Количество строк</h4>
 				<div className='table-size-input'>
@@ -157,7 +143,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 			</tr>
 			</thead>
 			<tbody>
-			{rows.slice(0, parseInt(size)).map((itm: soldProducts, id: number) => {
+			{rows.slice(0, parseInt(size ?? '20')).map((itm: soldProducts, id: number) => {
 				return <tr key={id}>
 					<td>
 						<a
@@ -185,10 +171,10 @@ export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSiz
 			// !loading &&
 			limit > 1 ?
 			<Pagination
-				page={parseInt(page)}
+				page={parseInt(page ?? '1')}
 				limit={limit}
 
-				onChangePage={page => setUrl('page', page.toString())}
+				onChangePage={page => setValue('page', page.toString())}
 			/> : ''
 		}
 	</>
