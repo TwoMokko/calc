@@ -153,6 +153,8 @@ export function ProductPage(): JSX.Element {
             </section>
         }
 
+
+
         {data.bodydArticul && data.bodydArticul.historyPrices.length > 0 &&
             <section className='section'>
                 <h2>История изменения цен</h2>
