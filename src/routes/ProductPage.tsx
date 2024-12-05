@@ -1,60 +1,50 @@
-import { useEffect, useState } from "react";
-import { TableProd } from "../components/Product/TableProd.tsx";
-import { useParams } from "react-router-dom";
-import { getDataForProduct } from "../api/Fetches.tsx";
-import { productData } from "../types/Types.tsx";
-import { Breadcrumbs } from "../components/Breadcrumbs.tsx";
-import { MdCalculate } from "react-icons/md";
-import { String } from "../components/Product/String.tsx";
-import { CgClose } from "react-icons/cg";
-import { PiEqualsBold } from "react-icons/pi";
-import { Error } from "../components/Error.tsx";
+import {useEffect, useState} from "react";
+import {TableProd} from "../components/Product/TableProd.tsx";
+import {useParams} from "react-router-dom";
+import {getDataForProduct} from "../api/Fetches.tsx";
+import {productData} from "../types/Types.tsx";
+import {Breadcrumbs} from "../components/Breadcrumbs.tsx";
+import {MdCalculate} from "react-icons/md";
+import {String} from "../components/Product/String.tsx";
+import {CgClose} from "react-icons/cg";
+import {PiEqualsBold} from "react-icons/pi";
 
 
 export function ProductPage(): JSX.Element {
-    /** Constants */
-    const [data, setData] = useState<productData | undefined>()         // Данные, получаемые из запроса по артикулу
-    const {article} = useParams()                                       // Артикль продукции, из адресной строки
+    const [data, setData] = useState<productData | undefined>()
+    const {article} = useParams()
 
+    function stockString(data: productData): string {
+        let str = ''
+        data.stockAvailability.map((tr: string[]) => {
+            str += tr[0] + ' ' + tr[1] + ' шт \r\n'
+        })
+        return str
+    }
 
-    /** Constants (functions) */
-    // /* Формирование строки для поля (Наличие на складе), составляется из массива stockAvailability */
-    // const getStockString = (data: productData): string => {
-    //     let str = ''
-    //     data.stockAvailability.map((tr: string[]) => {
-    //         str += tr[0] + ' ' + tr[1] + ' шт \r\n'
-    //     })
-    //     return str
-    // }
-
-    /* Если в адресной строке нет параметра article */
     if (!article)
         return <div className='not-found'>Нету</div>
 
-
-    /** UseEffects */
     useEffect(() => {
-        // Запрос при инициализации компонента, получение и установка данных для отрисовки страницы
         (async () => {
             setData(await getDataForProduct(article))
         })()
     }, [])
 
-
-    /** Build DOM */
-    /* Проверка, пришли ли данные для отрисовки DOM  */
     if (!data)
         return <div className='loading'>
             <div></div>
             <div>Загрузка</div>
         </div>
 
-    /* Если ответ приходит со статусом ошибки 404, то отрисовать компонент Error  */
     if (data.status == 404)
-        return <Error />
+        return <div>
+            <h1>error 404</h1>
+            <h4>ничего не найдено</h4>
+        </div>
 
-    /* Отрисовка DOM */
     return <>
+
         <div className='calc-top-wrap'>
             <Breadcrumbs
                 links={[
@@ -70,13 +60,16 @@ export function ProductPage(): JSX.Element {
             </div>
         </div>
 
-        <section className='product-info block-prod section'>
+        <section
+            className='product-info block-prod section'
+        >
             <h2>Характеристики</h2>
             <String head='Артикул' string={data.rightArticul}/>
             <String head='Полное наименование' string={data.title}/>
             <String head='Строка для 1С' string={data.oneCString}/>
-            {/*<String head='Наличие на складе' string={getStockString(data)} className='stock'/>*/}
-            <String head='Данные о цене' string={`${data.priceInfo.priceForClient}${data.priceInfo.priceFrom ? ` (${data.priceInfo.priceFrom})` : ''}`}/>
+            <String head='Наличие на складе' string={stockString(data)} className='stock'/>
+            <String head='Данные о цене'
+                    string={`${data.priceInfo.priceForClient}${data.priceInfo.priceFrom ? ` (${data.priceInfo.priceFrom})` : ''}`}/>
 
             <div className='product-price-calculator'>
                 <h4>Расчет стоимости</h4>
@@ -117,28 +110,6 @@ export function ProductPage(): JSX.Element {
                 </div>
             </div>
         </section>
-
-        {data.stockAvailability &&
-            <section className='section'>
-                <h2>Наличие на складе</h2>
-                {/*<h3>{data.stockAvailability.nameTable}</h3>*/}
-                <h3>Название таблицы</h3>
-                <div className='product-history-price-wrap'>
-                    <TableProd
-                        data={
-                            {
-                                nameTable: 'Название таблицы',
-                                historyPrices: [
-                                    {purchasePrice: 1, datePrice: 'string', namePriceFor: 'string', quantity: 1},
-                                    {purchasePrice: 1, datePrice: 'string', namePriceFor: 'string', quantity: 1}
-                                ]
-                            }
-                        }
-                        className='table'
-                    />
-                </div>
-            </section>
-        }
 
         {data.buildArticul && data.buildArticul.historyPrices.length > 0 &&
             <section className='block-prod section'>

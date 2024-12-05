@@ -1,26 +1,20 @@
-import { FC, useEffect, useState } from "react";
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { TreeDataNode } from "../types/Types.tsx";
+import {useEffect, useState} from "react";
+import {MdKeyboardArrowDown} from "react-icons/md";
+import {TreeDataNode} from "../types/Types.tsx";
 
 const arrayInclude = (array1: string[], array2: string[]) => {
 	return array1.length ? array1.filter(itm => array2.includes(itm)).length == array1.length : false
 }
 
-interface SelectCardMultipleTreeSubListProps {
+export function SelectCardMultipleTreeSubList({onChange, highlight, treeData, focusInput, checked}: {
 	onChange: (key: string | string[], status?: boolean, parentKey?: string) => void,
 	highlight?: string[],
 	treeData: TreeDataNode,
 	focusInput?: () => void,
 	checked: string[],
-}
+}): JSX.Element {
+	const [showSubList, setShowSubList] = useState(false)
 
-export const SelectCardMultipleTreeSubList: FC<SelectCardMultipleTreeSubListProps> = ({onChange, highlight, treeData, focusInput, checked}): JSX.Element => {
-	/** Constants */
-	const [showSubList, setShowSubList] = useState(false)							// Состояние видимости внутреннего списка (детей)
-
-
-	/** UseEffects */
-	/* При изменении совместимых параметров, показать внутренний список, в котором присутствуют совместимиые параметры */
 	useEffect(() => {
 		treeData.childs?.map(itm => {
 			if (showSubList) return
@@ -28,8 +22,11 @@ export const SelectCardMultipleTreeSubList: FC<SelectCardMultipleTreeSubListProp
 		})
 	}, [highlight]);
 
+	function changeShowSubList(): void {
+		console.log('что-то еще в этой функции надо сделать?')
+		setShowSubList(!showSubList)
+	}
 
-	/** Build DOM */
 	return <>
 		<div
 			// className='tree'
@@ -40,7 +37,7 @@ export const SelectCardMultipleTreeSubList: FC<SelectCardMultipleTreeSubListProp
 		>
 			<MdKeyboardArrowDown
 				className={`tree-show ${showSubList ? 'show' : ''}`}
-				onClick={() => setShowSubList(!showSubList)}
+				onClick={() => changeShowSubList()}
 			/>
 			<label
 				// className={`input-search-list-item ${highlight?.includes(treeData.key) ? 'well' : (checked.includes(treeData.key) ? 'error' : 'disable')}`}

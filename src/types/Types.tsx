@@ -36,12 +36,11 @@ export type optionsData = {
 
 export interface physicalCharacteristics {
     minTemperature?: number,
-    // minPressure?: number,
+    minPressure?: number,
     cv?: number,
-    pressure?: number,
     bodyPressure?: number,
     maxTemperature?: number,
-    // maxPressure?: number,
+    maxPressure?: number,
     dn?: number,
 }
 
@@ -104,24 +103,10 @@ export type productData = {
     oneCString: string
 }
 
-
-export enum FilterOptionType {
-    OPTION = 'options',
-    CHARACTERISTIC = 'characters',
-    CONNECTION_TYPE = 'connectionType',
-    CONNECTION_SIZE = 'connectionSize',
-    TYPE = 'type',
-    TYPE_PRODUCT = 'productType',
-}
-
-
 export type languageData = {
     [key: string]: {
         title: string,
-        icon: JSX.Element,
-        default?: string,
-        type?: FilterOptionType,
-        index?: number,
+        icon: JSX.Element
     }
 }
 
