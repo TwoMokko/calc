@@ -1,4 +1,6 @@
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { RiPassportFill } from "react-icons/ri";
+import { FaTape } from "react-icons/fa";
 import {
     MdAutoAwesomeMosaic,
     MdCalculate,
@@ -7,8 +9,8 @@ import {
     MdFilterBAndW,
     MdFilterHdr
 } from "react-icons/md";
-import {RiPassportFill} from "react-icons/ri";
-import {FaTape} from "react-icons/fa";
+import {useState} from "react";
+import {TbLayoutSidebarLeftCollapse, TbLayoutSidebarRightCollapse} from "react-icons/tb";
 
 const links = [
     {
@@ -58,9 +60,10 @@ const links = [
     },
 ]
 
-export function Nav(): JSX.Element {
+export const Sidebar = (): JSX.Element => {
+    const [collapsed, setCollapsed] = useState<boolean>(true)
 
-    return <nav className='nav-main'>
+    return <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
         {
             links.map(elem => {
                 return <NavLink
@@ -71,9 +74,17 @@ export function Nav(): JSX.Element {
                     }
                 >
                     {elem.icon}
-                    <div>{elem.title}</div>
+                    <div className='sidebar-text'>{elem.title}</div>
                 </NavLink>
             })
         }
-    </nav>
+
+        <button
+            className='collapsed-btn'
+            onClick={() => setCollapsed(!collapsed)}
+            title={collapsed ? 'Показать sidebar' : 'Скрыть sidebar'}
+        >
+            {collapsed ? <TbLayoutSidebarRightCollapse /> : <TbLayoutSidebarLeftCollapse />}
+        </button>
+    </aside>
 }

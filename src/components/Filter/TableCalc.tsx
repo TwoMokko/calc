@@ -1,75 +1,123 @@
-import {sendData, soldProducts} from "../../types/Types.tsx";
-import {useEffect, useRef, useState} from "react";
-import {sendDataForProductTable} from "../../api/Fetches.tsx";
-import {Pagination} from "../Pagination.tsx";
-import {TiThMenu} from "react-icons/ti";
-import {useSearchParams} from "react-router-dom";
+import { FC, useEffect, useRef, useState } from "react";
+import { sendData, soldProducts } from "../../types/Types.tsx";
+import { sendDataForProductTable } from "../../api/Fetches.tsx";
+import { Pagination } from "../Pagination.tsx";
+import { TiThMenu } from "react-icons/ti";
+import { SelectCard } from "../SelectCard.tsx";
+import useSearchController from "../../hooks/useSearchController.tsx";
 
-const pageSearchParamName = 'page'
-const pageSizeSearchParamName = 'pageSize'
-
-export function TableCalc({filter, /*defaultPage, defaultSize*/}: {
+interface TableCalcProps {
 	filter: sendData,
 	defaultSize?: number,
 	defaultPage?: number
-}): JSX.Element {
-	const [searchParams] = useSearchParams()
-	const pageSearch: string = searchParams.get(pageSearchParamName) ?? '1'
-	const pageSizeSearch: string = searchParams.get(pageSizeSearchParamName) ?? '20'
+}
 
-	const [page, setPage] = useState(parseInt(pageSearch))
-	const [size, setSize] = useState(parseInt(pageSizeSearch))
-	const [limit, setLimit] = useState(1)
-	const [rows, setRows] = useState<soldProducts[]>([])
-	const abortController = useRef<AbortController | null>(null)
-	const [loading, setLoading] = useState(false)
+const states: { [key: string]: string } = {
+	rating: 'по рейтингу',
+	pressure: 'по давлению'
+}
 
-	async function updateTable(page: number): Promise<void> {
+export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
+	/** Constants */
+	const {urls: {page, sort, size}, setValue} =  useSearchController()
+	const [limit, setLimit] = useState<number>(1)											// Номер последней страницы (кол-во страниц)
+	const [rows, setRows] = useState<soldProducts[]>([])									// Данные для строк в таблице, которые приходят с сервера
+	const [loading, setLoading] = useState<boolean>(false)								// Состояние загрузки
+
+	const abortController = useRef<AbortController | null>(null)							// Для прерывания запроса, если поступил новый запрос, а от предыдущего ответ ещё не получен
+
+
+	/** Constants (functions) */
+	/* Обновление данных , от которых зависит перерисовка таблицы */
+	const updateTable = async (page: string): Promise<void> => {
+		// Прерывание предыдущего запроса
 		if (abortController.current)
 			abortController.current.abort()
 
 		abortController.current = new AbortController()
 
+		// Установка состояния загрузки, чтобы пользователь видел, что идет запрос
 		setLoading(true)
-		const result = await sendDataForProductTable(filter, page, size, abortController.current)
+		// Отправка запроса на получание данных для таблицы, получение результата
+		const result = await sendDataForProductTable(filter, parseInt(page), parseInt(size ?? '20'), sort ?? 'rating', abortController.current)
+		// Снятие состояния загрузки
 		setLoading(false)
 
+		// Если ответ пришел, установить состояние текущего запроса в null
 		abortController.current = null
+		// Установить новые значения переменных: строк таблицы (продукция), кол-во страниц, номер текущей страницы
 		setRows(result.soldProducts)
 		setLimit(result.availablePages)
-		setPage(page)
-
+		setValue('page', page)
 	}
 
-	useEffect(() => {
-		updateTable(1)
-	}, [filter, size])
-
-	useEffect(() => {
-		updateTable(page)
-	}, [page])
-
-
-	function validateSize(val: string) {
+	/* Проверка того, что ввёл пользователь
+	(размер должен быть не меньше 5 и не больше 100)
+	и после этого установка нвоого значения size */
+	const validateSize = (val: string) => {
 		let size = parseInt(val ? val : '0')
 		if (size < 5)
 			size = 5
 
-		if (size > 100)
-			size = 100
+		if (size > 50)
+			size = 50
 
-		setSize(size)
+		setValue('size', size.toString())
 	}
 
+	/* Обновление состояния сортировки по значению (рус) */
+	const prepareSetSort = (newValue:  string): void => {
+		for (const [key, value] of Object.entries(states)) {
+			if (value === newValue) setValue('sort', key)
+		}
+	}
+
+
+	/** UseEffects */
+	/* Когда меняются выбранные данные в filter
+	или количество отображаемых строк в таблице,
+	получить и обновить данные таблицы для первой страницы */
+	useEffect(() => {
+		updateTable('1')
+	}, [filter, size, sort])
+
+	/* Когда меняется номер страницы,
+	получить и обновить данные таблицы для этой страницы */
+	useEffect(() => {
+		updateTable(page ?? '1')
+	}, [page])
+
+
+	/** Build DOM */
+	/* Проверка, пришли ли данные для отрисовки DOM  */
 	if (!rows?.length) return <div className='not-found'>По вашему запросу ничего не найдено, измените данные
 		поиска</div>
 
+	/* Отрисовка DOM */
 	return <>
 		<div className='table-size'>
 			<div className='table-size-head'>Результат</div>
 
-			{/*вынести куда-то отдельно*/}
+			<div className='sort-wrap'>
+				<SelectCard
+					value={states[sort ?? 'rating']} option='sort' values={Object.values(states)}
+					onChange={prepareSetSort} highlight={Object.values(states)} not={{
+					color: true,
+					search: true,
+					reset: true
+				}}
+				/>
+				<SelectCard
+					value={states[sort ?? 'rating']} option='sort' values={Object.values(states)}
+					onChange={prepareSetSort} highlight={Object.values(states)} not={{
+					color: true,
+					search: true,
+					reset: true
+				}}
+				/>
+			</div>
 
+			{/* TODO вынести куда-то отдельно */}
 			<div>
 				<h4>Количество строк</h4>
 				<div className='table-size-input'>
@@ -96,17 +144,17 @@ export function TableCalc({filter, /*defaultPage, defaultSize*/}: {
 				<th>Артикул</th>
 				<th>На складе</th>
 				<th>Давление</th>
-				<th>Мин температура</th>
-				<th>Макс температура</th>
+				<th>Мин темп</th>
+				<th>Макс темп</th>
 				<th>Рейтинг типа</th>
 				<th>Рейтинг самого товара</th>
-				<th>Количество заказов</th>
-				<th>Количество купленных</th>
+				<th>Кол-во заказов</th>
+				<th>Кол-во купленных</th>
 				<th>Цена</th>
 			</tr>
 			</thead>
 			<tbody>
-			{rows.slice(0, size).map((itm: soldProducts, id: number) => {
+			{rows.slice(0, parseInt(size ?? '20')).map((itm: soldProducts, id: number) => {
 				return <tr key={id}>
 					<td>
 						<a
@@ -134,10 +182,10 @@ export function TableCalc({filter, /*defaultPage, defaultSize*/}: {
 			// !loading &&
 			limit > 1 ?
 			<Pagination
-				page={page}
+				page={parseInt(page ?? '1')}
 				limit={limit}
 
-				onChangePage={page => setPage(page)}
+				onChangePage={page => setValue('page', page.toString())}
 			/> : ''
 		}
 	</>

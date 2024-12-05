@@ -1,0 +1,65 @@
+@use "sass:map";
+@use "variable" as *;
+
+.sidebar {
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background-color: $colorBackgroundLight;
+    height: calc(100vh - 104px);
+    position: sticky;
+    top: 0;
+    bottom: 0;
+
+    &.collapsed {
+        width: fit-content;
+        .sidebar-text {
+            display: none;
+        }
+    }
+
+    &:not(.collapsed) {
+        flex: 20%;
+        .sidebar-text {
+
+        }
+    }
+
+        > a {
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            color: $colorIcons;
+
+            &:hover {
+                background-color: $colorHover;
+            }
+            &.active {
+                color: $colorTextAccent;
+                //> svg {}
+            }
+            > svg {
+              width: 15px;
+              height: 15px;
+            }
+        }
+
+    .collapsed-btn {
+        color: $colorIcons;
+        cursor: pointer;
+        width: fit-content;
+        margin-top: auto;
+        position: fixed;
+        bottom: 20px;
+        > svg {
+            width: 20px;
+            height: 20px;
+        }
+        &:hover {
+            color: $colorTextAccent;
+        }
+    }
+}

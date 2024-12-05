@@ -45,6 +45,7 @@
 					width: 28px;
 					height: auto;
 					cursor: pointer;
+					margin-left: auto;
 					transition: transform 0.3s ease-in-out;
 
 					&:hover {
@@ -188,40 +189,41 @@
 
 		}
 	}
+}
 
-	.checked-list {
+.checked-list {
+	display: flex;
+	flex-wrap: wrap;
+	//padding: 12px 0;
+	gap: 8px;
+
+	&-item {
 		display: flex;
-		flex-wrap: wrap;
-		//padding: 12px 0;
-		gap: 8px;
+		align-items: center;
+		gap: 6px;
+		padding: 0 6px 0 10px;
+		background-color: $colorBackgroundLight;
+		font-size: 13px;
+		font-weight: 400;
+		line-height: 20px;
+		color: $colorTextMediumLight;
+		border-radius: 28px;
+		border: 1px solid $colorBorderInput;
+		cursor: pointer;
 
-		&-item {
-			display: flex;
-			align-items: center;
-			gap: 6px;
-			padding: 0 6px 0 10px;
-			background-color: $colorBackgroundLight;
-			font-size: 13px;
-			font-weight: 400;
-			line-height: 20px;
-			color: $colorTextMediumLight;
-			border-radius: 28px;
-			border: 1px solid $colorBorderInput;
-			cursor: pointer;
+		> div:first-child {
+			text-wrap: nowrap;
+		}
 
-			> div:first-child {
-				text-wrap: nowrap;
-			}
+		.unchecked {
+			width: 10px;
+			height: 10px;
+			background-image: url("/img/cross.svg");
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
 
-			.unchecked {
-				width: 10px;
-				height: 10px;
-				background-image: url("/img/cross.svg");
-				background-size: contain;
-				background-position: center;
-				background-repeat: no-repeat;
-
-			}
 		}
 	}
 }
+

@@ -1,14 +1,17 @@
-import {Outlet} from "react-router-dom";
-import {Nav} from "../components/Nav.tsx";
+import { Outlet } from "react-router-dom";
+import { Sidebar } from "../components/Sidebar.tsx";
+import {SearchContextProvider} from "../hooks/useSearchController.tsx";
 
 
 export default function Layout () {
 
     return <>
-       <Nav></Nav>
-        <main>
-            <Outlet />
-        </main>
+       <Sidebar></Sidebar>
+        <SearchContextProvider>
+            <main>
+                <Outlet />
+            </main>
+       </SearchContextProvider>
     </>
 
 }

@@ -1,7 +1,15 @@
-export function Button({title, className, onClick}: {title: string, className?: string, onClick: Function}): JSX.Element {
+import { FC } from "react";
+
+interface ButtonProps {
+    title: string,
+    className?: string,
+    onClick: () => void
+}
+
+export const Button: FC<ButtonProps> = ({title, className, onClick}): JSX.Element => {
     return <button
         className={'btn ' + className}
-        onClick={() => {onClick()}}
+        onClick={onClick}
     >
         <span></span>
         {title}
