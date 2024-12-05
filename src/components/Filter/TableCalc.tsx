@@ -98,12 +98,23 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 		<div className='table-size'>
 			<div className='table-size-head'>Результат</div>
 
-			<div className='sort-state-wrap'>
-				<SelectCard value={states[sort ?? 'rating']} option='sort' values={Object.values(states)} onChange={prepareSetSort} highlight={Object.values(states)} not={{
+			<div className='sort-wrap'>
+				<SelectCard
+					value={states[sort ?? 'rating']} option='sort' values={Object.values(states)}
+					onChange={prepareSetSort} highlight={Object.values(states)} not={{
 					color: true,
 					search: true,
 					reset: true
-				}} />
+				}}
+				/>
+				<SelectCard
+					value={states[sort ?? 'rating']} option='sort' values={Object.values(states)}
+					onChange={prepareSetSort} highlight={Object.values(states)} not={{
+					color: true,
+					search: true,
+					reset: true
+				}}
+				/>
 			</div>
 
 			{/* TODO вынести куда-то отдельно */}
@@ -133,12 +144,12 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 				<th>Артикул</th>
 				<th>На складе</th>
 				<th>Давление</th>
-				<th>Мин температура</th>
-				<th>Макс температура</th>
+				<th>Мин темп</th>
+				<th>Макс темп</th>
 				<th>Рейтинг типа</th>
 				<th>Рейтинг самого товара</th>
-				<th>Количество заказов</th>
-				<th>Количество купленных</th>
+				<th>Кол-во заказов</th>
+				<th>Кол-во купленных</th>
 				<th>Цена</th>
 			</tr>
 			</thead>

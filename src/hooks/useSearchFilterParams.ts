@@ -76,7 +76,7 @@ export const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter
 					if (filter.options?.hasOwnProperty(urlKey)) {}
 					break;
 				case FilterOptionType.CHARACTERISTIC:
-					if (filter?.physicalCharacteristics && urlKey in filter?.physicalCharacteristics) {
+					if (filter?.physicalCharacteristics) {
 						const char: number | undefined = filter.physicalCharacteristics[urlKey as keyof physicalCharacteristics]
 						temp[urlKey] = char ? char.toString() : ''
 					}

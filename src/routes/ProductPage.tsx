@@ -18,14 +18,14 @@ export function ProductPage(): JSX.Element {
 
 
     /** Constants (functions) */
-    /* Формирование строки для поля (Наличие на складе), составляется из массива stockAvailability */
-    const getStockString = (data: productData): string => {
-        let str = ''
-        data.stockAvailability.map((tr: string[]) => {
-            str += tr[0] + ' ' + tr[1] + ' шт \r\n'
-        })
-        return str
-    }
+    // /* Формирование строки для поля (Наличие на складе), составляется из массива stockAvailability */
+    // const getStockString = (data: productData): string => {
+    //     let str = ''
+    //     data.stockAvailability.map((tr: string[]) => {
+    //         str += tr[0] + ' ' + tr[1] + ' шт \r\n'
+    //     })
+    //     return str
+    // }
 
     /* Если в адресной строке нет параметра article */
     if (!article)
@@ -75,7 +75,7 @@ export function ProductPage(): JSX.Element {
             <String head='Артикул' string={data.rightArticul}/>
             <String head='Полное наименование' string={data.title}/>
             <String head='Строка для 1С' string={data.oneCString}/>
-            <String head='Наличие на складе' string={getStockString(data)} className='stock'/>
+            {/*<String head='Наличие на складе' string={getStockString(data)} className='stock'/>*/}
             <String head='Данные о цене' string={`${data.priceInfo.priceForClient}${data.priceInfo.priceFrom ? ` (${data.priceInfo.priceFrom})` : ''}`}/>
 
             <div className='product-price-calculator'>
@@ -117,6 +117,28 @@ export function ProductPage(): JSX.Element {
                 </div>
             </div>
         </section>
+
+        {data.stockAvailability &&
+            <section className='section'>
+                <h2>Наличие на складе</h2>
+                {/*<h3>{data.stockAvailability.nameTable}</h3>*/}
+                <h3>Название таблицы</h3>
+                <div className='product-history-price-wrap'>
+                    <TableProd
+                        data={
+                            {
+                                nameTable: 'Название таблицы',
+                                historyPrices: [
+                                    {purchasePrice: 1, datePrice: 'string', namePriceFor: 'string', quantity: 1},
+                                    {purchasePrice: 1, datePrice: 'string', namePriceFor: 'string', quantity: 1}
+                                ]
+                            }
+                        }
+                        className='table'
+                    />
+                </div>
+            </section>
+        }
 
         {data.buildArticul && data.buildArticul.historyPrices.length > 0 &&
             <section className='block-prod section'>

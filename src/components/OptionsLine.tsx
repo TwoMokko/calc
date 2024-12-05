@@ -71,16 +71,18 @@ export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtCho
 		}
 		{
 			// Бежим по выбранным характеристикам и,если они существуют, отрисовываем их в строке
-			filter.physicalCharacteristics && Object.entries(filter.physicalCharacteristics).map(char => <div
-				key={char[0]}
-				title={ru[char[0]].title}
-				onClick={() => onDeleteAtChoiceString('onDeleteCharacteristic', char[0])}
-				className='checked-list-item'
-			>
-				{ru[char[0]].icon}
-				<div>{char[1]}</div>
-				<div className='unchecked'></div>
-			</div>)
+			filter.physicalCharacteristics && Object.entries(filter.physicalCharacteristics).map(char => {
+				if (char[1]) return <div
+					key={char[0]}
+					title={ru[char[0]].title}
+					onClick={() => onDeleteAtChoiceString('onDeleteCharacteristic', char[0])}
+					className='checked-list-item'
+				>
+					{ru[char[0]].icon}
+					<div>{char[1]}</div>
+					<div className='unchecked'></div>
+				</div>
+			})
 		}
 	</div>
 }

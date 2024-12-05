@@ -7,7 +7,7 @@ interface TableProdProps {
 }
 
 export const TableProd: FC<TableProdProps> = ({data, className}) => {
-    return data.historyPrices.length > 1 && <table className={className}>
+    return data.historyPrices.length > 0 && <table className={className}>
         <thead>
         <tr>
             <th>Цена закупки</th>
