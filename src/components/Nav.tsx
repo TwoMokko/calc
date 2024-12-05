@@ -1,6 +1,4 @@
-import { NavLink } from "react-router-dom";
-import { RiPassportFill } from "react-icons/ri";
-import { FaTape } from "react-icons/fa";
+import {NavLink} from "react-router-dom";
 import {
     MdAutoAwesomeMosaic,
     MdCalculate,
@@ -9,6 +7,8 @@ import {
     MdFilterBAndW,
     MdFilterHdr
 } from "react-icons/md";
+import {RiPassportFill} from "react-icons/ri";
+import {FaTape} from "react-icons/fa";
 
 const links = [
     {
@@ -58,7 +58,7 @@ const links = [
     },
 ]
 
-export const Nav = (): JSX.Element => {
+export function Nav(): JSX.Element {
 
     return <nav className='nav-main'>
         {

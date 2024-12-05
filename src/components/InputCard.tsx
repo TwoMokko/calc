@@ -1,38 +1,20 @@
-import { FC, useEffect, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
+import {useEffect, useState} from "react";
+import {useDebouncedCallback} from "use-debounce";
 
-interface InputCardProps {
-    value?: number,
-    char: string,
-    title: string,
-    className: string,
-    onInput: (char: string, value: string) => void,
-    icon: JSX.Element
-}
+export function InputCard({value, char, title, className, onInput, icon}: {value?: number, char: string, title: string, className: string, onInput: (char: string, value: string) => void, icon: JSX.Element}): JSX.Element {
+    const [currentValue, setCurrentValue] = useState('')
 
-export const InputCard: FC<InputCardProps> = ({value, char, title, className, onInput, icon}): JSX.Element => {
-    /** Constants */
-    const [currentValue, setCurrentValue] = useState<string>('')                // Значение в поле input
+    useEffect(() => {
+        setCurrentValue(value ? value + '' : '')
+    }, [value]);
 
-
-    /** Constants (functions) */
-    /* Вызов callback функции onInput через указанное кол-во миллисекунд бездействия */
     const debounceOnInput = useDebouncedCallback(
         (key: string, value: string) => {
             onInput(key, value)
         },
-        1000
-    )
+        2000
+    );
 
-
-    /** UseEffects */
-    /* При изменении данных, приходящих извне устанавливать значение currentValue */
-    useEffect(() => {
-        setCurrentValue(value ? value + '' : '')
-    }, [value])
-
-
-    /** Build DOM */
     return <div className={className}>
         <h4>{title}</h4>
         <div className='input-wrap'>

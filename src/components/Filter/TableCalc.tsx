@@ -1,132 +1,74 @@
-import {FC, useEffect, useRef, useState} from "react";
-import { sendData, soldProducts } from "../../types/Types.tsx";
-import { sendDataForProductTable } from "../../api/Fetches.tsx";
-import { Pagination } from "../Pagination.tsx";
-import { TiThMenu } from "react-icons/ti";
-import { SelectCard } from "../SelectCard.tsx";
-import UseSearchTableParams from "../../hooks/useSearchTableParams.ts";
-// import UseSearchTableParams from "../../hooks/useSearchTableParams.ts";
+import {sendData, soldProducts} from "../../types/Types.tsx";
+import {useEffect, useRef, useState} from "react";
+import {sendDataForProductTable} from "../../api/Fetches.tsx";
+import {Pagination} from "../Pagination.tsx";
+import {TiThMenu} from "react-icons/ti";
+import {useSearchParams} from "react-router-dom";
 
-interface TableCalcProps {
+const pageSearchParamName = 'page'
+const pageSizeSearchParamName = 'pageSize'
+
+export function TableCalc({filter, /*defaultPage, defaultSize*/}: {
 	filter: sendData,
 	defaultSize?: number,
 	defaultPage?: number
-}
+}): JSX.Element {
+	const [searchParams] = useSearchParams()
+	const pageSearch: string = searchParams.get(pageSearchParamName) ?? '1'
+	const pageSizeSearch: string = searchParams.get(pageSizeSearchParamName) ?? '20'
 
-const states: { [key: string]: string } = {
-	rating: 'по рейтингу',
-	pressure: 'по давлению'
-}
+	const [page, setPage] = useState(parseInt(pageSearch))
+	const [size, setSize] = useState(parseInt(pageSizeSearch))
+	const [limit, setLimit] = useState(1)
+	const [rows, setRows] = useState<soldProducts[]>([])
+	const abortController = useRef<AbortController | null>(null)
+	const [loading, setLoading] = useState(false)
 
-export const stateDefault = 'rating'
-
-export const TableCalc: FC<TableCalcProps> = ({filter, /*defaultPage, defaultSize*/}): JSX.Element => {
-	/** Constants */
-	const [searchParams, setSearchParams] = UseSearchTableParams()									// TODO: searchParams (сохранение размера и номера страницы)
-
-	const [page, setPage] = useState<number>(searchParams.page)										// Номер страницы
-	const [size, setSize] = useState<number>(searchParams.size)										// Количество строк, отображаемых в таблице
-	const [sort, setSort] = useState<string>(searchParams.sort)										// Параметр сортировки таблицы (ключ на английском)
-
-	// const [page, setPage] = useState<number>(1)
-	// const [size, setSize] = useState<number>(20)
-	// const [sort, setSort] = useState<string>(stateDefault)
-	const [limit, setLimit] = useState<number>(1)											// Номер последней страницы (кол-во страниц)
-	const [rows, setRows] = useState<soldProducts[]>([])									// Данные для строк в таблице, которые приходят с сервера
-	const [loading, setLoading] = useState<boolean>(false)								// Состояние загрузки
-
-	const abortController = useRef<AbortController | null>(null)							// Для прерывания запроса, если поступил новый запрос, а от предыдущего ответ ещё не получен
-
-
-
-	/** Constants (functions) */
-	/* Обновление данных , от которых зависит перерисовка таблицы */
-	const updateTable = async (page: number): Promise<void> => {
-		// Прерывание предыдущего запроса
+	async function updateTable(page: number): Promise<void> {
 		if (abortController.current)
 			abortController.current.abort()
 
 		abortController.current = new AbortController()
 
-		// Установка состояния загрузки, чтобы пользователь видел, что идет запрос
 		setLoading(true)
-		// Отправка запроса на получание данных для таблицы, получение результата
-		const result = await sendDataForProductTable(filter, page, size, sort, abortController.current)
-		// Снятие состояния загрузки
+		const result = await sendDataForProductTable(filter, page, size, abortController.current)
 		setLoading(false)
 
-		// Если ответ пришел, установить состояние текущего запроса в null
 		abortController.current = null
-		// Установить новые значения переменных: строк таблицы (продукция), кол-во страниц, номер текущей страницы
 		setRows(result.soldProducts)
 		setLimit(result.availablePages)
 		setPage(page)
+
 	}
 
-	/* Проверка того, что ввёл пользователь
-	(размер должен быть не меньше 5 и не больше 100)
-	и после этого установка нвоого значения size */
-	const validateSize = (val: string) => {
-		let size = parseInt(val ? val : '0')
-		if (size < 5)
-			size = 5
-
-		if (size > 50)
-			size = 50
-
-		setSize(size)
-	}
-
-	/* Обновление состояния сортировки по значению (рус) */
-	const prepareSetSort = (newValue:  string): void => {
-		for (const [key, value] of Object.entries(states)) {
-			if (value === newValue) setSort(key)
-		}
-	}
-
-
-	/** UseEffects */
-	/* Когда меняются выбранные данные в filter
-	или количество отображаемых строк в таблице,
-	получить и обновить данные таблицы для первой страницы */
 	useEffect(() => {
 		updateTable(1)
-	}, [filter, size, sort])
+	}, [filter, size])
 
-	useEffect(() => {
-		setSearchParams({
-			page: page,
-			size: size,
-			sort: sort
-		})
-	}, [size, sort, page]);
-
-
-	/* Когда меняется номер страницы,
-	получить и обновить данные таблицы для этой страницы */
 	useEffect(() => {
 		updateTable(page)
 	}, [page])
 
 
-	/** Build DOM */
-	/* Проверка, пришли ли данные для отрисовки DOM  */
+	function validateSize(val: string) {
+		let size = parseInt(val ? val : '0')
+		if (size < 5)
+			size = 5
+
+		if (size > 100)
+			size = 100
+
+		setSize(size)
+	}
+
 	if (!rows?.length) return <div className='not-found'>По вашему запросу ничего не найдено, измените данные
 		поиска</div>
 
-	/* Отрисовка DOM */
 	return <>
 		<div className='table-size'>
 			<div className='table-size-head'>Результат</div>
 
-			<div className='sort-state-wrap'>
-				<SelectCard value={states[sort]} option='sortState' values={Object.values(states)} onChange={prepareSetSort} highlight={Object.values(states)} not={{
-					color: true,
-					search: true,
-					reset: true
-				}} />
-			</div>
-			{/* TODO вынести куда-то отдельно */}
+			{/*вынести куда-то отдельно*/}
 
 			<div>
 				<h4>Количество строк</h4>

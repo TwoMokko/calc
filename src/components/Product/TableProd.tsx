@@ -1,12 +1,6 @@
-import { FC } from "react";
-import { productDataArticle } from "../../types/Types.tsx";
+import {productDataArticle} from "../../types/Types.tsx";
 
-interface TableProdProps {
-    data: productDataArticle,
-    className: string
-}
-
-export const TableProd: FC<TableProdProps> = ({data, className}) => {
+export function TableProd({data, className}: {data:  productDataArticle, className: string}) {
     return data.historyPrices.length > 1 && <table className={className}>
         <thead>
         <tr>

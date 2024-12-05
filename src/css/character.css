@@ -98,7 +98,6 @@ h4 {
   width: 28px;
   height: auto;
   cursor: pointer;
-  margin-left: auto;
   transition: transform 0.3s ease-in-out;
 }
 .input-search-wrap-top svg:last-child:hover {
@@ -198,13 +197,12 @@ h4 {
 .input-search-list-item.subitem {
   padding-left: 70px;
 }
-
-.checked-list {
+.input-search .checked-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
-.checked-list-item {
+.input-search .checked-list-item {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -218,10 +216,10 @@ h4 {
   border: 1px solid #C4C4C4;
   cursor: pointer;
 }
-.checked-list-item > div:first-child {
+.input-search .checked-list-item > div:first-child {
   text-wrap: nowrap;
 }
-.checked-list-item .unchecked {
+.input-search .checked-list-item .unchecked {
   width: 10px;
   height: 10px;
   background-image: url("/img/cross.svg");
@@ -488,6 +486,7 @@ h4 {
   height: fit-content;
   padding: 10px 18px;
   font-size: 20px;
+  line-height: 28px;
   font-weight: 500;
   border-radius: 8px;
   cursor: pointer;
@@ -686,9 +685,6 @@ body {
 main {
   height: fit-content;
   flex: 80%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
   position: relative;
   padding: 0 30px 40px;
   border-radius: 30px;
@@ -766,6 +762,10 @@ input.show-element {
   background-color: white;
   border-radius: 20px;
 }
+.section:not(:last-child) {
+  margin-bottom: 30px;
+}
+
 .block {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -796,7 +796,7 @@ mark {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
 }
 .calc-top-wrap {
   position: sticky;
@@ -813,32 +813,12 @@ mark {
   text-align: end;
 }
 
-.option-line {
+.choice {
   display: flex;
-  gap: 5px;
-  margin-top: -10px;
-  padding-bottom: 10px;
-  transition: margin-top 1s ease;
+  gap: 20px;
 }
-.option-line div, .option-line span {
+.choice div, .choice span {
   cursor: pointer;
-}
-.option-line.show {
-  margin-top: 0;
-}
-
-.error-page {
-  padding-top: 40px;
-}
-
-.sort-state-wrap {
-  width: 210px;
-  margin-left: auto;
-  margin-right: 20px;
-}
-
-.flex-null {
-  flex: 0;
 }
 
 /*# sourceMappingURL=character.css.map */
