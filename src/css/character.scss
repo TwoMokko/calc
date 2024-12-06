@@ -9,7 +9,7 @@
 @import "pagination";
 @import "product";
 @import "table";
-@import "sidebar";
+@import "nav";
 @import "btn";
 @import "load";
 @import "breadcrumbs";
@@ -43,15 +43,11 @@ body {
 main {
     height: fit-content;
     flex: 80%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
     //padding: 40px 30px;
     position: relative;
     padding: 0 30px 40px;
     border-radius: 30px;
     background-color: $colorBackgroundMain;
-    margin-bottom: 100px;
     //background-color: #E8E8E8;
     //> div:first-child {
     //    padding-top: 40px;
@@ -150,7 +146,7 @@ input {
     background-color: white;
     border-radius: 20px;
     &:not(:last-child) {
-        //margin-bottom: 30px;
+        margin-bottom: 30px;
     }
 }
 
@@ -186,10 +182,14 @@ mark {
 }
 
 .calc-top {
+    //position: sticky;
+    //top: 0;
+    //z-index: 10;
+    //background-color: #f0f0f0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 
     &-wrap {
         position: sticky;
@@ -207,36 +207,10 @@ mark {
     text-align: end;
 }
 
-.option-line {
+.choice {
     display: flex;
-    gap: 5px;
-    margin-top: -10px;
-    padding-bottom: 10px;
-
-    transition: margin-top 1s ease;
+    gap: 20px;
     div, span {
         cursor: pointer;
     }
-
-    &.show {
-        margin-top: 0;
-    }
-}
-
-.error-page {
-    padding-top: 40px;
-}
-
-.sort-wrap {
-    display: flex;
-    gap: 20px;
-    margin-right: 20px;
-    margin-left: auto;
-    > div {
-        width: 210px;
-    }
-}
-
-.flex-null {
-    flex: 0;
 }

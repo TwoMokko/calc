@@ -1,11 +1,6 @@
-import { FC } from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
-interface BreadcrumbsProps {
-    links: { [key: string]: string }[]
-}
-
-export const Breadcrumbs: FC<BreadcrumbsProps> = ({links}): JSX.Element => {
+export function Breadcrumbs({links}: {links: { [key: string]: string }[]}): JSX.Element {
     return <div className='breadcrumbs'>
         {
             links.map(elem => {
