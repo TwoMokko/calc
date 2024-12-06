@@ -49,12 +49,33 @@
 		background-color: $colorBackgroundLight;
 
 		tr {
+			&.complement {
+				background-color: $colorBackgroundMain;
+				td:first-child {
+					position: relative;
+					padding: 0;
+					> a {
+						position: absolute;
+						left: 30px;
+						top: 0;
+						padding: 10px;
+					}
+				}
+			}
+
 			td {
 				padding: 10px;
 				text-align: left;
 
 				&:not(:last-child) {
 					//border-right: 1px solid #F2F2F2;
+				}
+
+				&.vendor-code {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					gap: 20px;
 				}
 
 				> a {

@@ -73,6 +73,7 @@ export interface soldProducts {
     minTemperature: number | null,
     workingPressure: number | null,
     quantityInStock: number | null,
+    complement?: number,
 }
 
 export interface productDataArticle {
@@ -125,3 +126,8 @@ export type languageData = {
     }
 }
 
+export type sidebarLink = {
+    title: string,
+    route: string,
+    icon: JSX.Element
+}

@@ -4,9 +4,9 @@ import {
 	MdAllInbox,
 	MdAnalytics,
 	MdAnimation,
-	MdApi,
+	MdApi, MdAutoAwesomeMosaic,
 	MdAutoFixHigh,
-	MdBrunchDining,
+	MdBrunchDining, MdCalculate,
 	MdCarCrash,
 	MdCasino,
 	MdCelebration,
@@ -14,9 +14,9 @@ import {
 	MdConveyorBelt,
 	MdCrisisAlert,
 	MdCropRotate,
-	MdDiversity2,
+	MdDiversity2, MdElectricalServices,
 	MdExpand,
-	MdExplore,
+	MdExplore, MdExtension, MdFactory, MdFilterBAndW, MdFilterHdr,
 	MdHive,
 	MdNetworkPing,
 	MdOutline123,
@@ -65,8 +65,10 @@ import {
 	MdWater,
 	MdZoomInMap
 } from "react-icons/md";
-import {FilterOptionType, languageData} from "../types/Types.tsx";
+import {FilterOptionType, languageData, sidebarLink} from "../types/Types.tsx";
 import {BiSortAlt2} from "react-icons/bi";
+import {FaTape} from "react-icons/fa";
+import {RiPassportFill} from "react-icons/ri";
 
 /* Для отрисовки селектов на странице фильтра */
 export const ru:  languageData = {
@@ -141,3 +143,51 @@ export const ru:  languageData = {
 	page: {title: 'Текущая страница', icon: <MdPages />, default: '1'},
 	size: {title: 'Количество строк в таблице', icon: <MdTableRows />, default: '20'},
 }
+
+export const ruSidebarLinks: sidebarLink[] = [
+	{
+		title: 'Поиск по характеристикам',
+		route: '',
+		icon: <MdCalculate />
+	},
+	{
+		title: 'Форма закупщиков',
+		route: 'test',
+		icon: <MdElectricalServices />
+	},
+	{
+		title: 'Обновить характеристики',
+		route: 'test1',
+		icon: <MdAutoAwesomeMosaic />
+	},
+	{
+		title: 'Перезаписать файл конфигурации',
+		route: 'test2',
+		icon: <MdFilterHdr />
+	},
+	{
+		title: 'Обновление базы данных',
+		route: 'test3',
+		icon: <MdFilterBAndW />
+	},
+	{
+		title: 'Составление кодировки',
+		route: 'test4',
+		icon: <MdExtension />
+	},
+	{
+		title: 'Краны и металлорукава',
+		route: 'test5',
+		icon: <FaTape />
+	},
+	{
+		title: 'Паспорта для таможни',
+		route: 'test6',
+		icon: <RiPassportFill />
+	},
+	{
+		title: 'Обновить таблицу опций',
+		route: 'test7',
+		icon: <MdFactory />
+	},
+]

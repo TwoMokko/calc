@@ -1,10 +1,11 @@
-import { FC, useEffect, useRef, useState } from "react";
+import {FC, Fragment, useEffect, useRef, useState} from "react";
 import { sendData, soldProducts } from "../../types/Types.tsx";
 import { sendDataForProductTable } from "../../api/Fetches.tsx";
 import { Pagination } from "../Pagination.tsx";
 import { TiThMenu } from "react-icons/ti";
 import { SelectCard } from "../SelectCard.tsx";
 import useSearchController from "../../hooks/useSearchController.tsx";
+import {Button} from "../Button.tsx";
 
 interface TableCalcProps {
 	filter: sendData,
@@ -17,14 +18,17 @@ const states: { [key: string]: string } = {
 	pressure: 'по давлению'
 }
 
+
 export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 	/** Constants */
 	const {urls: {page, sort, size}, setValue} =  useSearchController()
-	const [limit, setLimit] = useState<number>(1)											// Номер последней страницы (кол-во страниц)
-	const [rows, setRows] = useState<soldProducts[]>([])									// Данные для строк в таблице, которые приходят с сервера
-	const [loading, setLoading] = useState<boolean>(false)								// Состояние загрузки
+	const [limit, setLimit] = useState<number>(1)													// Номер последней страницы (кол-во страниц)
+	const [rows, setRows] = useState<soldProducts[]>([])											// Данные для строк в таблице, которые приходят с сервера
+	const [loading, setLoading] = useState<boolean>(false)										// Состояние загрузки
+	const [complement, setComplement] = useState<{[vendorCode: string]: soldProducts[]}>({})
+	const [showComplement, setShowComplement] = useState<string[]>([])
 
-	const abortController = useRef<AbortController | null>(null)							// Для прерывания запроса, если поступил новый запрос, а от предыдущего ответ ещё не получен
+	const abortController = useRef<AbortController | null>(null)									// Для прерывания запроса, если поступил новый запрос, а от предыдущего ответ ещё не получен
 
 
 	/** Constants (functions) */
@@ -70,6 +74,18 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 		for (const [key, value] of Object.entries(states)) {
 			if (value === newValue) setValue('sort', key)
 		}
+	}
+
+	const redrawComplement = (vendorCode: string) => {
+		if (!(vendorCode in complement)) setComplement({})
+
+		const temp = showComplement.filter(itm => itm != vendorCode)
+
+		if (!showComplement.includes(vendorCode)) temp.push(vendorCode)
+		setShowComplement(temp)
+
+		console.log({showComplement})
+
 	}
 
 
@@ -155,25 +171,52 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 			</thead>
 			<tbody>
 			{rows.slice(0, parseInt(size ?? '20')).map((itm: soldProducts, id: number) => {
-				return <tr key={id}>
-					<td>
-						<a
-							target='_blank'
-							href={`/prod/${itm.vendorCode}`}
-						>
-							{itm.vendorCode}
-						</a>
-					</td>
-					<td>{itm.quantityInStock}</td>
-					<td>{itm.workingPressure}</td>
-					<td>{itm.minTemperature}</td>
-					<td>{itm.maxTemperature}</td>
-					<td>{itm.typeRating}</td>
-					<td>{itm.rating}</td>
-					<td>{itm.numberOfOrders}</td>
-					<td>{itm.purchasedQuantity}</td>
-					<td>{itm.price}</td>
-				</tr>
+				return <Fragment key={id}>
+					<tr>
+						<td className='vendor-code'>
+							<a
+								target='_blank'
+								href={`/prod/${itm.vendorCode}`}
+							>
+								{itm.vendorCode}
+							</a>
+							{
+								itm.complement && <Button title='' onClick={() => redrawComplement(itm.vendorCode)}
+                                                          className={`show-complement ${showComplement.includes(itm.vendorCode) ? '' : 'plus'} btn-secondary`}/>
+							}
+						</td>
+						<td>{itm.quantityInStock}</td>
+						<td>{itm.workingPressure}</td>
+						<td>{itm.minTemperature}</td>
+						<td>{itm.maxTemperature}</td>
+						<td>{itm.typeRating}</td>
+						<td>{itm.rating}</td>
+						<td>{itm.numberOfOrders}</td>
+						<td>{itm.purchasedQuantity}</td>
+						<td>{itm.price}</td>
+					</tr>
+					{
+						(itm.vendorCode in complement && showComplement.includes(itm.vendorCode)) && complement[itm.vendorCode].map(trComplement => <tr className='complement'>
+							<td>
+								<a
+									target='_blank'
+									href={`/prod/${trComplement.vendorCode}`}
+								>
+									{trComplement.vendorCode}
+								</a>
+							</td>
+							<td>{trComplement.quantityInStock}</td>
+							<td>{trComplement.workingPressure}</td>
+							<td>{trComplement.minTemperature}</td>
+							<td>{trComplement.maxTemperature}</td>
+							<td>{trComplement.typeRating}</td>
+							<td>{trComplement.rating}</td>
+							<td>{trComplement.numberOfOrders}</td>
+							<td>{trComplement.purchasedQuantity}</td>
+							<td>{trComplement.price}</td>
+						</tr>)
+					}
+				</Fragment>
 			})}
 			</tbody>
 		</table>
@@ -181,12 +224,12 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 		{
 			// !loading &&
 			limit > 1 ?
-			<Pagination
-				page={parseInt(page ?? '1')}
-				limit={limit}
+				<Pagination
+					page={parseInt(page ?? '1')}
+					limit={limit}
 
-				onChangePage={page => setValue('page', page.toString())}
-			/> : ''
+					onChangePage={page => setValue('page', page.toString())}
+				/> : ''
 		}
 	</>
 }

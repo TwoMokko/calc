@@ -39,6 +39,22 @@
   }
 }
 
+.show-complement {
+  padding: 5px;
+  box-shadow: 0 1px 3px 0 #0000001a;
+  > span {
+    background-image: url("/img/reset.svg");
+    width: 15px;
+    height: 15px;
+  }
+
+  &.plus {
+    > span {
+      transform: rotate(45deg);
+    }
+  }
+}
+
 .copy {
   > span {
     background-image: url("/img/reset.svg");

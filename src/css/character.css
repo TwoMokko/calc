@@ -416,9 +416,28 @@ h4 {
 .table tbody {
   background-color: #FFF;
 }
+.table tbody tr.complement {
+  background-color: #F2F2F2;
+}
+.table tbody tr.complement td:first-child {
+  position: relative;
+  padding: 0;
+}
+.table tbody tr.complement td:first-child > a {
+  position: absolute;
+  left: 30px;
+  top: 0;
+  padding: 10px;
+}
 .table tbody tr td {
   padding: 10px;
   text-align: left;
+}
+.table tbody tr td.vendor-code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 .table tbody tr td > a {
   color: #3F80D0;
@@ -539,6 +558,19 @@ h4 {
 
 .reset > span {
   background-image: url("/img/reset.svg");
+}
+
+.show-complement {
+  padding: 5px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1019607843);
+}
+.show-complement > span {
+  background-image: url("/img/reset.svg");
+  width: 15px;
+  height: 15px;
+}
+.show-complement.plus > span {
+  transform: rotate(45deg);
 }
 
 .copy > span {
@@ -872,6 +904,10 @@ mark {
 
 .flex-null {
   flex: 0;
+}
+
+.test-page {
+  padding-top: 40px;
 }
 
 /*# sourceMappingURL=character.css.map */
