@@ -1,0 +1,16 @@
+@use "sass:map";
+@use "variables/variable" as *;
+
+header {
+  padding: 30px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .header-links {
+    display: flex;
+    gap: 30px;
+    a {
+      color: $colorTextDark;
+    }
+  }
+}

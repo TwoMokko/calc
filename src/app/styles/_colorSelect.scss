@@ -1,0 +1,98 @@
+@use "sass:map";
+@use "variables/variable" as *;
+
+
+.error {
+	h4 {
+		//color: red;
+	}
+	.input-search-wrap {
+		//border-color: red;
+		background-color: #D15B5B26;
+	}
+	&.input-search-list-item {
+		background-color: #D15B5B26;
+	}
+	.checked-list-item {
+		color: red;
+		border-color: red;
+		.unchecked {
+			background-image: url("/img/cross-error.svg");
+		}
+	}
+	&.checked-list-item {
+		color: red;
+		border-color: red;
+		.unchecked {
+			background-image: url("/img/cross-error.svg");
+		}
+	}
+}
+
+.disable {
+	//pointer-events: none;
+	//cursor: default;
+	//opacity: 0.3;
+	&.input-search-list-item {
+		background-color: #D15B5B26;
+	}
+}
+
+.selected-disable {
+	//pointer-events: none;
+	//cursor: default;
+	//opacity: 0.3;
+	.input-search-wrap {
+		//background-color: lightyellow;
+		//background-color: #ffd10014;
+		//background-color:#3f80d01a;
+		background-color:#9393931a;
+	}
+	&.input-search-list-item {
+		background-color: #D15B5B26;
+	}
+	.checked-list-item {
+		color: $colorTextMediumLight;
+		border-color: $colorBorderInput;
+		.unchecked {
+			background-image: url("/img/cross.svg");
+		}
+	}
+	&.checked-list-item {
+		color: $colorTextMediumLight;
+		border-color: $colorBorderInput;
+		.unchecked {
+			background-image: url("/img/cross.svg");
+		}
+	}
+}
+.well {
+	h4 {
+		//color: #00c981;
+	}
+	.input-search-wrap {
+		//border-color: #00c981;
+		background-color: #e9f7f2;
+	}
+	&.input-search-list-item {
+		background-color: #e9f7f2;
+	}
+	&.tree {
+		background-color: #e9f7f2;
+	}
+}
+
+.not-color {
+	.well {
+		h4 {
+			//color: #00c981;
+		}
+		.input-search-wrap {
+			//border-color: #00c981;
+			background-color: white !important;
+		}
+		&.input-search-list-item {
+			background-color: white !important;
+		}
+	}
+}

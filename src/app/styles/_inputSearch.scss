@@ -1,0 +1,229 @@
+@use "sass:map";
+@use "variables/variable" as *;
+
+
+.input-search {
+	//position: relative;
+	&-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: start;
+
+		.reset-option {
+			padding: 0 8px;
+			width: 1rem;
+			height: 1rem;
+			background-image: url("/img/cross.svg");
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+			cursor: pointer;
+		}
+	}
+
+	&-wrap {
+		position: relative;
+		display: flex;
+		align-items: center;
+		//padding: 10px 14px;
+		padding: 5px 10px;
+		border: 1px solid $colorBorderInput;
+		border-radius: 10px;
+		//height: 39px;
+
+		&-top {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			width: 100%;
+
+			svg {
+				flex: none;
+				color: $colorIcons;
+
+				&:last-child {
+					width: 28px;
+					height: auto;
+					cursor: pointer;
+					margin-left: auto;
+					transition: transform 0.3s ease-in-out;
+
+					&:hover {
+						color: $colorTextAccent;
+					}
+
+					&.show {
+						transform: rotate(180deg);
+					}
+				}
+			}
+
+			input {
+
+			}
+		}
+
+		//TODO: возможно, переделать
+		&-text {
+			&-wrap {
+				flex: auto;
+				display: flex;
+				gap: 10px;
+				align-items: center;
+
+				> div:nth-child(1) {
+					max-width: 80%;
+				}
+			}
+
+			flex: auto;
+
+			> input {
+
+			}
+		}
+
+	}
+
+	&-list {
+		//display: none;
+		font-size: 16px;
+		line-height: 28px;
+		color: $colorTextMedium;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		background-color: $colorBackgroundLight;
+		overflow: hidden;
+		overflow-y: scroll;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 1;
+		border-radius: 10px;
+		border: 1px solid $colorBorderInput;
+		box-shadow: 0 6px 10px 0 #243DA140;
+
+		&.tree {
+			max-height: 400px;
+		}
+		&:not(.tree) {
+			max-height: 188px;
+		}
+
+		&.active {
+			display: flex;
+		}
+
+		.tree {
+			display: flex;
+			align-items: center;
+
+			&-show {
+				margin-left: 10px;
+				cursor: pointer;
+				width: 28px;
+				height: auto;
+				transform: rotate(270deg);
+				transition: transform 0.3s ease-in-out;
+				flex: none;
+
+				&:hover {
+					color: $colorTextAccent;
+				}
+
+				&.show {
+					transform: rotate(360deg);
+				}
+
+			}
+		}
+
+		&-item {
+			&:not(label) {
+				//padding: 7px 14px;
+				padding: 10px 20px;
+			}
+
+			cursor: pointer;
+
+			&:hover {
+				//background-color: $colorBackgroundMain;
+			}
+
+			> input:checked + div::before {
+				border-color: $colorBtnAccent;
+				background-color: $colorBtnAccent;
+				background-image: url("/public/img/check.svg");
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: 60%;
+			}
+
+			> div.check {
+				//padding: 7px 14px;
+				padding: 10px 20px;
+				display: flex;
+				align-items: center;
+
+				&::before {
+					content: '';
+					height: 20px;
+					width: 20px;
+					display: inline-block;
+					margin-right: 8px;
+					border-radius: 4px;
+					border: 1px solid $colorBorderInput;
+					box-shadow: 0 1px 1px 0 $colorBoxShadow;
+					flex: none;
+				}
+
+				&:hover {
+
+				}
+			}
+
+			&.subitem {
+				padding-left: 70px;
+			}
+
+		}
+	}
+}
+
+.checked-list {
+	display: flex;
+	flex-wrap: wrap;
+	//padding: 12px 0;
+	gap: 8px;
+
+	&-item {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: 0 6px 0 10px;
+		background-color: $colorBackgroundLight;
+		font-size: 13px;
+		font-weight: 400;
+		line-height: 20px;
+		color: $colorTextMediumLight;
+		border-radius: 28px;
+		border: 1px solid $colorBorderInput;
+		cursor: pointer;
+
+		> div:first-child {
+			text-wrap: nowrap;
+		}
+
+		.unchecked {
+			width: 10px;
+			height: 10px;
+			background-image: url("/img/cross.svg");
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+
+		}
+	}
+}
+
