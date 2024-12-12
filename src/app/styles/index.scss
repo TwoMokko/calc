@@ -42,7 +42,8 @@ body {
 
 main {
     height: fit-content;
-    flex: 80%;
+    //flex: 80%;
+    flex: auto;
     display: flex;
     flex-direction: column;
     gap: 30px;

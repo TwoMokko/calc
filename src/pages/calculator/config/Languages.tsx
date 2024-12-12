@@ -69,6 +69,7 @@ import {FilterOptionType, languageData, sidebarLink} from "../../../shared/api/m
 import {BiSortAlt2} from "react-icons/bi";
 import {FaTape} from "react-icons/fa";
 import {RiPassportFill} from "react-icons/ri";
+import {AiFillSafetyCertificate} from "react-icons/ai";
 
 /* Для отрисовки селектов на странице фильтра */
 export const ru:  languageData = {
@@ -149,6 +150,11 @@ export const ruSidebarLinks: sidebarLink[] = [
 		title: 'Поиск по характеристикам',
 		route: '',
 		icon: <MdCalculate />
+	},
+	{
+		title: 'Генерация тех паспортов',
+		route: 'passport',
+		icon: <AiFillSafetyCertificate />
 	},
 	{
 		title: 'Форма закупщиков',

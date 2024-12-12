@@ -73,7 +73,9 @@ export interface soldProducts {
     minTemperature: number | null,
     workingPressure: number | null,
     quantityInStock: number | null,
-    complement?: number,
+    totalQuantity: number | null,
+    connectionInfo: string,
+    types?: soldProducts[]
 }
 
 export interface productDataArticle {

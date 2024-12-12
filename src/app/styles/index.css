@@ -381,7 +381,8 @@ h4 {
 /* Sizes */
 .table-wrap {
   width: 100%;
-  overflow-x: auto;
+  overflow: hidden;
+  height: fit-content;
 }
 
 .table-loading {
@@ -477,15 +478,13 @@ h4 {
   position: sticky;
   top: 0;
   bottom: 0;
+  flex: none;
 }
 .sidebar.collapsed {
   width: fit-content;
 }
 .sidebar.collapsed .sidebar-text {
   display: none;
-}
-.sidebar:not(.collapsed) {
-  flex: 20%;
 }
 .sidebar > a {
   padding: 10px;
@@ -740,7 +739,7 @@ body {
 
 main {
   height: fit-content;
-  flex: 80%;
+  flex: auto;
   display: flex;
   flex-direction: column;
   gap: 30px;

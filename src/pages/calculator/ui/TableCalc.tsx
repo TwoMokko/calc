@@ -26,7 +26,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 	const [limit, setLimit] = useState<number>(1)													// Номер последней страницы (кол-во страниц)
 	const [rows, setRows] = useState<soldProducts[]>([])											// Данные для строк в таблице, которые приходят с сервера
 	const [loading, setLoading] = useState<boolean>(false)										// Состояние загрузки
-	const [complement, setComplement] = useState<{[vendorCode: string]: soldProducts[]}>({})		// Комплектующие, связанные с данными rows через vendorCode
+	// const [complement, setComplement] = useState<{[vendorCode: string]: soldProducts[]}>({})		// Комплектующие, связанные с данными rows через vendorCode
 	const [showComplement, setShowComplement] = useState<string[]>([])							// Показываются только определенные комплектующие (чей vendorCode есть в массиве showComplement)
 
 	const abortController = useRef<AbortController | null>(null)									// Для прерывания запроса, если поступил новый запрос, а от предыдущего ответ ещё не получен
@@ -80,7 +80,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 	/* Изменение отображения комплектующих при нажатии на кнопку (показать, скрыть),
 	либо добавляется vendorCode в массив, либо удаляется из массива */
 	const redrawComplement = (vendorCode: string) => {
-		if (!(vendorCode in complement)) setComplement({})
+		// if (!(vendorCode in complement)) setComplement({})
 
 		const temp = showComplement.filter(itm => itm != vendorCode)
 
@@ -160,6 +160,8 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 				<tr>
 					<th>Артикул</th>
 					<th>На складе</th>
+					<th>Общее кол-во</th>
+					<th>Подсоединения</th>
 					<th>Давление</th>
 					<th>Мин темп</th>
 					<th>Макс темп</th>
@@ -182,11 +184,15 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 									{itm.vendorCode}
 								</a>
 								{
-									itm.complement && <Button title='' onClick={() => redrawComplement(itm.vendorCode)}
-                                                              className={`show-complement ${showComplement.includes(itm.vendorCode) ? '' : 'plus'} btn-secondary`}/>
+									itm.types?.length && <Button
+										title='' onClick={() => redrawComplement(itm.vendorCode)}
+                                        className={`show-complement ${showComplement.includes(itm.vendorCode) ? '' : 'plus'} btn-secondary`}
+									/>
 								}
 							</td>
 							<td>{itm.quantityInStock}</td>
+							<td>{itm.totalQuantity}</td>
+							<td>{itm.connectionInfo}</td>
 							<td>{itm.workingPressure}</td>
 							<td>{itm.minTemperature}</td>
 							<td>{itm.maxTemperature}</td>
@@ -197,7 +203,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 							<td>{itm.price}</td>
 						</tr>
 						{
-							(itm.vendorCode in complement && showComplement.includes(itm.vendorCode)) && complement[itm.vendorCode].map(trComplement =>
+							(itm.types && showComplement.includes(itm.vendorCode)) && itm.types.map(trComplement =>
 								<tr className='complement'>
 									<td>
 										<a
@@ -208,6 +214,8 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 										</a>
 									</td>
 									<td>{trComplement.quantityInStock}</td>
+									<td>{itm.totalQuantity}</td>
+									<td>{itm.connectionInfo}</td>
 									<td>{trComplement.workingPressure}</td>
 									<td>{trComplement.minTemperature}</td>
 									<td>{trComplement.maxTemperature}</td>

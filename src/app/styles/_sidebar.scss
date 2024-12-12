@@ -12,6 +12,8 @@
     top: 0;
     bottom: 0;
 
+    flex: none;
+
     &.collapsed {
         width: fit-content;
         .sidebar-text {
@@ -20,7 +22,6 @@
     }
 
     &:not(.collapsed) {
-        flex: 20%;
         .sidebar-text {
 
         }

@@ -3,7 +3,8 @@
 
 .table-wrap {
 	width: 100%;
-	overflow-x: auto;
+	overflow: hidden;
+	height: fit-content;
 }
 
 .table-loading {
@@ -20,6 +21,8 @@
 }
 
 .table {
+	//display: inline-block;
+	//overflow-x: scroll;
 	width: 100%;
 	height: fit-content;
 	border-spacing: 0;

@@ -39,18 +39,22 @@ export const SearchContextProvider = ({children}: {children: ReactNode}):ReactNo
 
 
 	const setValue = (key: keyof languageData, value?: string) => {
+		console.log('setVal')
+
 		setCurrentUrl(prev => {
 			prev[key] = value ? value : ''
 			setSearchParams(convertToUrl(prev))
 			return prev
 		})
 	}
+
 	const set = (props: UrlProps) => {
+		console.log('set')
+
 		setCurrentUrl(prev => {
 			for (const [key, value] of Object.entries(ru)) {
 				prev[key] = key in props ? props[key] : key in prev ? prev[key] : value.default ?? ''
 			}
-
 			setSearchParams(convertToUrl(prev))
 			return prev
 		})
