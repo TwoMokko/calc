@@ -14,15 +14,20 @@ interface TableCalcProps {
 }
 
 /* Русский текст для селекта сортировки (вынести куда-то?) */
-const states: { [key: string]: string } = {
+const statesSort: { [key: string]: string } = {
 	rating: 'по рейтингу',
 	pressure: 'по давлению'
+}
+/* Русский текст для селекта с комплектующими (вынести куда-то?) */
+const statesOutputList: { [key: string]: string } = {
+	fld: 'для продажи',
+	withComplements: 'все'
 }
 
 
 export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 	/** Constants */
-	const {urls: {page, sort, size}, setValue} =  useSearchController()
+	const {urls: {page, sort, size, outputList}, setValue} =  useSearchController()
 	const [limit, setLimit] = useState<number>(1)													// Номер последней страницы (кол-во страниц)
 	const [rows, setRows] = useState<soldProducts[]>([])											// Данные для строк в таблице, которые приходят с сервера
 	const [loading, setLoading] = useState<boolean>(false)										// Состояние загрузки
@@ -44,7 +49,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 		// Установка состояния загрузки, чтобы пользователь видел, что идет запрос
 		setLoading(true)
 		// Отправка запроса на получание данных для таблицы, получение результата
-		const result = await sendDataForProductTable(filter, parseInt(page), parseInt(size ?? '20'), sort ?? 'rating', abortController.current)
+		const result = await sendDataForProductTable(filter, parseInt(page), parseInt(size ?? '20'), sort ?? 'rating', outputList ?? 'fld', abortController.current)
 		// Снятие состояния загрузки
 		setLoading(false)
 
@@ -72,8 +77,15 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 
 	/* Обновление состояния сортировки по значению (рус) */
 	const prepareSetSort = (newValue:  string): void => {
-		for (const [key, value] of Object.entries(states)) {
+		for (const [key, value] of Object.entries(statesSort)) {
 			if (value === newValue) setValue('sort', key)
+		}
+	}
+
+	/* Обновление состояния сортировки по значению (рус) */
+	const prepareSetOutputList = (newValue:  string): void => {
+		for (const [key, value] of Object.entries(statesOutputList)) {
+			if (value === newValue) setValue('outputList', key)
 		}
 	}
 
@@ -95,7 +107,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 	получить и обновить данные таблицы для первой страницы */
 	useEffect(() => {
 		updateTable('1')
-	}, [filter, size, sort])
+	}, [filter, size, sort, outputList])
 
 	/* Когда меняется номер страницы,
 	получить и обновить данные таблицы для этой страницы */
@@ -116,16 +128,16 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 
 			<div className='sort-wrap'>
 				<SelectCard
-					value={states[sort ?? 'rating']} option='sort' values={Object.values(states)}
-					onChange={prepareSetSort} highlight={Object.values(states)} not={{
+					value={statesOutputList[outputList ?? 'fld']} option='outputList' values={Object.values(statesOutputList)}
+					onChange={prepareSetOutputList} highlight={Object.values(statesOutputList)} not={{
 					color: true,
 					search: true,
 					reset: true
 				}}
 				/>
 				<SelectCard
-					value={states[sort ?? 'rating']} option='sort' values={Object.values(states)}
-					onChange={prepareSetSort} highlight={Object.values(states)} not={{
+					value={statesSort[sort ?? 'rating']} option='sort' values={Object.values(statesSort)}
+					onChange={prepareSetSort} highlight={Object.values(statesSort)} not={{
 					color: true,
 					search: true,
 					reset: true

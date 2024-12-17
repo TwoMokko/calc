@@ -140,6 +140,7 @@ export const ru:  languageData = {
 	// maxPressure: { title: 'Макс давление настройки', icon: <MdOutlineFullscreen /> },
 	dn: { title: 'Dn', icon: <MdOutlineCenterFocusWeak />, type: FilterOptionType.CHARACTERISTIC },
 	sort: { title: 'Сортировка', icon: <BiSortAlt2 />, default:  'rating'},
+	outputList: { title: 'Вывод списка', icon: <BiSortAlt2 />, default:  'fld'},
 
 	page: {title: 'Текущая страница', icon: <MdPages />, default: '1'},
 	size: {title: 'Количество строк в таблице', icon: <MdTableRows />, default: '20'},
