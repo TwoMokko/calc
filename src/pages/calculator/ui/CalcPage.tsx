@@ -7,7 +7,9 @@ import { TableCalc } from "./TableCalc.tsx";
 import {connection, FilterOptionType, optionsData, physicalCharacteristics} from "../../../shared/api/models.ts";
 import { Top } from "./Top.tsx";
 import { useSearchFilterParams } from "../../../shared/hooks/useSearchFilterParams.ts";
-import {fetchData, sendDataForOptions} from "../api/fetches.ts";
+import { fetchData, sendDataForOptions } from "../api/fetches.ts";
+import { SelectCardMultipleTree } from "../../../shared/ui/SelectCardMultipleTree.tsx";
+import { Configuration } from "./Configuration.tsx";
 
 export const CalcPage = (): JSX.Element => {
     /** Constants */
@@ -80,6 +82,25 @@ export const CalcPage = (): JSX.Element => {
         setFilter(prev => {
             return {...prev, options: [...(prev.options ? prev.options.filter(itm => itm.key != key) : []), {key, value}]}
         }, 'onChangeOption')
+    }
+
+    /* Изменение значения конфигурации, если нету, удалить */
+    const onChangeConfiguration = (value?: string): void => {
+        // const item = data?.configuration.find(itm => itm.value === value)
+
+        const testData = [{key: 'a', value: '1'}, {key: 'b', value: '2'}, {key: 'c', value: '3'}]
+        const item = data?.configuration ? data?.configuration.find(itm => itm.value === value) : testData.find(itm => itm.value === value)
+
+        console.log({item})
+
+        setFilter(prev => {
+            if (!item)
+                delete prev.configuration
+            else
+                prev.configuration = item.key
+
+            return {...prev}
+        }, 'onChangeConfiguration')
     }
 
     /* Изменение connection с конкретным connectionNo в calculator.connections, если нету ни одной, то присвоить пустой массив */
@@ -156,14 +177,30 @@ export const CalcPage = (): JSX.Element => {
             onDeleteAtChoiceString={onDeleteAtChoiceString}
         />
 
-        <Characters
-            values={filter?.physicalCharacteristics}
-            onChange={onChangeChar}
-            valuesTree={filter?.productType}
-            highlightTree={highlight?.productType}
-            onChangeSelectTree={onChangeTypeProd}
-            colorSelect={colorSelect}
-        />
+        <section className={`section ${colorSelect ? '' : 'not-color'}`}>
+            <h2>Характеристики</h2>
+            <SelectCardMultipleTree
+                title={FilterOptionType.TYPE_PRODUCT}
+                onChange={onChangeTypeProd}
+                highlight={highlight?.productType}
+                valuesFilter={filter?.productType}
+            />
+            <div className='character-group block'>
+                <Characters
+                    values={filter?.physicalCharacteristics}
+                    onChange={onChangeChar}
+                />
+                <Configuration
+                    option={'configuration'}
+                    data={data.configuration ?? [{key: 'a', value: '1'}, {key: 'b', value: '2'}, {key: 'c', value: '3'}]}
+                    onChange={onChangeConfiguration}
+                    onDelete={onChangeConfiguration}
+                    highlight={['1', '3']}
+                />
+            </div>
+        </section>
+
+
         <section className={`option section ${colorSelect ? '' : 'not-color'}`}>
             <h2>Опции</h2>
 
@@ -215,7 +252,7 @@ export const CalcPage = (): JSX.Element => {
         </section>
 
         <section className='section'>
-            <TableCalc filter={filter} />
+            <TableCalc filter={filter}/>
         </section>
     </>
 }

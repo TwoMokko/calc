@@ -107,8 +107,15 @@ button {
                 padding: 10px 14px;
                 border: 1px solid $colorBorderInput;
                 border-radius: 10px;
+                background-color: $colorBackgroundLight;
                 > svg {
                     color: $colorIcons;
+                }
+            }
+
+            &.error {
+                .input-wrap {
+                    background-color: $colorErrorBg;
                 }
             }
         }
@@ -199,7 +206,7 @@ mark {
         z-index: 2;
         padding-top: 40px;
     }
-    svg {
+    > h1 > svg {
         color: $colorIcons;
     }
 }
@@ -244,4 +251,34 @@ mark {
 
 .test-page {
     padding-top: 40px;
+}
+
+.download {
+    &-wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: $colorBackgroundMain;
+        width: 100%;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
+    &-title {
+        max-width: 200px;
+        color: $colorTextMedium;
+    }
+    &-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+
+        .input-search-wrap {
+            width: 243px;
+        }
+    }
 }

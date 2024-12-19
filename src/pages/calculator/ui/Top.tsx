@@ -1,8 +1,9 @@
-import {FC} from "react";
+import { FC } from "react";
 import { MdCalculate } from "react-icons/md";
 import { Button } from "../../../shared/ui/Button.tsx";
 import { OptionsLine } from "./OptionsLine.tsx";
 import { connection, physicalCharacteristics, sendData } from "../../../shared/api/models.ts";
+import {RxCross2} from "react-icons/rx";
 
 interface TopProps {
     doReset: () => void,
@@ -11,6 +12,7 @@ interface TopProps {
 }
 
 export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString}): JSX.Element => {
+
     return <div className='calc-top-wrap'>
         <div className='calc-top'>
             <h1>
@@ -21,6 +23,7 @@ export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString}): JS
                 title='Очистить всё'
                 className='reset btn-secondary'
                 onClick={doReset}
+                icon={<RxCross2 />}
             />
         </div>
         <OptionsLine

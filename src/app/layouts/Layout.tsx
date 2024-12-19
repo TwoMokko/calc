@@ -6,12 +6,15 @@ import {SearchContextProvider} from "../../shared/hooks/useSearchController.tsx"
 export default function Layout () {
 
     return <>
-       <Sidebar></Sidebar>
-        <SearchContextProvider>
+
+            <Sidebar></Sidebar>
+
             <main>
-                <Outlet />
+                <SearchContextProvider>
+                    <Outlet />
+                </SearchContextProvider>
             </main>
-       </SearchContextProvider>
+
     </>
 
 }

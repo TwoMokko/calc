@@ -31,7 +31,11 @@ export type optionsData = {
     productType: string[],
     type: string[],
     connections: connections[],
-    options: options[]
+    options: options[],
+    configuration: {
+        key: string,
+        value: string,
+    }[],
 }
 
 export interface physicalCharacteristics {
@@ -53,7 +57,8 @@ export type sendData = {
         key: string,
         value: string,
     }[],
-    physicalCharacteristics?: physicalCharacteristics
+    physicalCharacteristics?: physicalCharacteristics,
+    configuration?: string
 }
 
 export type productsTable = {
@@ -75,6 +80,9 @@ export interface soldProducts {
     quantityInStock: number | null,
     totalQuantity: number | null,
     connectionInfo: string,
+    cv: number | null,
+    dn: number | null,
+    configuration: string,
     types?: soldProducts[]
 }
 

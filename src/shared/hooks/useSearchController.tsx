@@ -1,4 +1,4 @@
-import {useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {ru} from "../../pages/calculator/config/Languages.tsx";
 import {languageData} from "../api/models.ts";
@@ -35,22 +35,23 @@ export const SearchContextProvider = ({children}: {children: ReactNode}):ReactNo
 			temp[key] = getSearchParams.get(key) ?? value.default ?? ''
 		}
 		setCurrentUrl(temp)
+		console.log('update URL')
 	}, [])
 
 
 	const setValue = (key: keyof languageData, value?: string) => {
-		console.log('setVal 1', {currentUrl, getSearchParams})
+		console.log('setVal', key, value, {currentUrl, getSearchParams})
 
 		setCurrentUrl(prev => {
 			prev[key] = value ? value : ''
 			setSearchParams(convertToUrl(prev))
 			return prev
 		})
-		console.log('setVal 2', {currentUrl, getSearchParams})
+		// console.log('setVal 2', {currentUrl, getSearchParams})
 	}
 
 	const set = (props: UrlProps) => {
-		console.log('set 1', {currentUrl, getSearchParams})
+		console.log('set', props)
 
 		setCurrentUrl(prev => {
 			for (const [key, value] of Object.entries(ru)) {
@@ -59,7 +60,7 @@ export const SearchContextProvider = ({children}: {children: ReactNode}):ReactNo
 			setSearchParams(convertToUrl(prev))
 			return prev
 		})
-		console.log('set 2', {currentUrl, getSearchParams})
+		// console.log('set 2', {currentUrl, getSearchParams})
 	}
 
 	return <SearchContext.Provider value={{urls: currentUrl, set, setValue}}>{children}</SearchContext.Provider>

@@ -1,8 +1,7 @@
 import {FC, useEffect, useState} from "react";
 import { InputCard } from "../../../shared/ui/InputCard.tsx";
-import {FilterOptionType, physicalCharacteristics} from "../../../shared/api/models.ts";
+import { physicalCharacteristics } from "../../../shared/api/models.ts";
 import { isEqual } from "lodash";
-import { SelectCardMultipleTree } from "../../../shared/ui/SelectCardMultipleTree.tsx";
 import { ru } from "../config/Languages.tsx";
 
 /* Нужно, чтобы создать определенное количество полей */
@@ -18,13 +17,11 @@ const characteristic: string[] = [
 interface CharactersProps {
 	values?: physicalCharacteristics,
 	onChange: (chars?: physicalCharacteristics) => void,
-	highlightTree: string[] | undefined,
-	onChangeSelectTree: (keys: string[]) => void,
-	colorSelect: boolean,
-	valuesTree?: string[]
 }
 
-export const Characters: FC<CharactersProps> = ({values, onChange, valuesTree, highlightTree, onChangeSelectTree, colorSelect}): JSX.Element => {
+export const Characters: FC<CharactersProps> = ({values, onChange}): JSX.Element => {
+	console.log('chars')
+
 	/** Constants */
 	const [chars, setChars] = useState<physicalCharacteristics | undefined>(values)					// Состояние для работы с характеристиками внутри компонента
 
@@ -53,29 +50,18 @@ export const Characters: FC<CharactersProps> = ({values, onChange, valuesTree, h
 
 	/** Build DOM */
 	return <>
-		<section className={`section ${colorSelect ? '' : 'not-color'}`}>
-			<h2>Характеристики</h2>
-			<SelectCardMultipleTree
-				title={FilterOptionType.TYPE_PRODUCT}
-				onChange={onChangeSelectTree}
-				highlight={highlightTree}
-				valuesFilter={valuesTree}
-			/>
-			<div className='character-group block'>
-				{
-					characteristic.map(char => {
-						// @ts-ignore
-						return <InputCard value={values && char in values ? values[char] : undefined}
-										  key={char}
-										  char={char}
-										  title={ru[char].title}
-										  className='character-group-select'
-										  onInput={onInput}
-										  icon={ru[char].icon}
-						/>
-					})
-				}
-			</div>
-		</section>
+		{
+			characteristic.map(char => {
+				// @ts-ignore
+				return <InputCard value={values && char in values ? values[char] : undefined}
+								  key={char}
+								  char={char}
+								  title={ru[char].title}
+								  className='character-group-select'
+								  onInput={onInput}
+								  icon={ru[char].icon}
+				/>
+			})
+		}
 	</>
 }

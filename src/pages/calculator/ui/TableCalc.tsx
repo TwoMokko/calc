@@ -39,7 +39,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 
 	/** Constants (functions) */
 	/* Обновление данных , от которых зависит перерисовка таблицы */
-	const updateTable = async (page: string): Promise<void> => {
+	const updateTable = async (newPage: string): Promise<void> => {
 		// Прерывание предыдущего запроса
 		if (abortController.current)
 			abortController.current.abort()
@@ -49,7 +49,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 		// Установка состояния загрузки, чтобы пользователь видел, что идет запрос
 		setLoading(true)
 		// Отправка запроса на получание данных для таблицы, получение результата
-		const result = await sendDataForProductTable(filter, parseInt(page), parseInt(size ?? '20'), sort ?? 'rating', outputList ?? 'fld', abortController.current)
+		const result = await sendDataForProductTable(filter, parseInt(newPage), parseInt(size ?? '20'), sort ?? 'rating', outputList ?? 'fld', abortController.current)
 		// Снятие состояния загрузки
 		setLoading(false)
 
@@ -58,7 +58,8 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 		// Установить новые значения переменных: строк таблицы (продукция), кол-во страниц, номер текущей страницы
 		setRows(result.soldProducts)
 		setLimit(result.availablePages)
-		setValue('page', page)
+
+		setValue('page', newPage)
 	}
 
 	/* Проверка того, что ввёл пользователь
@@ -84,6 +85,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 
 	/* Обновление состояния сортировки по значению (рус) */
 	const prepareSetOutputList = (newValue:  string): void => {
+		// console.log(newValue)
 		for (const [key, value] of Object.entries(statesOutputList)) {
 			if (value === newValue) setValue('outputList', key)
 		}
@@ -174,13 +176,16 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 					<th>На складе</th>
 					<th>Общее кол-во</th>
 					<th>Подсоединения</th>
+					<th>Конфигурация</th>
 					<th>Давление</th>
 					<th>Мин темп</th>
 					<th>Макс темп</th>
-					<th>Рейтинг типа</th>
-					<th>Рейтинг самого товара</th>
-					<th>Кол-во заказов</th>
-					<th>Кол-во купленных</th>
+					{/*<th>Рейтинг типа</th>*/}
+					{/*<th>Рейтинг самого товара</th>*/}
+					{/*<th>Кол-во заказов</th>*/}
+					{/*<th>Кол-во купленных</th>*/}
+					<th>Cv</th>
+					<th>Dn</th>
 					<th>Цена</th>
 				</tr>
 				</thead>
@@ -205,36 +210,43 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 							<td>{itm.quantityInStock}</td>
 							<td>{itm.totalQuantity}</td>
 							<td>{itm.connectionInfo}</td>
+							<td>{itm.configuration}</td>
 							<td>{itm.workingPressure}</td>
 							<td>{itm.minTemperature}</td>
 							<td>{itm.maxTemperature}</td>
-							<td>{itm.typeRating}</td>
-							<td>{itm.rating}</td>
-							<td>{itm.numberOfOrders}</td>
-							<td>{itm.purchasedQuantity}</td>
+							{/*<td>{itm.typeRating}</td>*/}
+							{/*<td>{itm.rating}</td>*/}
+							{/*<td>{itm.numberOfOrders}</td>*/}
+							{/*<td>{itm.purchasedQuantity}</td>*/}
+							<td>{itm.cv}</td>
+							<td>{itm.dn}</td>
 							<td>{itm.price}</td>
 						</tr>
 						{
 							(itm.types && showComplement.includes(itm.vendorCode)) && itm.types.map(trComplement =>
 								<tr className='complement'>
 									<td>
-										<a
-											target='_blank'
-											href={`/prod/${trComplement.vendorCode}`}
-										>
-											{trComplement.vendorCode}
-										</a>
+										{trComplement.vendorCode}
+										{/*<a*/}
+										{/*	target='_blank'*/}
+										{/*	href={`/prod/${trComplement.vendorCode}`}*/}
+										{/*>*/}
+										{/*	{trComplement.vendorCode}*/}
+										{/*</a>*/}
 									</td>
 									<td>{trComplement.quantityInStock}</td>
-									<td>{itm.totalQuantity}</td>
-									<td>{itm.connectionInfo}</td>
+									<td>{trComplement.totalQuantity}</td>
+									<td>{trComplement.connectionInfo}</td>
+									<td>{trComplement.configuration}</td>
 									<td>{trComplement.workingPressure}</td>
 									<td>{trComplement.minTemperature}</td>
 									<td>{trComplement.maxTemperature}</td>
-									<td>{trComplement.typeRating}</td>
-									<td>{trComplement.rating}</td>
-									<td>{trComplement.numberOfOrders}</td>
-									<td>{trComplement.purchasedQuantity}</td>
+									{/*<td>{itm.typeRating}</td>*/}
+									{/*<td>{itm.rating}</td>*/}
+									{/*<td>{itm.numberOfOrders}</td>*/}
+									{/*<td>{itm.purchasedQuantity}</td>*/}
+									<td>{trComplement.cv}</td>
+									<td>{trComplement.dn}</td>
 									<td>{trComplement.price}</td>
 								</tr>)
 						}

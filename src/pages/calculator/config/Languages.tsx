@@ -70,6 +70,7 @@ import {BiSortAlt2} from "react-icons/bi";
 import {FaTape} from "react-icons/fa";
 import {RiPassportFill} from "react-icons/ri";
 import {AiFillSafetyCertificate} from "react-icons/ai";
+import {LuRotate3D} from "react-icons/lu";
 
 /* Для отрисовки селектов на странице фильтра */
 export const ru:  languageData = {
@@ -139,11 +140,14 @@ export const ru:  languageData = {
 	maxTemperature: { title: 'Макс температура рабочей среды', icon: <MdOutlineThermostat />, type: FilterOptionType.CHARACTERISTIC },
 	// maxPressure: { title: 'Макс давление настройки', icon: <MdOutlineFullscreen /> },
 	dn: { title: 'Dn', icon: <MdOutlineCenterFocusWeak />, type: FilterOptionType.CHARACTERISTIC },
-	sort: { title: 'Сортировка', icon: <BiSortAlt2 />, default:  'rating'},
+	configuration: { title: 'Конфигурация', icon: <MdOutlineCenterFocusWeak />, type: FilterOptionType.CHARACTERISTIC },
 	outputList: { title: 'Вывод списка', icon: <BiSortAlt2 />, default:  'fld'},
 
+	sort: { title: 'Сортировка', icon: <BiSortAlt2 />, default:  'rating'},
 	page: {title: 'Текущая страница', icon: <MdPages />, default: '1'},
 	size: {title: 'Количество строк в таблице', icon: <MdTableRows />, default: '20'},
+
+	model3d: {title: '', icon: <LuRotate3D />},
 }
 
 export const ruSidebarLinks: sidebarLink[] = [

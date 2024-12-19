@@ -23,10 +23,12 @@ export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange
 	const inputRef = useRef<HTMLInputElement>(null)							// TODO: дописать
 	const [showList, setShowList] = useState<boolean>(false)					// TODO: дописать
 	const [inputValue, setInputValue] = useState<string>('')					// TODO: дописать
-	const [currentValues, setCurrentValues] = useState<string[]>(values)				// TODO: дописать
+	const [currentValues, setCurrentValues] = useState<string[]>([])				// TODO: дописать
 
 	const [currentValue, setCurrentValue] = useState<string>('')				// TODO: дописать
 	const [className, setClassName] = useState<string>()								// TODO: дописать
+
+
 
 
 	/** Constants (functions) */
@@ -68,6 +70,10 @@ export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange
 	useEffect(() => {
 		setCurrentValue(value ?? '')
 	}, [value])
+
+	useEffect(() => {
+		setCurrentValues(values)
+	}, [values]);
 
 	/* При изменении совместимых параметров или значения в поле input отсортировать список */
 	useEffect(() => {

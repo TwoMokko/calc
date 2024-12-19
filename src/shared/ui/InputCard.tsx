@@ -7,10 +7,11 @@ interface InputCardProps {
     title: string,
     className: string,
     onInput: (char: string, value: string) => void,
-    icon: JSX.Element
+    icon: JSX.Element,
+    placeholder?: string
 }
 
-export const InputCard: FC<InputCardProps> = ({value, char, title, className, onInput, icon}): JSX.Element => {
+export const InputCard: FC<InputCardProps> = ({value, char, title, className, onInput, icon, placeholder}): JSX.Element => {
     /** Constants */
     const [currentValue, setCurrentValue] = useState<string>('')                // Значение в поле input
 
@@ -38,6 +39,7 @@ export const InputCard: FC<InputCardProps> = ({value, char, title, className, on
         <div className='input-wrap'>
             {icon}
             <input
+                placeholder={placeholder}
                 value={currentValue}
                 onChange={event => setCurrentValue(event.currentTarget.value)}
                 onInput={(event) => {
