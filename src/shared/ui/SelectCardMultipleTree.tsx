@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { TreeDataNode, TreeDataNodeChild } from "../api/models.ts";
 import { SelectCardMultipleTreeSubList } from "./SelectCardMultipleTreeSubList.tsx";
@@ -18,7 +18,7 @@ interface SelectCardMultipleTreeProps {
 	valuesFilter?: string[]
 }
 
-export const SelectCardMultipleTree: FC<SelectCardMultipleTreeProps> = ({title, onChange, highlight, valuesFilter}): JSX.Element => {
+export const SelectCardMultipleTree: FC<SelectCardMultipleTreeProps> = ({title, onChange, highlight, valuesFilter}): ReactNode => {
 	/** Constants */
 	const inputRef = useRef<HTMLInputElement>(null)											// TODO: дописать
 	const [showList, setShowList] = useState(false)											// TODO: дописать

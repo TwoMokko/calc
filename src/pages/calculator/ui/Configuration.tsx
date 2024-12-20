@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import {SelectCard} from "../../../shared/ui/SelectCard.tsx";
 
 interface ConfigurationProps {
@@ -9,7 +9,7 @@ interface ConfigurationProps {
 	onDelete: () => void,
 }
 
-export const Configuration: FC<ConfigurationProps> = (props): JSX.Element => {
+export const Configuration: FC<ConfigurationProps> = (props): ReactNode => {
 	const {
 		option,
 		data,

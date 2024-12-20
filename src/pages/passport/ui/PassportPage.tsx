@@ -6,8 +6,9 @@ import './passportPage.css'
 import { TbReload } from "react-icons/tb";
 import { Settings } from "./Settings.tsx";
 import { TablePass } from "./TablePass.tsx";
+import {ReactNode} from "react";
 
-export function PassportPage(): JSX.Element {
+export function PassportPage(): ReactNode {
 	return <>
 		<div className='calc-top-wrap'>
 			<div className='calc-top'>

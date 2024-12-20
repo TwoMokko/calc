@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { ru } from "../../pages/calculator/config/Languages.tsx";
 
@@ -18,7 +18,7 @@ interface SelectCardProps {
 	}
 }
 
-export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange, highlight, onDelete, not}): JSX.Element => {
+export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange, highlight, onDelete, not}): ReactNode => {
 	/** Constants */
 	const inputRef = useRef<HTMLInputElement>(null)							// TODO: дописать
 	const [showList, setShowList] = useState<boolean>(false)					// TODO: дописать

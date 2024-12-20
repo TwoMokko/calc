@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import {
     MdKeyboardArrowLeft,
     MdKeyboardArrowRight,
@@ -12,7 +12,7 @@ interface PaginationProps {
     onChangePage: (page: number) => void
 }
 
-export const Pagination: FC<PaginationProps> = ({page, limit, onChangePage}): JSX.Element => {
+export const Pagination: FC<PaginationProps> = ({page, limit, onChangePage}): ReactNode => {
 
     return <div className='pagination'>
         <button

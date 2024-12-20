@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import { InputCard } from "../../../shared/ui/InputCard.tsx";
 import { physicalCharacteristics } from "../../../shared/api/models.ts";
 import { isEqual } from "lodash";
@@ -19,7 +19,7 @@ interface CharactersProps {
 	onChange: (chars?: physicalCharacteristics) => void,
 }
 
-export const Characters: FC<CharactersProps> = ({values, onChange}): JSX.Element => {
+export const Characters: FC<CharactersProps> = ({values, onChange}): ReactNode => {
 	console.log('chars')
 
 	/** Constants */

@@ -1,3 +1,4 @@
+import {ReactNode} from "react";
 
 export type TreeDataNodes = TreeDataNode[]
 export interface TreeDataNode {
@@ -129,7 +130,7 @@ export enum FilterOptionType {
 export type languageData = {
     [key: string]: {
         title: string,
-        icon: JSX.Element,
+        icon: ReactNode,
         default?: string,
         type?: FilterOptionType,
         index?: number,
@@ -139,5 +140,5 @@ export type languageData = {
 export type sidebarLink = {
     title: string,
     route: string,
-    icon: JSX.Element
+    icon: ReactNode
 }

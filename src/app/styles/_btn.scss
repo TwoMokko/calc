@@ -46,11 +46,12 @@
     background-image: url("/img/reset.svg");
     width: 15px;
     height: 15px;
+    transition: transform 0.4s;
   }
 
   &.plus {
     > span {
-      transform: rotate(45deg);
+      transform: rotate(-45deg);
     }
   }
 }

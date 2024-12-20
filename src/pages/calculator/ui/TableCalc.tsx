@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useRef, useState } from "react";
+import {FC, Fragment, ReactNode, useEffect, useRef, useState} from "react";
 import { sendData, soldProducts } from "../../../shared/api/models.ts";
 import { Pagination } from "../../../shared/ui/Pagination.tsx";
 import { TiThMenu } from "react-icons/ti";
@@ -25,7 +25,7 @@ const statesOutputList: { [key: string]: string } = {
 }
 
 
-export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
+export const TableCalc: FC<TableCalcProps> = ({filter}): ReactNode => {
 	/** Constants */
 	const {urls: {page, sort, size, outputList}, setValue} =  useSearchController()
 	const [limit, setLimit] = useState<number>(1)													// Номер последней страницы (кол-во страниц)
@@ -180,10 +180,6 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 					<th>Давление</th>
 					<th>Мин темп</th>
 					<th>Макс темп</th>
-					{/*<th>Рейтинг типа</th>*/}
-					{/*<th>Рейтинг самого товара</th>*/}
-					{/*<th>Кол-во заказов</th>*/}
-					{/*<th>Кол-во купленных</th>*/}
 					<th>Cv</th>
 					<th>Dn</th>
 					<th>Цена</th>
@@ -204,6 +200,7 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 									itm.types?.length && <Button
 										title='' onClick={() => redrawComplement(itm.vendorCode)}
                                         className={`show-complement ${showComplement.includes(itm.vendorCode) ? '' : 'plus'} btn-secondary`}
+										icon={<></>}
 									/>
 								}
 							</td>
@@ -214,10 +211,6 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 							<td>{itm.workingPressure}</td>
 							<td>{itm.minTemperature}</td>
 							<td>{itm.maxTemperature}</td>
-							{/*<td>{itm.typeRating}</td>*/}
-							{/*<td>{itm.rating}</td>*/}
-							{/*<td>{itm.numberOfOrders}</td>*/}
-							{/*<td>{itm.purchasedQuantity}</td>*/}
 							<td>{itm.cv}</td>
 							<td>{itm.dn}</td>
 							<td>{itm.price}</td>
@@ -241,39 +234,11 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): JSX.Element => {
 									<td>{trComplement.workingPressure}</td>
 									<td>{trComplement.minTemperature}</td>
 									<td>{trComplement.maxTemperature}</td>
-									{/*<td>{itm.typeRating}</td>*/}
-									{/*<td>{itm.rating}</td>*/}
-									{/*<td>{itm.numberOfOrders}</td>*/}
-									{/*<td>{itm.purchasedQuantity}</td>*/}
 									<td>{trComplement.cv}</td>
 									<td>{trComplement.dn}</td>
 									<td>{trComplement.price}</td>
 								</tr>)
 						}
-
-
-						{/*/!*TODO: удалить такое*!/*/}
-						{/*{*/}
-						{/*	(showComplement.includes(itm.vendorCode)) && <tr className='complement'>*/}
-						{/*		<td>*/}
-						{/*			<a*/}
-						{/*				target='_blank'*/}
-						{/*				href={`/prod/vendorCode`}*/}
-						{/*			>*/}
-						{/*				trComplement.vendorCode-trComplement.vendorCode*/}
-						{/*			</a>*/}
-						{/*		</td>*/}
-						{/*		<td>1234</td>*/}
-						{/*		<td>1234</td>*/}
-						{/*		<td>1234</td>*/}
-						{/*		<td>1234</td>*/}
-						{/*		<td>1234</td>*/}
-						{/*		<td>1234</td>*/}
-						{/*		<td>1234</td>*/}
-						{/*		<td>1234</td>*/}
-						{/*		<td>1234</td>*/}
-						{/*	</tr>*/}
-						{/*}*/}
 					</Fragment>
 				})}
 				</tbody>

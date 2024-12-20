@@ -1,5 +1,7 @@
 /* Заглушка для несуществующих страниц */
-export function Test(): JSX.Element {
+import {ReactNode} from "react";
+
+export function Test(): ReactNode {
     return <>
         <div className='test-page'>test</div>
     </>

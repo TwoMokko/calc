@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {ReactNode, useEffect, useState} from "react";
 import { Characters } from "./Characters.tsx";
 import { SelectCardMultiple } from "../../../shared/ui/SelectCardMultiple.tsx";
 import { SelectCard } from "../../../shared/ui/SelectCard.tsx";
@@ -11,7 +11,7 @@ import { fetchData, sendDataForOptions } from "../api/fetches.ts";
 import { SelectCardMultipleTree } from "../../../shared/ui/SelectCardMultipleTree.tsx";
 import { Configuration } from "./Configuration.tsx";
 
-export const CalcPage = (): JSX.Element => {
+export const CalcPage = (): ReactNode => {
     /** Constants */
     const [filter, setFilter] = useSearchFilterParams()                             // Данные, которые отправляются на сервер (выбранные опции и прочее)
     const [data, setData] = useState<optionsData | undefined>()                     // Данные для каждой опции, которые приходят от сервера один раз в самом начале (select list: все опции)

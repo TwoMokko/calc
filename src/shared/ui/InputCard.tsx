@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 interface InputCardProps {
@@ -7,11 +7,11 @@ interface InputCardProps {
     title: string,
     className: string,
     onInput: (char: string, value: string) => void,
-    icon: JSX.Element,
+    icon: ReactNode,
     placeholder?: string
 }
 
-export const InputCard: FC<InputCardProps> = ({value, char, title, className, onInput, icon, placeholder}): JSX.Element => {
+export const InputCard: FC<InputCardProps> = ({value, char, title, className, onInput, icon, placeholder}): ReactNode => {
     /** Constants */
     const [currentValue, setCurrentValue] = useState<string>('')                // Значение в поле input
 

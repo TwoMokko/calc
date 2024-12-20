@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import {ReactNode, useState} from "react";
 import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarRightCollapse } from "react-icons/tb";
 import { ruSidebarLinks } from "../../../pages/calculator/config/Languages.tsx";
 
-export const Sidebar = (): JSX.Element => {
+export const Sidebar = (): ReactNode => {
     const [collapsed, setCollapsed] = useState<boolean>(true)
 
     return <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>

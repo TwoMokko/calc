@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import {FC, ReactNode, useState} from "react";
 import { MdOutlineContentCopy, MdOutlineDoneAll } from "react-icons/md";
 
 interface StringProps {
@@ -7,7 +7,7 @@ interface StringProps {
     className? : string
 }
 
-export const String: FC<StringProps> = ({head, string, className}): JSX.Element => {
+export const String: FC<StringProps> = ({head, string, className}): ReactNode => {
     /** Constants */
     const [copied, setCopied] = useState(false)                 // Если состояние true, пользователю будет показано, что у него получилось скопировать
 

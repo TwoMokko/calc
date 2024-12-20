@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import { connection, physicalCharacteristics, sendData } from "../../../shared/api/models.ts";
 import { ru } from "../config/Languages.tsx";
 
@@ -7,7 +7,7 @@ interface ChoiceOptionsStringProps {
 	onDeleteAtChoiceString: (funcName: string, key: string | connection | keyof physicalCharacteristics) => void,
 }
 
-export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceString}): JSX.Element => {
+export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceString}): ReactNode => {
 	/** Constants */
 	const [show, setShow] = useState<boolean>(false)					// отвечает за то, показать или срыть весь компонент
 

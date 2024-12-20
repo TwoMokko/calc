@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { TreeDataNode } from "../api/models.ts";
 
@@ -14,7 +14,7 @@ interface SelectCardMultipleTreeSubListProps {
 	checked: string[],
 }
 
-export const SelectCardMultipleTreeSubList: FC<SelectCardMultipleTreeSubListProps> = ({onChange, highlight, treeData, focusInput, checked}): JSX.Element => {
+export const SelectCardMultipleTreeSubList: FC<SelectCardMultipleTreeSubListProps> = ({onChange, highlight, treeData, focusInput, checked}): ReactNode => {
 	/** Constants */
 	const [showSubList, setShowSubList] = useState(false)							// Состояние видимости внутреннего списка (детей)
 

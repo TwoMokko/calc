@@ -1,4 +1,4 @@
-import { FC } from "react";
+import {FC, ReactNode} from "react";
 import { MdCalculate } from "react-icons/md";
 import { Button } from "../../../shared/ui/Button.tsx";
 import { OptionsLine } from "./OptionsLine.tsx";
@@ -11,7 +11,7 @@ interface TopProps {
     onDeleteAtChoiceString: (funcName: string, key: string | connection | keyof physicalCharacteristics) => void
 }
 
-export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString}): JSX.Element => {
+export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString}): ReactNode => {
 
     return <div className='calc-top-wrap'>
         <div className='calc-top'>
