@@ -15,7 +15,7 @@ export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtCho
 	/** UseEffects */
 	/* Если нечего показывать в строке, то меняем состояние, чтобы поменялся класс (для плавного появления-исчезновения) */
 	useEffect(() => {
-		(!filter.options && !filter.physicalCharacteristics && !filter.connections?.length) ? setShow(false) : setShow(true)
+		(!filter.options && !filter.physicalCharacteristics && !filter.connections?.length && !filter.geometricConfig) ? setShow(false) : setShow(true)
 	}, [filter]);
 
 
@@ -83,6 +83,17 @@ export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtCho
 					<div className='unchecked'></div>
 				</div>
 			})
+		}
+		{
+			filter.geometricConfig && <div
+				title={ru['geometricConfig'].title}
+				onClick={() => onDeleteAtChoiceString('onDeleteGeometricConfig', '')}
+				className='checked-list-item'
+			>
+				{ru['geometricConfig'].icon}
+				<div>{filter.geometricConfig}</div>
+				<div className='unchecked'></div>
+			</div>
 		}
 	</div>
 }

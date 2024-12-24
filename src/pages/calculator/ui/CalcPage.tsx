@@ -1,4 +1,4 @@
-import {ReactNode, useEffect, useState} from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Characters } from "./Characters.tsx";
 import { SelectCardMultiple } from "../../../shared/ui/SelectCardMultiple.tsx";
 import { SelectCard } from "../../../shared/ui/SelectCard.tsx";
@@ -9,7 +9,6 @@ import { Top } from "./Top.tsx";
 import { useSearchFilterParams } from "../../../shared/hooks/useSearchFilterParams.ts";
 import { fetchData, sendDataForOptions } from "../api/fetches.ts";
 import { SelectCardMultipleTree } from "../../../shared/ui/SelectCardMultipleTree.tsx";
-import { Configuration } from "./Configuration.tsx";
 
 export const CalcPage = (): ReactNode => {
     /** Constants */
@@ -33,7 +32,7 @@ export const CalcPage = (): ReactNode => {
     useEffect(() => {
         // TODO: переписать
         // После измениня фильтра проверка: если фильтр пустой, то не подкрашивать все опции
-        setColorSelect(!((!filter.physicalCharacteristics || !Object.keys(filter.physicalCharacteristics).length) && (!filter.type || !filter.type.length) && (!filter.options || !filter.options.length) && !filter.connections?.length && (!filter.productType || !filter.productType.length)))
+        setColorSelect(!((!filter.physicalCharacteristics || !Object.keys(filter.physicalCharacteristics).length) && !filter.geometricConfig && (!filter.type || !filter.type.length) && (!filter.options || !filter.options.length) && !filter.connections?.length && (!filter.productType || !filter.productType.length)))
 
         // После измениня фильтра отправка запроса (с новым фильтром и функцией, которая устанавливает новые данные, которые можно выбрать )
         if (data)
@@ -86,18 +85,10 @@ export const CalcPage = (): ReactNode => {
 
     /* Изменение значения конфигурации, если нету, удалить */
     const onChangeConfiguration = (value?: string): void => {
-        // const item = data?.configuration.find(itm => itm.value === value)
-
-        const testData = [{key: 'a', value: '1'}, {key: 'b', value: '2'}, {key: 'c', value: '3'}]
-        const item = data?.configuration ? data?.configuration.find(itm => itm.value === value) : testData.find(itm => itm.value === value)
-
-        console.log({item})
-
         setFilter(prev => {
-            if (!item)
-                delete prev.configuration
-            else
-                prev.configuration = item.key
+            !value
+                ? delete prev.geometricConfig
+                : prev.geometricConfig = value
 
             return {...prev}
         }, 'onChangeConfiguration')
@@ -156,6 +147,10 @@ export const CalcPage = (): ReactNode => {
                 break
             case 'onDeleteCharacteristic':
                 onDeleteCharacteristic(key as keyof physicalCharacteristics)
+                break;
+            case 'onDeleteGeometricConfig':
+                onChangeConfiguration(key as string)
+                break;
         }
     }
 
@@ -190,12 +185,14 @@ export const CalcPage = (): ReactNode => {
                     values={filter?.physicalCharacteristics}
                     onChange={onChangeChar}
                 />
-                <Configuration
-                    option={'configuration'}
-                    data={data.configuration ?? [{key: 'a', value: '1'}, {key: 'b', value: '2'}, {key: 'c', value: '3'}]}
+
+                <SelectCard
+                    value={filter.geometricConfig}
+                    option={FilterOptionType.GEOMETRIC_CONFIG}
+                    values={data.geometricConfigs}
                     onChange={onChangeConfiguration}
                     onDelete={onChangeConfiguration}
-                    highlight={['1', '3']}
+                    highlight={highlight?.geometricConfigs}
                 />
             </div>
         </section>

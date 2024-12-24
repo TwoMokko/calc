@@ -40,6 +40,9 @@ export const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter
 				case FilterOptionType.TYPE:
 					tempFilter.type = urlValue.split('.')
 					break;
+				case FilterOptionType.GEOMETRIC_CONFIG:
+					tempFilter.geometricConfig = urlValue
+					break;
 				case FilterOptionType.TYPE_PRODUCT:
 					tempFilter.productType = urlValue.replaceAll('_', ' ').split('.')
 					break;
@@ -56,6 +59,8 @@ export const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter
 	}
 
 	useEffect(() => {
+		console.log({filter})
+
 		if (!filter)
 			return;
 
@@ -74,6 +79,9 @@ export const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter
 
 					temp[urlKey] = option?.value ? option.value : ''
 					if (filter.options?.hasOwnProperty(urlKey)) {}
+					break;
+				case FilterOptionType.GEOMETRIC_CONFIG:
+					temp[urlKey] = filter.geometricConfig
 					break;
 				case FilterOptionType.CHARACTERISTIC:
 					if (filter?.physicalCharacteristics) {

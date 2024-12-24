@@ -33,10 +33,7 @@ export type optionsData = {
     type: string[],
     connections: connections[],
     options: options[],
-    configuration: {
-        key: string,
-        value: string,
-    }[],
+    geometricConfigs: string[],
 }
 
 export interface physicalCharacteristics {
@@ -59,7 +56,7 @@ export type sendData = {
         value: string,
     }[],
     physicalCharacteristics?: physicalCharacteristics,
-    configuration?: string
+    geometricConfig?: string
 }
 
 export type productsTable = {
@@ -124,6 +121,7 @@ export enum FilterOptionType {
     CONNECTION_SIZE = 'connectionSize',
     TYPE = 'type',
     TYPE_PRODUCT = 'productType',
+    GEOMETRIC_CONFIG = 'geometricConfig'
 }
 
 

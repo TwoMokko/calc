@@ -140,7 +140,7 @@ export const ru:  languageData = {
 	maxTemperature: { title: 'Макс температура рабочей среды', icon: <MdOutlineThermostat />, type: FilterOptionType.CHARACTERISTIC },
 	// maxPressure: { title: 'Макс давление настройки', icon: <MdOutlineFullscreen /> },
 	dn: { title: 'Dn', icon: <MdOutlineCenterFocusWeak />, type: FilterOptionType.CHARACTERISTIC },
-	configuration: { title: 'Конфигурация', icon: <MdOutlineCenterFocusWeak />, type: FilterOptionType.CHARACTERISTIC },
+	geometricConfig: { title: 'Конфигурация', icon: <MdOutlineCenterFocusWeak />, type: FilterOptionType.GEOMETRIC_CONFIG },
 	outputList: { title: 'Вывод списка', icon: <BiSortAlt2 />, default:  'fld'},
 
 	sort: { title: 'Сортировка', icon: <BiSortAlt2 />, default:  'rating'},
