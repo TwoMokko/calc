@@ -9,10 +9,10 @@ interface CharacteristicSectionProps {
 	data: productData
 }
 
-export const CharacteristicSection: FC<CharacteristicSectionProps> = ({data}): ReactNode => {
+export const GeneralInfoSection: FC<CharacteristicSectionProps> = ({data}): ReactNode => {
 	return <>
 		<section className='product-info block-prod section'>
-			<h2>Характеристики</h2>
+			<h2>Общая информация</h2>
 			<String head='Артикул' string={data.rightArticul}/>
 			<String head='Полное наименование' string={data.title}/>
 			<String head='Строка для 1С' string={data.oneCString}/>

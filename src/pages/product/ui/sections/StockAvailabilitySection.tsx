@@ -8,11 +8,11 @@ interface StockAvailabilitySectionProps {
 }
 
 export const StockAvailabilitySection: FC<StockAvailabilitySectionProps> = ({data}): ReactNode => {
-		return <>
+		return <section className='section'>
 			{data.stockAvailability &&
 				<div className='product-history-price-wrap'>
 					<div>
-						<h3>Название таблицы</h3>
+						<h2>Наличие на складе</h2>
 						<TableProd
 							data={[{'1': '1', '2': 2, '3': '3', '4': 4, '5': '5'}, {
 								'1': '1',
@@ -27,5 +27,5 @@ export const StockAvailabilitySection: FC<StockAvailabilitySectionProps> = ({dat
 					</div>
 				</div>
 			}
-		</>
+		</section>
 }

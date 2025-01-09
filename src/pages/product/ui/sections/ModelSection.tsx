@@ -29,7 +29,7 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 		})
 	}
 
-	return <>
+	return <section className='section'>
 		<div className='download-wrap'>
 			<div className='download-title'>Выберите формат</div>
 			<div className='download-content'>
@@ -38,7 +38,7 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 						option={'model3d'}
 						values={['stp', 'pdf', 'sss']}
 						value={'stp'}
-						onChange={(value) =>setFormat(value)}
+						onChange={(value) => setFormat(value)}
 						highlight={['stp', 'pdf', 'sss']}
 						not={{
 							color: true,
@@ -52,13 +52,10 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 						title={'Скачать'}
 						onClick={downloadModel}
 						className='btn btn-accent'
-						icon={loading ? <LuLoader /> : <MdDownload/>}
+						icon={loading ? <LuLoader/> : <MdDownload/>}
 					/>
 				</div>
 			</div>
 		</div>
-		<div className='download-wrap'>
-
-		</div>
-	</>
+	</section>
 }

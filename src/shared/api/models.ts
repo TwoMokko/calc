@@ -95,6 +95,8 @@ export interface productDataArticle {
 }
 
 export type productData = {
+    Characteristics: { [key: string]: string },
+    Materials: {},
     status?: number,
     rightArticul: string,
     type: string,

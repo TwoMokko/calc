@@ -1,39 +1,19 @@
 import { TableProd } from "../TableProd.tsx";
 import { FC, ReactNode } from "react";
-import { productData } from "../../../../shared/api/models.ts";
+import { productDataArticle} from "../../../../shared/api/models.ts";
 
 interface HistoryPriceSectionProps {
-	data: productData
+	data: productDataArticle
 }
 
 export const HistoryPriceSection: FC<HistoryPriceSectionProps> = ({data}): ReactNode => {
-		return <>
-			{
-				(data.buildArticul && data.buildArticul.historyPrices.length > 0 || data.buildArticul && data.buildArticul.historyPrices.length > 0) &&
-                <div className='product-history-price-wrap'>
+	// if (!data) return <></>
 
-					{
-						data.bodydArticul && data.bodydArticul.historyPrices.length > 0 && <div>
-                            <h3>{data.bodydArticul.nameTable}</h3>
-                            <TableProd
-                                data={Object.values(data.bodydArticul.historyPrices)}
-                                className='table'
-                                columnsHead={['Цена закупки', 'Дата', 'Источник', 'Количество']}
-                            />
-                        </div>
-					}
-					{
-						data.buildArticul && data.buildArticul.historyPrices.length > 0 && <div>
-                            <h3>{data.buildArticul.nameTable}</h3>
-                            <TableProd
-                                data={Object.values(data.buildArticul.historyPrices)}
-                                className='table'
-                                columnsHead={['Цена закупки', 'Дата', 'Источник', 'Количество']}
-                            />
-                        </div>
-
-					}
-                </div>
-			}
-		</>
+	return <div className='product-history-price-wrap'>
+		<TableProd
+			data={Object.values(data.historyPrices)}
+			className='table'
+			columnsHead={['Цена закупки', 'Дата', 'Источник', 'Количество']}
+		/>
+	</div>
 }

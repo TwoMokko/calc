@@ -1,4 +1,4 @@
-import {ReactNode, useEffect, useMemo, useState} from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { productData } from "../../../shared/api/models.ts";
 import { Breadcrumbs } from "../../../shared/ui/Breadcrumbs.tsx";
@@ -7,23 +7,29 @@ import { Error } from "../../../widgets/PageError/ui/Error.tsx";
 import { getDataForProduct } from "../api/fetches.ts";
 import { HistoryPriceSection } from "./sections/HistoryPriceSection.tsx";
 import { StockAvailabilitySection } from "./sections/StockAvailabilitySection.tsx";
-import {ModelSection} from "./sections/ModelSection.tsx";
-import {CharacteristicSection} from "./sections/CharacteristicSection.tsx";
+import { ModelSection } from "./sections/ModelSection.tsx";
+import { GeneralInfoSection } from "./sections/GeneralInfoSection.tsx";
+import { CharacteristicsSection } from "./sections/CharacteristicsSection.tsx";
+import { MaterialsSection } from "./sections/MaterialsSection.tsx";
 
 
 // const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 
-const sections = [
-    { title: 'История изменения цен', key: 'HistoryPriceSection' },
-    { title: 'Наличие на складе', key: 'StockAvailabilitySection' },
-]
+// const sections = [
+//     { title: 'История изменения цен', key: 'HistoryPriceSection' },
+//     // { title: 'Наличие на складе', key: 'StockAvailabilitySection' },
+// ]
 
 export function ProductPage(): ReactNode {
     /** Constants */
     const [data, setData] = useState<productData | undefined>()         // Данные, получаемые из запроса по артикулу
     const {article} = useParams()                                       // Артикль продукции, из адресной строки
 
-    const [activeSection, setActiveSection] = useState<string>('HistoryPriceSection')
+    const sections = [
+        { title: data?.bodydArticul.nameTable, table: data?.bodydArticul },
+        { title: data?.buildArticul.nameTable, table: data?.buildArticul },
+    ]
+    const [activeSection, setActiveSection] = useState<string>()
 
     /** Constants (functions) */
     // /* Формирование строки для поля (Наличие на складе), составляется из массива stockAvailability */
@@ -36,17 +42,28 @@ export function ProductPage(): ReactNode {
     // }
 
 
-    const renderContent = useMemo(() => {
+    // const renderContent = useMemo(() => {
+    //     if (data && article)
+    //         switch (activeSection) {
+    //             case 'HistoryPriceSection':
+    //                 return <HistoryPriceSection data={data} />
+    //             // case 'StockAvailabilitySection':
+    //             //     return <StockAvailabilitySection data={data} />
+    //             default:
+    //                 return <HistoryPriceSection data={data} />
+    //         }
+    // }, [activeSection, data])
+
+
+    const renderContent = useMemo((): ReactNode => {
         if (data && article)
-            switch (activeSection) {
-                case 'HistoryPriceSection':
-                    return <HistoryPriceSection data={data} />
-                case 'StockAvailabilitySection':
-                    return <StockAvailabilitySection data={data} />
-                default:
-                    return <HistoryPriceSection data={data} />
-            }
+            return sections.map(section => {
+                return (section.table && section.title === activeSection)
+                    ? <HistoryPriceSection key={section.title} data={section.table}/>
+                    : <div key={section.title}></div>
+            })
     }, [activeSection, data])
+
 
     /* Если в адресной строке нет параметра article */
     if (!article)
@@ -61,6 +78,9 @@ export function ProductPage(): ReactNode {
         })()
     }, [])
 
+    useEffect(() => {
+        setActiveSection(sections[0].title ?? '')
+    }, [data]);
 
     /** Build DOM */
     /* Проверка, пришли ли данные для отрисовки DOM  */
@@ -91,19 +111,20 @@ export function ProductPage(): ReactNode {
             </div>
         </div>
 
-        <CharacteristicSection data={data} />
-
-        <section className='section'>
-            <ModelSection vendorCode={article} />
-        </section>
+        <GeneralInfoSection data={data} />
+        <ModelSection vendorCode={article} />
+        <CharacteristicsSection data={data.Characteristics} />
+        <MaterialsSection data={data.Materials} />
+        <StockAvailabilitySection data={data} />
 
         <div className='section'>
+            <h2>История изменения цен</h2>
             <nav className='product-switch'>
                 {
                     sections.map(section => <div
-                        key={section.key}
-                        className={`product-switch-link ${section.key == activeSection ? 'active' : ''}`}
-                        onClick={() => setActiveSection(section.key)}
+                        key={section.title}
+                        className={`product-switch-link ${section.title == activeSection ? 'active' : ''}`}
+                        onClick={() => setActiveSection(section.title)}
                     >
                         {section.title}
                     </div>)
