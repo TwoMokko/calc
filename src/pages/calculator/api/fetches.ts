@@ -1,4 +1,4 @@
-import {optionsData, productsTable, sendData, TreeDataNodes} from "../../../shared/api/models.ts";
+import {optionsData, productsTable, sendData, TreeDataNodes} from "../../../app/types/types.ts";
 import {domains} from "../../../app/types/global.ts";
 
 /* Запрос на получение данных для отрисовки DOM (?fetchDataFirst) */

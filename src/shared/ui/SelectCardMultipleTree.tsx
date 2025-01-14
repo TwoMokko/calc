@@ -1,6 +1,6 @@
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { TreeDataNode, TreeDataNodeChild } from "../api/models.ts";
+import { TreeDataNode, TreeDataNodeChild } from "../../app/types/types.ts";
 import { SelectCardMultipleTreeSubList } from "./SelectCardMultipleTreeSubList.tsx";
 import { isEqual, uniq } from "lodash";
 import { useDebouncedCallback } from "use-debounce";

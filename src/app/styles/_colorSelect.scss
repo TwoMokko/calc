@@ -72,13 +72,13 @@
 	}
 	.input-search-wrap {
 		//border-color: #00c981;
-		background-color: #e9f7f2;
+		background-color: $colorWell;
 	}
 	&.input-search-list-item {
-		background-color: #e9f7f2;
+		background-color: $colorWell;
 	}
 	&.tree {
-		background-color: #e9f7f2;
+		background-color: $colorWell;
 	}
 }
 
@@ -89,10 +89,10 @@
 		}
 		.input-search-wrap {
 			//border-color: #00c981;
-			background-color: white !important;
+			background-color: $colorBackgroundLight !important;
 		}
 		&.input-search-list-item {
-			background-color: white !important;
+			background-color: $colorBackgroundLight !important;
 		}
 	}
 }

@@ -20,6 +20,34 @@
 	}
 }
 
+.table-configuration {
+	width: fit-content;
+	cursor: default;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	margin: 0 auto;
+
+	&-img {
+		//display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 200px;
+		height: 200px;
+		border: 1px solid $colorBorderTable;
+		box-shadow: 0 0 8.8px 0 $colorBoxShadow;
+		z-index: 1;
+
+		> img {
+			object-fit: contain;
+			width: 100%;
+			height: auto;
+		}
+	}
+}
+
 .table {
 	//display: inline-block;
 	//overflow-x: scroll;
@@ -33,6 +61,12 @@
 	white-space: nowrap;
 
 	position: relative;
+
+	td, th {
+		&:not(:first-child) {
+			text-align: center;
+		}
+	}
 
 	thead {
 		padding: 14px 10px;

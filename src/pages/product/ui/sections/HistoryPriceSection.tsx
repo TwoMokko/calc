@@ -1,6 +1,6 @@
 import { TableProd } from "../TableProd.tsx";
 import { FC, ReactNode } from "react";
-import { productDataArticle} from "../../../../shared/api/models.ts";
+import { productDataArticle} from "../../../../app/types/types.ts";
 
 interface HistoryPriceSectionProps {
 	data: productDataArticle

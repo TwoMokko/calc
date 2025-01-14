@@ -1,5 +1,5 @@
 import {domains} from "../../../app/types/global.ts";
-import {productData} from "../../../shared/api/models.ts";
+import {productData} from "../../../app/types/types.ts";
 
 /* Запрос на получение данных для отрисовки страницы товара продукции по артикулу */
 export const getDataForProduct = async (string: string): Promise<productData> => {

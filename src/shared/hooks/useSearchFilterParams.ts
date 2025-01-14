@@ -1,5 +1,5 @@
 import useSearchController, {UrlProps} from "./useSearchController.tsx";
-import {FilterOptionType, physicalCharacteristics, sendData} from "../api/models.ts";
+import {FilterOptionType, physicalCharacteristics, sendData} from "../../app/types/types.ts";
 import {useEffect, useState} from "react";
 import {ru} from "../../pages/calculator/config/Languages.tsx";
 
@@ -61,8 +61,10 @@ export const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter
 	useEffect(() => {
 		console.log({filter})
 
-		if (!filter)
+		if (!filter) {
+			// set({})
 			return;
+		}
 
 		const temp: UrlProps = {}
 
@@ -87,6 +89,9 @@ export const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter
 					if (filter?.physicalCharacteristics) {
 						const char: number | undefined = filter.physicalCharacteristics[urlKey as keyof physicalCharacteristics]
 						temp[urlKey] = char ? char.toString() : ''
+					}
+					else {
+						temp[urlKey] = ''
 					}
 					break;
 				case FilterOptionType.TYPE:

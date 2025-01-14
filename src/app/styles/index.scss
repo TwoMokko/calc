@@ -29,12 +29,15 @@
 
 html {
     height: 100%;
+    background-color: $colorBackgroundLight;
 }
 
 body {
     padding: 0 10px;
     height: 100%;
     margin: 0;
+
+    position: relative;
 }
 
 #root {
@@ -49,7 +52,7 @@ main {
     flex-direction: column;
     gap: 30px;
     //padding: 40px 30px;
-    position: relative;
+    //position: relative;
     padding: 0 30px 40px;
     border-radius: 30px;
     background-color: $colorBackgroundMain;
@@ -156,7 +159,7 @@ input {
 
 .section {
     padding: 20px;
-    background-color: white;
+    background-color: $colorBackgroundLight;
     border-radius: 20px;
     &:not(:last-child) {
         //margin-bottom: 30px;

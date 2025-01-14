@@ -1,6 +1,6 @@
 import { SelectCard } from "../../../shared/ui/SelectCard.tsx";
 import {useState, useEffect, FC, ReactNode} from "react";
-import { connection, connections } from "../../../shared/api/models.ts";
+import { connection, connections } from "../../../app/types/types.ts";
 
 interface ConnectionProps {
     value?: connection,

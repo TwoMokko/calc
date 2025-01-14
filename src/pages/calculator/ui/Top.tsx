@@ -2,7 +2,7 @@ import {FC, ReactNode} from "react";
 import { MdCalculate } from "react-icons/md";
 import { Button } from "../../../shared/ui/Button.tsx";
 import { OptionsLine } from "./OptionsLine.tsx";
-import { connection, physicalCharacteristics, sendData } from "../../../shared/api/models.ts";
+import { connection, physicalCharacteristics, sendData } from "../../../app/types/types.ts";
 import {RxCross2} from "react-icons/rx";
 
 interface TopProps {

@@ -4,7 +4,7 @@ import { SelectCardMultiple } from "../../../shared/ui/SelectCardMultiple.tsx";
 import { SelectCard } from "../../../shared/ui/SelectCard.tsx";
 import { Connection } from "./Connection.tsx";
 import { TableCalc } from "./TableCalc.tsx";
-import {connection, FilterOptionType, optionsData, physicalCharacteristics} from "../../../shared/api/models.ts";
+import {connection, FilterOptionType, optionsData, physicalCharacteristics} from "../../../app/types/types.ts";
 import { Top } from "./Top.tsx";
 import { useSearchFilterParams } from "../../../shared/hooks/useSearchFilterParams.ts";
 import { fetchData, sendDataForOptions } from "../api/fetches.ts";

@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { productData } from "../../../shared/api/models.ts";
+import { productData, productDataArticle } from "../../../app/types/types.ts";
 import { Breadcrumbs } from "../../../shared/ui/Breadcrumbs.tsx";
 import { MdCalculate } from "react-icons/md";
 import { Error } from "../../../widgets/PageError/ui/Error.tsx";
@@ -25,10 +25,9 @@ export function ProductPage(): ReactNode {
     const [data, setData] = useState<productData | undefined>()         // Данные, получаемые из запроса по артикулу
     const {article} = useParams()                                       // Артикль продукции, из адресной строки
 
-    const sections = [
-        { title: data?.bodydArticul.nameTable, table: data?.bodydArticul },
-        { title: data?.buildArticul.nameTable, table: data?.buildArticul },
-    ]
+    const sections: { title: string, table: productDataArticle }[] = []
+    if (data?.bodydArticul) sections.push({ title: data?.bodydArticul.nameTable, table: data?.bodydArticul })
+    if (data?.buildArticul) sections.push({ title: data?.buildArticul.nameTable, table: data?.buildArticul })
     const [activeSection, setActiveSection] = useState<string>()
 
     /** Constants (functions) */
@@ -79,8 +78,16 @@ export function ProductPage(): ReactNode {
     }, [])
 
     useEffect(() => {
-        setActiveSection(sections[0].title ?? '')
+        // if (data?.bodydArticul) sections.push({ title: data?.bodydArticul.nameTable, table: data?.bodydArticul })
+        // if (data?.buildArticul) sections.push({ title: data?.buildArticul.nameTable, table: data?.buildArticul })
+
+        setActiveSection(sections.length ? sections[0].title : '')
     }, [data]);
+
+    useEffect(() => {
+        console.log('act: ', activeSection)
+
+    }, [activeSection]);
 
     /** Build DOM */
     /* Проверка, пришли ли данные для отрисовки DOM  */
@@ -131,9 +138,11 @@ export function ProductPage(): ReactNode {
                 }
             </nav>
             <div>
-                { renderContent }
+                {renderContent}
             </div>
         </div>
+
+
 
     </>
 }

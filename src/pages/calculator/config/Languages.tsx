@@ -65,7 +65,7 @@ import {
 	MdWater,
 	MdZoomInMap
 } from "react-icons/md";
-import {FilterOptionType, languageData, sidebarLink} from "../../../shared/api/models.ts";
+import {FilterOptionType, languageData, sidebarLink} from "../../../app/types/types.ts";
 import {BiSortAlt2} from "react-icons/bi";
 import {FaTape} from "react-icons/fa";
 import {RiPassportFill} from "react-icons/ri";

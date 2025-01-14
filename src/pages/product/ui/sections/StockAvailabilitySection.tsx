@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { TableProd } from "../TableProd.tsx";
-import { productData } from "../../../../shared/api/models.ts";
+import { productData } from "../../../../app/types/types.ts";
 
 
 interface StockAvailabilitySectionProps {

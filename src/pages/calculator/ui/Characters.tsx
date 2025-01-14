@@ -1,6 +1,6 @@
 import {FC, ReactNode, useEffect, useState} from "react";
 import { InputCard } from "../../../shared/ui/InputCard.tsx";
-import { physicalCharacteristics } from "../../../shared/api/models.ts";
+import { physicalCharacteristics } from "../../../app/types/types.ts";
 import { isEqual } from "lodash";
 import { ru } from "../config/Languages.tsx";
 

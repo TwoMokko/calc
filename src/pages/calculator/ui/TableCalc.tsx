@@ -1,11 +1,13 @@
-import {FC, Fragment, ReactNode, useEffect, useRef, useState} from "react";
-import { sendData, soldProducts } from "../../../shared/api/models.ts";
+import React, {FC, Fragment, ReactNode, useEffect, useRef, useState} from "react";
+import { sendData, soldProducts } from "../../../app/types/types.ts";
 import { Pagination } from "../../../shared/ui/Pagination.tsx";
 import { TiThMenu } from "react-icons/ti";
 import { SelectCard } from "../../../shared/ui/SelectCard.tsx";
 import useSearchController from "../../../shared/hooks/useSearchController.tsx";
 import { Button } from "../../../shared/ui/Button.tsx";
 import { sendDataForProductTable } from "../api/fetches.ts";
+import { IoImage } from "react-icons/io5";
+import { TableHover } from "./TableHover.tsx";
 
 interface TableCalcProps {
 	filter: sendData,
@@ -36,6 +38,13 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): ReactNode => {
 
 	const abortController = useRef<AbortController | null>(null)									// Для прерывания запроса, если поступил новый запрос, а от предыдущего ответ ещё не получен
 
+
+	const [isHover, setIsHover] = useState(false)
+	const [coordinateHover, setCoordinateHover] = useState<{ x: number, y: number }>({ x: 0, y: 0 })
+	const trigger = (event: React.MouseEvent<HTMLDivElement>) => {
+		if (!isHover) return
+		setCoordinateHover({ x: event.pageX + 10, y: event.pageY + 10 })
+	}
 
 	/** Constants (functions) */
 	/* Обновление данных , от которых зависит перерисовка таблицы */
@@ -198,22 +207,32 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): ReactNode => {
 								</a>
 								{
 									itm.types?.length && <Button
-										title='' onClick={() => redrawComplement(itm.vendorCode)}
+                                        title='' onClick={() => redrawComplement(itm.vendorCode)}
                                         className={`show-complement ${showComplement.includes(itm.vendorCode) ? '' : 'plus'} btn-secondary`}
-										icon={<></>}
-									/>
+                                        icon={<></>}
+                                    />
 								}
 							</td>
 							<td>{itm.quantityInStock}</td>
 							<td>{itm.totalQuantity}</td>
 							<td>{itm.connectionInfo}</td>
-							<td>{itm.configuration}</td>
+							<td>
+								<div
+									className='table-configuration'
+									onMouseMove={(event: React.MouseEvent<HTMLDivElement>) => trigger(event)}
+									onMouseEnter={() => setIsHover(true)}
+									onMouseLeave={() => setIsHover(false)}
+								>
+									<IoImage />
+									text
+								</div>
+							</td>
 							<td>{itm.workingPressure}</td>
 							<td>{itm.minTemperature}</td>
 							<td>{itm.maxTemperature}</td>
 							<td>{itm.cv}</td>
 							<td>{itm.dn}</td>
-							<td>{itm.price}</td>
+							<td>{itm.price?.toFixed(2)}</td>
 						</tr>
 						{
 							(itm.types && showComplement.includes(itm.vendorCode)) && itm.types.map(trComplement =>
@@ -228,21 +247,23 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): ReactNode => {
 										{/*</a>*/}
 									</td>
 									<td>{trComplement.quantityInStock}</td>
-									<td>{trComplement.totalQuantity}</td>
-									<td>{trComplement.connectionInfo}</td>
-									<td>{trComplement.configuration}</td>
-									<td>{trComplement.workingPressure}</td>
-									<td>{trComplement.minTemperature}</td>
-									<td>{trComplement.maxTemperature}</td>
-									<td>{trComplement.cv}</td>
-									<td>{trComplement.dn}</td>
-									<td>{trComplement.price}</td>
+									<td></td>
+									<td>{itm.connectionInfo}</td>
+									<td>{itm.configuration}</td>
+									<td>{itm.workingPressure}</td>
+									<td>{itm.minTemperature}</td>
+									<td>{itm.maxTemperature}</td>
+									<td>{itm.cv}</td>
+									<td>{itm.dn}</td>
+									<td>{itm.price?.toFixed(2)}</td>
 								</tr>)
 						}
 					</Fragment>
 				})}
 				</tbody>
 			</table>
+
+			<TableHover isHover={isHover} coordinateHover={coordinateHover} />
 		</div>
 
 		{

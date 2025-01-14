@@ -1,5 +1,5 @@
 import {FC, ReactNode, useEffect, useState} from "react";
-import { connection, physicalCharacteristics, sendData } from "../../../shared/api/models.ts";
+import { connection, physicalCharacteristics, sendData } from "../../../app/types/types.ts";
 import { ru } from "../config/Languages.tsx";
 
 interface ChoiceOptionsStringProps {
