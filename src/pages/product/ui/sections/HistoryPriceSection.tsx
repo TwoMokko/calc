@@ -1,9 +1,13 @@
 import { TableProd } from "../TableProd.tsx";
 import { FC, ReactNode } from "react";
-import { productDataArticle} from "../../../../app/types/types.ts";
 
 interface HistoryPriceSectionProps {
-	data: productDataArticle
+	data: {
+		purchasePrice: number,
+		datePrice: string,
+		namePriceFor: string,
+		quantity: number
+	}[]
 }
 
 export const HistoryPriceSection: FC<HistoryPriceSectionProps> = ({data}): ReactNode => {
@@ -11,7 +15,7 @@ export const HistoryPriceSection: FC<HistoryPriceSectionProps> = ({data}): React
 
 	return <div className='product-history-price-wrap'>
 		<TableProd
-			data={Object.values(data.historyPrices)}
+			data={Object.values(data)}
 			className='table'
 			columnsHead={['Цена закупки', 'Дата', 'Источник', 'Количество']}
 		/>

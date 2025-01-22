@@ -1,5 +1,5 @@
-import {optionsData, productsTable, sendData, TreeDataNodes} from "../../../app/types/types.ts";
-import {domains} from "../../../app/types/global.ts";
+import { optionsData, productsTable, sendData, TreeDataNodes } from "../config/types.ts";
+import { domains } from "../../../app/types/global.ts";
 
 /* Запрос на получение данных для отрисовки DOM (?fetchDataFirst) */
 export const fetchData = async (): Promise<optionsData> => {

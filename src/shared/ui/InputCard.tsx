@@ -1,4 +1,4 @@
-import {FC, ReactNode, useEffect, useState} from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 interface InputCardProps {

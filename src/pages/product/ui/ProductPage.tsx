@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { productData, productDataArticle } from "../../../app/types/types.ts";
+import { productData, tableHistoryPrices } from "../config/types.ts";
 import { Breadcrumbs } from "../../../shared/ui/Breadcrumbs.tsx";
 import { MdCalculate } from "react-icons/md";
 import { Error } from "../../../widgets/PageError/ui/Error.tsx";
@@ -15,19 +15,12 @@ import { MaterialsSection } from "./sections/MaterialsSection.tsx";
 
 // const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 
-// const sections = [
-//     { title: 'История изменения цен', key: 'HistoryPriceSection' },
-//     // { title: 'Наличие на складе', key: 'StockAvailabilitySection' },
-// ]
-
 export function ProductPage(): ReactNode {
     /** Constants */
     const [data, setData] = useState<productData | undefined>()         // Данные, получаемые из запроса по артикулу
     const {article} = useParams()                                       // Артикль продукции, из адресной строки
 
-    const sections: { title: string, table: productDataArticle }[] = []
-    if (data?.bodydArticul) sections.push({ title: data?.bodydArticul.nameTable, table: data?.bodydArticul })
-    if (data?.buildArticul) sections.push({ title: data?.buildArticul.nameTable, table: data?.buildArticul })
+    let sections: tableHistoryPrices[] = []
     const [activeSection, setActiveSection] = useState<string>()
 
     /** Constants (functions) */
@@ -56,10 +49,11 @@ export function ProductPage(): ReactNode {
 
     const renderContent = useMemo((): ReactNode => {
         if (data && article)
+            sections = data.tableHistoryPrices
             return sections.map(section => {
-                return (section.table && section.title === activeSection)
-                    ? <HistoryPriceSection key={section.title} data={section.table}/>
-                    : <div key={section.title}></div>
+                return (section.nameTable === activeSection)
+                    ? <HistoryPriceSection key={section.nameTable} data={section.historyPrices}/>
+                    : <div key={section.nameTable}></div>
             })
     }, [activeSection, data])
 
@@ -78,16 +72,9 @@ export function ProductPage(): ReactNode {
     }, [])
 
     useEffect(() => {
-        // if (data?.bodydArticul) sections.push({ title: data?.bodydArticul.nameTable, table: data?.bodydArticul })
-        // if (data?.buildArticul) sections.push({ title: data?.buildArticul.nameTable, table: data?.buildArticul })
-
-        setActiveSection(sections.length ? sections[0].title : '')
+        setActiveSection(sections.length ? sections[0].nameTable : '')
     }, [data]);
 
-    useEffect(() => {
-        console.log('act: ', activeSection)
-
-    }, [activeSection]);
 
     /** Build DOM */
     /* Проверка, пришли ли данные для отрисовки DOM  */
@@ -129,11 +116,11 @@ export function ProductPage(): ReactNode {
             <nav className='product-switch'>
                 {
                     sections.map(section => <div
-                        key={section.title}
-                        className={`product-switch-link ${section.title == activeSection ? 'active' : ''}`}
-                        onClick={() => setActiveSection(section.title)}
+                        key={section.nameTable}
+                        className={`product-switch-link ${section.nameTable == activeSection ? 'active' : ''}`}
+                        onClick={() => setActiveSection(section.nameTable)}
                     >
-                        {section.title}
+                        {section.nameTable}
                     </div>)
                 }
             </nav>

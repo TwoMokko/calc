@@ -36,7 +36,7 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 				<div>
 					<SelectCard
 						option={'model3d'}
-						values={['stp', 'pdf', 'sss']}
+						values={['stp', 'pdf']}
 						value={'stp'}
 						onChange={(value) => setFormat(value)}
 						highlight={['stp', 'pdf', 'sss']}

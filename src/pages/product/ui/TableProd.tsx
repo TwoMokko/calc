@@ -1,7 +1,8 @@
 import { FC } from "react";
+import { stockAvailability } from "../config/types.ts";
 
 interface TableProdProps {
-    data: {[key: string]: string | number}[],
+    data: {[key: string]: string | number}[] | stockAvailability[],
     className: string,
     columnsHead: string[],
 }

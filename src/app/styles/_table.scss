@@ -27,7 +27,7 @@
 	align-items: center;
 	justify-content: center;
 	gap: 4px;
-	margin: 0 auto;
+	//margin: 0 auto;
 
 	&-img {
 		//display: none;
@@ -62,11 +62,11 @@
 
 	position: relative;
 
-	td, th {
-		&:not(:first-child) {
-			text-align: center;
-		}
-	}
+	//td, th {
+	//	&:not(:first-child) {
+	//		text-align: center;
+	//	}
+	//}
 
 	thead {
 		padding: 14px 10px;

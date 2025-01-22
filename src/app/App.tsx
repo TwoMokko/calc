@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CalcPage } from "../pages/calculator/ui/CalcPage.tsx";
 import { ProductPage } from "../pages/product/ui/ProductPage.tsx";
 import { Test } from "../pages/test/Test.tsx";
-import Layout from "./layouts/Layout.tsx";
+import { Layout } from "./layouts/Layout.tsx";
 // import {PassportPage} from "../pages/passport/ui/PassportPage.tsx";
 
 function App() {

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
-import {ReactNode, useState} from "react";
+import { ReactNode, useState } from "react";
 import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarRightCollapse } from "react-icons/tb";
-import { ruSidebarLinks } from "../../../pages/calculator/config/Languages.tsx";
+import { ruSidebarLinks } from "../config/data.tsx";
 
 export const Sidebar = (): ReactNode => {
     const [collapsed, setCollapsed] = useState<boolean>(true)

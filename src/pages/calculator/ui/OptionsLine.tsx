@@ -1,6 +1,6 @@
-import {FC, ReactNode, useEffect, useState} from "react";
-import { connection, physicalCharacteristics, sendData } from "../../../app/types/types.ts";
-import { ru } from "../config/Languages.tsx";
+import { FC, ReactNode, useEffect, useState } from "react";
+import { connection, physicalCharacteristics, sendData } from "../config/types.ts";
+import { ru } from "../config/languages.tsx";
 
 interface ChoiceOptionsStringProps {
 	filter: sendData,
@@ -85,6 +85,7 @@ export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtCho
 			})
 		}
 		{
+			// Отображение выбранного параметра в селекте Конфигурация с проверкой на существование
 			filter.geometricConfig && <div
 				title={ru['geometricConfig'].title}
 				onClick={() => onDeleteAtChoiceString('onDeleteGeometricConfig', '')}

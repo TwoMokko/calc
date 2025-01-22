@@ -4,9 +4,9 @@ import {
 	MdAllInbox,
 	MdAnalytics,
 	MdAnimation,
-	MdApi, MdAutoAwesomeMosaic,
+	MdApi,
 	MdAutoFixHigh,
-	MdBrunchDining, MdCalculate,
+	MdBrunchDining,
 	MdCarCrash,
 	MdCasino,
 	MdCelebration,
@@ -14,9 +14,9 @@ import {
 	MdConveyorBelt,
 	MdCrisisAlert,
 	MdCropRotate,
-	MdDiversity2, MdElectricalServices,
+	MdDiversity2,
 	MdExpand,
-	MdExplore, MdExtension, MdFactory, MdFilterBAndW, MdFilterHdr,
+	MdExplore,
 	MdHive,
 	MdNetworkPing,
 	MdOutline123,
@@ -65,12 +65,9 @@ import {
 	MdWater,
 	MdZoomInMap
 } from "react-icons/md";
-import {FilterOptionType, languageData, sidebarLink} from "../../../app/types/types.ts";
-import {BiSortAlt2} from "react-icons/bi";
-import {FaTape} from "react-icons/fa";
-import {RiPassportFill} from "react-icons/ri";
-import {AiFillSafetyCertificate} from "react-icons/ai";
-import {LuRotate3D} from "react-icons/lu";
+import { FilterOptionType, languageData } from "./types.ts";
+import { BiSortAlt2 } from "react-icons/bi";
+import { LuRotate3D } from "react-icons/lu";
 
 /* Для отрисовки селектов на странице фильтра */
 export const ru:  languageData = {
@@ -87,7 +84,7 @@ export const ru:  languageData = {
 	o_surf: { title: 'Тип поверхности', icon: <MdPowerInput />, type: FilterOptionType.OPTION },
 	o_seal: { title: 'Материал уплотнения', icon: <MdSwitchCamera />, type: FilterOptionType.OPTION },
 	o_conf: { title: 'Геометрическая конфигурация изделия', icon: <MdSwipeUpAlt />, type: FilterOptionType.OPTION },
-	o_fe: { title: 'Опция постоянной нагрузки у NV вентелей', icon: <MdTireRepair />, type: FilterOptionType.OPTION },
+	o_fe: { title: 'Опция постоянной нагрузки у NV вентилей', icon: <MdTireRepair />, type: FilterOptionType.OPTION },
 	o_panel: { title: 'Крепление на панель', icon: <MdTornado />, type: FilterOptionType.OPTION },
 	o_345b: { title: 'Опция давления у NV', icon: <MdUpcoming />, type: FilterOptionType.OPTION },
 	o_vent: { title: 'Опция дренажа', icon: <MdWater />, type: FilterOptionType.OPTION },
@@ -149,56 +146,3 @@ export const ru:  languageData = {
 
 	model3d: {title: '', icon: <LuRotate3D />},
 }
-
-export const ruSidebarLinks: sidebarLink[] = [
-	{
-		title: 'Поиск по характеристикам',
-		route: '',
-		icon: <MdCalculate />
-	},
-	{
-		title: 'Генерация тех паспортов',
-		route: 'passport',
-		icon: <AiFillSafetyCertificate />
-	},
-	{
-		title: 'Форма закупщиков',
-		route: 'test',
-		icon: <MdElectricalServices />
-	},
-	{
-		title: 'Обновить характеристики',
-		route: 'test1',
-		icon: <MdAutoAwesomeMosaic />
-	},
-	{
-		title: 'Перезаписать файл конфигурации',
-		route: 'test2',
-		icon: <MdFilterHdr />
-	},
-	{
-		title: 'Обновление базы данных',
-		route: 'test3',
-		icon: <MdFilterBAndW />
-	},
-	{
-		title: 'Составление кодировки',
-		route: 'test4',
-		icon: <MdExtension />
-	},
-	{
-		title: 'Краны и металлорукава',
-		route: 'test5',
-		icon: <FaTape />
-	},
-	{
-		title: 'Паспорта для таможни',
-		route: 'test6',
-		icon: <RiPassportFill />
-	},
-	{
-		title: 'Обновить таблицу опций',
-		route: 'test7',
-		icon: <MdFactory />
-	},
-]

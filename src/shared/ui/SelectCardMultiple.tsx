@@ -1,7 +1,7 @@
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import { isEqual } from "lodash";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import {ru} from "../../pages/calculator/config/Languages.tsx";
+import {ru} from "../../pages/calculator/config/languages.tsx";
 
 // TODO: одинаковые методы, вынести куда-то?
 

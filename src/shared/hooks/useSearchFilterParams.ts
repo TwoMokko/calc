@@ -1,7 +1,7 @@
 import useSearchController, {UrlProps} from "./useSearchController.tsx";
-import {FilterOptionType, physicalCharacteristics, sendData} from "../../app/types/types.ts";
-import {useEffect, useState} from "react";
-import {ru} from "../../pages/calculator/config/Languages.tsx";
+import { useEffect, useState } from "react";
+import { FilterOptionType, physicalCharacteristics, sendData } from "../../pages/calculator/config/types.ts";
+import { ru } from "../../pages/calculator/config/languages.tsx";
 
 type UpdateFilter = ((prevState: sendData) => sendData) | sendData
 

@@ -1,6 +1,6 @@
-import {FC, ReactNode, useEffect, useRef, useState} from "react";
+import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { ru } from "../../pages/calculator/config/Languages.tsx";
+import { ru } from "../../pages/calculator/config/languages.tsx";
 
 // TODO: одинаковые методы, вынести куда-то?
 
@@ -23,12 +23,10 @@ export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange
 	const inputRef = useRef<HTMLInputElement>(null)							// TODO: дописать
 	const [showList, setShowList] = useState<boolean>(false)					// TODO: дописать
 	const [inputValue, setInputValue] = useState<string>('')					// TODO: дописать
-	const [currentValues, setCurrentValues] = useState<string[]>([])				// TODO: дописать
+	const [currentValues, setCurrentValues] = useState<string[]>([])			// TODO: дописать
 
 	const [currentValue, setCurrentValue] = useState<string>('')				// TODO: дописать
 	const [className, setClassName] = useState<string>()								// TODO: дописать
-
-
 
 
 	/** Constants (functions) */

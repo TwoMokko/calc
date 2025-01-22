@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
-import {createContext, ReactNode, useContext, useEffect, useState} from "react";
-import {ru} from "../../pages/calculator/config/Languages.tsx";
-import {languageData} from "../../app/types/types.ts";
+import { createContext, ReactNode, useContext, useEffect, useState} from "react";
+import { ru } from "../../pages/calculator/config/languages.tsx";
+import { languageData } from "../../pages/calculator/config/types.ts";
 export interface UrlProps {
 	[key: keyof languageData]: string | undefined
 }

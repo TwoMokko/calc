@@ -1,10 +1,10 @@
 import {FC, ReactNode, useEffect, useState} from "react";
 import { InputCard } from "../../../shared/ui/InputCard.tsx";
-import { physicalCharacteristics } from "../../../app/types/types.ts";
+import { physicalCharacteristics } from "../config/types.ts";
 import { isEqual } from "lodash";
-import { ru } from "../config/Languages.tsx";
+import { ru } from "../config/languages.tsx";
 
-/* Нужно, чтобы создать определенное количество полей */
+/* Нужно, чтобы создать определенное количество полей (должны совпадать с languages). Переписать, чтобы автоматизировать */
 const characteristic: string[] = [
 	'minTemperature',
 	'cv',
@@ -20,8 +20,6 @@ interface CharactersProps {
 }
 
 export const Characters: FC<CharactersProps> = ({values, onChange}): ReactNode => {
-	console.log('chars')
-
 	/** Constants */
 	const [chars, setChars] = useState<physicalCharacteristics | undefined>(values)					// Состояние для работы с характеристиками внутри компонента
 

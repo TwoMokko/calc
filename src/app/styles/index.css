@@ -442,7 +442,6 @@ h4 {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  margin: 0 auto;
 }
 .table-configuration-img {
   position: absolute;
@@ -470,9 +469,6 @@ h4 {
   line-height: 22px;
   white-space: nowrap;
   position: relative;
-}
-.table td:not(:first-child), .table th:not(:first-child) {
-  text-align: center;
 }
 .table thead {
   padding: 14px 10px;

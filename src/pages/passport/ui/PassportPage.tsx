@@ -8,7 +8,7 @@ import { Settings } from "./Settings.tsx";
 import { TablePass } from "./TablePass.tsx";
 import {ReactNode} from "react";
 
-export function PassportPage(): ReactNode {
+export const PassportPage = (): ReactNode => {
 	return <>
 		<div className='calc-top-wrap'>
 			<div className='calc-top'>
