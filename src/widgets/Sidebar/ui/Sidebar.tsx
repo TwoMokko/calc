@@ -14,7 +14,7 @@ export const Sidebar = (): ReactNode => {
                     title={elem.title} // TODO: сделать ховер только, когда сайдбар сложен
                     to={`/${elem.route}`}
                     className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "active" : ""
+                        isPending ? 'pending' : isActive ? 'active' : ''
                     }
                 >
                     {elem.icon}

@@ -89,15 +89,17 @@ const TableSoldProd: FC<TableSortProps> = ({loading, rows, size}) => {
 						<td>{itm.totalQuantity}</td>
 						<td>{itm.connectionInfo}</td>
 						<td>
-							<div
-								className='table-configuration'
-								onMouseMove={(event: React.MouseEvent<HTMLDivElement>) => redrawHoverImg(event, 'https://fld.ru/images/products/h-zur-4-2.jpg')}
-								onMouseEnter={() => setIsHover(true)}
-								onMouseLeave={() => setIsHover(false)}
-							>
-								<IoImage/>
-								{itm.geometricConfig}
-							</div>
+							{
+								itm.geometricConfig && <div
+                                    className='table-configuration'
+                                    onMouseMove={(event: React.MouseEvent<HTMLDivElement>) => redrawHoverImg(event, 'https://fld.ru/images/products/h-zur-4-2.jpg')}
+                                    onMouseEnter={() => setIsHover(true)}
+                                    onMouseLeave={() => setIsHover(false)}
+                                >
+                                    <IoImage/>
+									{itm.geometricConfig}
+                                </div>
+							}
 						</td>
 						<td>{itm.workingPressure}</td>
 						<td>{itm.minTemperature}</td>
