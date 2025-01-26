@@ -1,0 +1,154 @@
+@use "sass:map";
+@use "variables/variable" as *;
+
+.table-wrap {
+	width: 100%;
+	overflow: hidden;
+	height: fit-content;
+}
+
+.table-loading {
+	position: absolute;
+	inset: 0;
+    background-color: $colorBackgroundMain;
+	opacity: 0.5;
+	transition: all 0.5s;
+
+	&-text {
+		opacity: 0.2;
+		transition: opacity 0.5s;
+	}
+}
+
+.table-configuration {
+	width: fit-content;
+	cursor: default;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	//margin: 0 auto;
+
+	&-img {
+		//display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 200px;
+		height: 200px;
+		border: 1px solid $colorBorderTable;
+		box-shadow: 0 0 8.8px 0 $colorBoxShadow;
+		z-index: 1;
+
+		> img {
+			object-fit: contain;
+			width: 100%;
+			height: auto;
+		}
+	}
+}
+
+.table {
+	//display: inline-block;
+	//overflow-x: scroll;
+	width: 100%;
+	height: fit-content;
+	border-spacing: 0;
+	border: 1px solid $colorBorderTable;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 22px;
+	white-space: nowrap;
+
+	position: relative;
+
+	//td, th {
+	//	&:not(:first-child) {
+	//		text-align: center;
+	//	}
+	//}
+
+	thead {
+		padding: 14px 10px;
+
+		tr {
+			th {
+				padding: 10px;
+				border-bottom: 1px solid $colorBorderTable;
+				text-align: left;
+			}
+		}
+	}
+
+	tbody {
+		background-color: $colorBackgroundLight;
+
+		tr {
+			&.complement {
+				background-color: $colorBackgroundMain;
+				td:first-child {
+					padding-left: 30px;
+					> a {
+						padding-left: 30px;
+					}
+				}
+			}
+
+			td {
+				padding: 10px;
+				text-align: left;
+
+				&:not(:last-child) {
+					//border-right: 1px solid #F2F2F2;
+				}
+
+				&.vendor-code {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					gap: 20px;
+				}
+
+				> a {
+					color: $colorTextAccent;
+
+					&:hover {
+						//color: $colorTextAccent;
+					}
+				}
+			}
+
+			&:not(:last-child) > td {
+				border-bottom: 1px solid $colorBorderTable;
+			}
+		}
+	}
+
+	&-size {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+
+		&-head {
+			font-size: 28px;
+			font-weight: 500;
+			line-height: 28px;
+			color: $colorTextDark;
+		}
+
+		&-input {
+			display: flex;
+			gap: 10px;
+			padding: 10px 14px;
+			border-radius: 10px;
+			border: 1px solid $colorBorderInput;
+			color: $colorIcons;
+
+			input {
+				width: 140px;
+				color: $colorIcons;
+			}
+		}
+	}
+}

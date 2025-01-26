@@ -1,0 +1,8 @@
+@use "variables/variable" as *;
+
+.table-list {
+	padding: 10px 0;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid $colorBorderTable;
+}

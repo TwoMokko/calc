@@ -1,0 +1,51 @@
+@use "sass:map";
+@use "variables/variable" as *;
+
+.pagination {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 20px auto 0;
+  > button {
+    min-width: 42px;
+    height: 42px;
+    padding: 8px 12px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    border-radius: 8px;
+    border: 1px solid $colorBorder;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:not(.previous, .next, .last-page, .first-page) {
+
+    }
+    &:not(.number) {
+      color: $colorIcons;
+    }
+
+    &.not-active {
+      pointer-events: none;
+      cursor: default;
+      opacity: 0.7;
+      background-color: $colorBorder;
+    }
+    &:hover {
+      //box-shadow: 0 0 8.8px 0 $colorBoxShadow;
+    }
+  }
+  &-page-size {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    > input {
+      max-width: 56px;
+      text-align: center;
+      width: fit-content;
+    }
+  }
+}

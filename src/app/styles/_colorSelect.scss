@@ -1,0 +1,98 @@
+@use "sass:map";
+@use "variables/variable" as *;
+
+
+.error {
+	h4 {
+		//color: red;
+	}
+	.input-search-wrap {
+		//border-color: red;
+		background-color: $colorErrorBg;
+	}
+	&.input-search-list-item {
+		background-color: $colorErrorBg;
+	}
+	.checked-list-item {
+		color: $colorError;
+		border-color: $colorError;
+		.unchecked {
+			background-image: url("/img/cross-error.svg");
+		}
+	}
+	&.checked-list-item {
+		color: $colorError;
+		border-color: $colorError;
+		.unchecked {
+			background-image: url("/img/cross-error.svg");
+		}
+	}
+}
+
+.disable {
+	//pointer-events: none;
+	//cursor: default;
+	//opacity: 0.3;
+	&.input-search-list-item {
+		background-color: $colorErrorBg;
+	}
+}
+
+.selected-disable {
+	//pointer-events: none;
+	//cursor: default;
+	//opacity: 0.3;
+	.input-search-wrap {
+		//background-color: lightyellow;
+		//background-color: #ffd10014;
+		//background-color:#3f80d01a;
+		background-color:#9393931a;
+	}
+	&.input-search-list-item {
+		background-color: $colorErrorBg;
+	}
+	.checked-list-item {
+		color: $colorTextMediumLight;
+		border-color: $colorBorderInput;
+		.unchecked {
+			background-image: url("/img/cross.svg");
+		}
+	}
+	&.checked-list-item {
+		color: $colorTextMediumLight;
+		border-color: $colorBorderInput;
+		.unchecked {
+			background-image: url("/img/cross.svg");
+		}
+	}
+}
+.well {
+	h4 {
+		//color: #00c981;
+	}
+	.input-search-wrap {
+		//border-color: #00c981;
+		background-color: $colorWell;
+	}
+	&.input-search-list-item {
+		background-color: $colorWell;
+	}
+	&.tree {
+		background-color: $colorWell;
+	}
+}
+
+.not-color {
+	.well {
+		h4 {
+			//color: #00c981;
+		}
+		.input-search-wrap {
+			//border-color: #00c981;
+			background-color: $colorBackgroundLight !important;
+		}
+		&.input-search-list-item {
+			background-color: $colorBackgroundLight !important;
+		}
+	}
+}
