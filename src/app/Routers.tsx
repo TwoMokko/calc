@@ -5,7 +5,7 @@ import { Test } from "../pages/test/Test.tsx";
 import { Layout } from "./layouts/Layout.tsx";
 // import {PassportPage} from "../pages/passport/ui/PassportPage.tsx";
 
-function App() {
+function Routers() {
 
     return (
         <>
@@ -24,4 +24,4 @@ function App() {
     )
 }
 
-export default App
+export default Routers
