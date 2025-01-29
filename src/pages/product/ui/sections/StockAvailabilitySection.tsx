@@ -12,11 +12,13 @@ export const StockAvailabilitySection: FC<StockAvailabilitySectionProps> = ({dat
 				<div className='product-history-price-wrap'>
 					<div>
 						<h2>Наличие на складе</h2>
-						<TableProd
-							data={data.stockAvailability}
-							className='table'
-							columnsHead={['Артикул', 'Место хранения', 'Общее количество', 'Отложено', 'Ожидается', 'Свободное кол-во', 'Полочный остаток']}
-						/>
+						<div className='table-wrap'>
+                            <TableProd
+                                data={data.stockAvailability}
+                                className='table'
+                                columnsHead={['Артикул', 'Место хранения', 'Общее количество', 'Отложено', 'Ожидается', 'Свободное кол-во', 'Полочный остаток']}
+                            />
+						</div>
 					</div>
 				</div>
 			}

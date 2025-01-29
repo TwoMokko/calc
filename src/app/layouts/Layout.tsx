@@ -7,11 +7,13 @@ export const Layout = () => {
 
     return <>
         <Sidebar></Sidebar>
-        <main>
-            <SearchContextProvider>
-                <Outlet />
-            </SearchContextProvider>
-        </main>
+        <div className='padding-bottom'>
+            <main>
+                <SearchContextProvider>
+                    <Outlet/>
+                </SearchContextProvider>
+            </main>
+        </div>
     </>
 
 }

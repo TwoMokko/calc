@@ -9,7 +9,8 @@ export const fetchData = async (): Promise<optionsData> => {
 			'Content-Type': 'application/json;charset=utf-8'
 		},
 		body: JSON.stringify({})
-	}).then(res => res.json())
+	})
+		.then(res => res.json())
 }
 
 /* Запрос на получение данных для перерисовки DOM */
@@ -37,7 +38,8 @@ export const getTypeProducts = async (inputValue: string): Promise<TreeDataNodes
 		headers: {
 			'Content-Type': 'application/json;charset=utf-8'
 		}
-	}).then(res => res.json())
+	})
+		.then(res => res.json())
 		.catch(error => console.log(error))
 }
 
@@ -51,6 +53,14 @@ export const sendDataForProductTable = async (filter: sendData, currentPage: num
 		body: JSON.stringify(filter),
 		signal: controller.signal
 	})
+		.then(async response => {
+			return await response.json()
+		})
+}
+
+
+export const getFilterDataFromVendorCode = async (vendorCode: string): Promise<sendData> => {
+	return await fetch(`${domains.PRODUCT}/api/Split/${vendorCode}`)
 		.then(async response => {
 			return await response.json()
 		})

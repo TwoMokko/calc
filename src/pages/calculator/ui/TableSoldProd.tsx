@@ -70,20 +70,22 @@ const TableSoldProd: FC<TableSortProps> = ({loading, rows, size}) => {
 			{rows.slice(0, parseInt(size ?? '20')).map((itm: soldProducts, id: number) => {
 				return <Fragment key={id}>
 					<tr>
-						<td className='vendor-code'>
-							<a
-								target='_blank'
-								href={`/prod/${itm.vendorCode}`}
-							>
-								{itm.vendorCode}
-							</a>
-							{
-								itm.types?.length && <Button
-                                    title='' onClick={() => redrawComplement(itm.vendorCode)}
-                                    className={`show-complement ${showComplement.includes(itm.vendorCode) ? '' : 'plus'} btn-secondary`}
-                                    icon={<></>}
-                                />
-							}
+						<td>
+							<div className='vendor-code'>
+								<a
+									target='_blank'
+									href={`/prod/${itm.vendorCode}`}
+								>
+									{itm.vendorCode}
+								</a>
+								{
+									itm.types?.length && <Button
+                                        title='' onClick={() => redrawComplement(itm.vendorCode)}
+                                        className={`show-complement ${showComplement.includes(itm.vendorCode) ? '' : 'plus'} btn-secondary`}
+                                        icon={<></>}
+                                    />
+								}
+							</div>
 						</td>
 						<td>{itm.quantityInStock}</td>
 						<td>{itm.totalQuantity}</td>

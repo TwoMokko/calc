@@ -404,11 +404,6 @@ h4 {
 .product-price-calculator > div .sign {
   color: #626262;
 }
-.product-history-price-wrap {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
 .product-history-price-wrap h3 {
   margin-bottom: 10px;
 }
@@ -460,6 +455,8 @@ h4 {
 }
 
 .table {
+  display: block;
+  overflow-x: scroll;
   width: 100%;
   height: fit-content;
   border-spacing: 0;
@@ -468,7 +465,11 @@ h4 {
   font-weight: 400;
   line-height: 22px;
   white-space: nowrap;
+  table-layout: fixed;
   position: relative;
+}
+.table td, .table th {
+  width: 4%;
 }
 .table thead {
   padding: 14px 10px;
@@ -494,13 +495,13 @@ h4 {
   padding: 10px;
   text-align: left;
 }
-.table tbody tr td.vendor-code {
+.table tbody tr td > div.vendor-code {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
 }
-.table tbody tr td > a {
+.table tbody tr td a {
   color: #3F80D0;
 }
 .table tbody tr:not(:last-child) > td {
@@ -546,6 +547,7 @@ h4 {
   top: 0;
   bottom: 0;
   flex: none;
+  float: left;
 }
 .sidebar.collapsed {
   width: fit-content;
@@ -822,10 +824,6 @@ body {
   position: relative;
 }
 
-#root {
-  display: flex;
-}
-
 main {
   height: fit-content;
   flex: auto;
@@ -835,7 +833,6 @@ main {
   padding: 0 30px 40px;
   border-radius: 30px;
   background-color: #F2F2F2;
-  margin-bottom: 100px;
 }
 
 .container {
@@ -875,7 +872,11 @@ button {
 .character-type {
   margin-bottom: 20px;
 }
-.character-group-select .input-wrap {
+.character-group-select.error .input-wrap {
+  background-color: rgba(209, 91, 91, 0.1490196078);
+}
+
+.input-wrap {
   display: flex;
   gap: 10px;
   position: relative;
@@ -884,11 +885,8 @@ button {
   border-radius: 10px;
   background-color: #FFF;
 }
-.character-group-select .input-wrap > svg {
+.input-wrap > svg {
   color: #939393;
-}
-.character-group-select.error .input-wrap {
-  background-color: rgba(209, 91, 91, 0.1490196078);
 }
 
 input:not(.hide), select:not(.hide) {
@@ -913,6 +911,13 @@ input.show-element {
   background-color: #FFF;
   border-radius: 20px;
 }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
 .block {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1018,6 +1023,14 @@ mark {
 }
 .download-content .input-search-wrap {
   width: 243px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.padding-bottom {
+  padding-bottom: 100px;
 }
 
 /*# sourceMappingURL=index.css.map */

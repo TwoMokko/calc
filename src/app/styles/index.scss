@@ -41,7 +41,7 @@ body {
 }
 
 #root {
-    display: flex;
+    //display: flex;
 }
 
 main {
@@ -56,7 +56,7 @@ main {
     padding: 0 30px 40px;
     border-radius: 30px;
     background-color: $colorBackgroundMain;
-    margin-bottom: 100px;
+    //margin-bottom: 100px;
     //background-color: #E8E8E8;
     //> div:first-child {
     //    padding-top: 40px;
@@ -104,18 +104,6 @@ button {
     }
     &-group {
         &-select {
-            .input-wrap {
-                display: flex;
-                gap: 10px;
-                position: relative;
-                padding: 10px 14px;
-                border: 1px solid $colorBorderInput;
-                border-radius: 10px;
-                background-color: $colorBackgroundLight;
-                > svg {
-                    color: $colorIcons;
-                }
-            }
 
             &.error {
                 .input-wrap {
@@ -123,6 +111,19 @@ button {
                 }
             }
         }
+    }
+}
+
+.input-wrap {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    padding: 10px 14px;
+    border: 1px solid $colorBorderInput;
+    border-radius: 10px;
+    background-color: $colorBackgroundLight;
+    > svg {
+        color: $colorIcons;
     }
 }
 
@@ -163,6 +164,13 @@ input {
     border-radius: 20px;
     &:not(:last-child) {
         //margin-bottom: 30px;
+    }
+
+    &-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
     }
 }
 
@@ -285,4 +293,12 @@ mark {
             width: 243px;
         }
     }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.padding-bottom {
+    padding-bottom: 100px;
 }
