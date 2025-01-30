@@ -803,6 +803,24 @@ h4 {
   border-bottom: 1px solid #F2F2F2;
 }
 
+/* Colors */
+/* Для темной темы (начало) */
+/* Для темной темы (конец) */
+/* Sizes */
+.models-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 30px;
+}
+.models-head .input-wrap {
+  width: 300px;
+}
+
+.models-btn-wrap button {
+  margin-left: auto;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
@@ -888,14 +906,17 @@ button {
 .input-wrap > svg {
   color: #939393;
 }
+.input-wrap.error {
+  background-color: rgba(209, 91, 91, 0.1490196078);
+}
 
-input:not(.hide), select:not(.hide) {
+input:not(.hide), select:not(.hide), textarea:not(.hide) {
   border: none;
 }
-input:not(.hide):focus-visible, select:not(.hide):focus-visible {
+input:not(.hide):focus-visible, select:not(.hide):focus-visible, textarea:not(.hide):focus-visible {
   outline: none;
 }
-input:not(.hide):not(.page-size-input), select:not(.hide):not(.page-size-input) {
+input:not(.hide):not(.page-size-input), select:not(.hide):not(.page-size-input), textarea:not(.hide):not(.page-size-input) {
   width: 100%;
 }
 
@@ -904,6 +925,18 @@ input {
 }
 input.show-element {
   width: 480px;
+}
+
+.textarea-wrap {
+  background-color: #F2F2F2;
+  margin-bottom: 30px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.textarea-wrap .textarea {
+  background-color: transparent;
+  resize: none;
+  field-sizing: content;
 }
 
 .section {

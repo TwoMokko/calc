@@ -15,6 +15,7 @@
 @import "breadcrumbs";
 @import "colorSelect";
 @import "tableList";
+@import "models";
 
 * {
     box-sizing: border-box;
@@ -125,9 +126,13 @@ button {
     > svg {
         color: $colorIcons;
     }
+
+    &.error {
+        background-color: $colorErrorBg;
+    }
 }
 
-input, select {
+input, select, textarea {
     &:not(.hide) {
         border: none;
         //padding: 14px 14px;
@@ -155,6 +160,19 @@ input {
     }
     &.show-element {
         width: 480px;
+    }
+}
+
+.textarea-wrap {
+    background-color: $colorBackgroundMain;
+    margin-bottom: 30px;
+    padding: 10px;
+    border-radius: 10px;
+
+    .textarea {
+        background-color: transparent;
+        resize: none;
+        field-sizing: content;
     }
 }
 

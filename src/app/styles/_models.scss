@@ -1,0 +1,19 @@
+@use "sass:map";
+@use "variables/variable" as *;
+
+.models-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+	margin-bottom: 30px;
+
+	.input-wrap {
+		width: 300px;
+	}
+}
+
+.models-btn-wrap {
+	button {
+		margin-left: auto;
+	}
+}

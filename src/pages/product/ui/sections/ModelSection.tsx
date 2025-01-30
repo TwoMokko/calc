@@ -3,9 +3,16 @@ import { SelectCard } from "../../../../shared/ui/SelectCard.tsx";
 import { domains } from "../../../../app/types/global.ts";
 import { Button } from "../../../../shared/ui/Button.tsx";
 import { MdDownload } from "react-icons/md";
-import { getFileModel } from "../../api/fetches.ts";
 import { LuLoader } from "react-icons/lu";
+import { getFileModel } from "../../../models/api/fetches.ts";
 
+
+const formats = [
+	'stp',
+	'pdf',
+	'm3d',
+	'cdw',
+]
 
 interface ModelSectionProps {
 	vendorCode: string
@@ -22,7 +29,7 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 		setLoading(true)
 		getFileModel(currentVendorCode, () => {
 			const anchor: HTMLAnchorElement = document.createElement('a')
-			anchor.href = `${domains.MODELS}/api/v1/models/load/${currentVendorCode}`
+			anchor.href = `${domains.MODELS}/api/v1/models/load/${currentVendorCode}?format=${format}`
 			anchor.download = `${currentVendorCode}.${format}`
 			anchor.click()
 			setLoading(false)
@@ -36,10 +43,10 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 				<div>
 					<SelectCard
 						option={'model3d'}
-						values={['stp', 'pdf']}
+						values={formats}
 						value={'stp'}
 						onChange={(value) => setFormat(value)}
-						highlight={['stp', 'pdf', 'sss']}
+						highlight={formats}
 						not={{
 							color: true,
 							search: true,
