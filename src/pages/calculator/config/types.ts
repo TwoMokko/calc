@@ -86,6 +86,11 @@ export type productsTable = {
 	availablePages: number
 }
 
+interface geometricConfig {
+	title: string,
+	path: string
+}
+
 export interface soldProducts {
 	vendorCode: string,
 	price: number | null,
@@ -102,5 +107,6 @@ export interface soldProducts {
 	cv: number | null,
 	dn: number | null,
 	geometricConfig: string,
+	geometricConfigNew: geometricConfig,
 	types?: soldProducts[]
 }

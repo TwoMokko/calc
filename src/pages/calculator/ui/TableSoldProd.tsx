@@ -92,14 +92,14 @@ const TableSoldProd: FC<TableSortProps> = ({loading, rows, size}) => {
 						<td>{itm.connectionInfo}</td>
 						<td>
 							{
-								itm.geometricConfig && <div
+								itm.geometricConfigNew && <div
                                     className='table-configuration'
-                                    onMouseMove={(event: React.MouseEvent<HTMLDivElement>) => redrawHoverImg(event, 'https://fld.ru/images/products/h-zur-4-2.jpg')}
+                                    onMouseMove={(event: React.MouseEvent<HTMLDivElement>) => redrawHoverImg(event, itm.geometricConfigNew.path)}
                                     onMouseEnter={() => setIsHover(true)}
                                     onMouseLeave={() => setIsHover(false)}
                                 >
                                     <IoImage/>
-									{itm.geometricConfig}
+									{itm.geometricConfigNew.title}
                                 </div>
 							}
 						</td>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { dataForTableDownLoadModelsItem } from "../config/types.ts";
 import {LuLoader} from "react-icons/lu";
 import {MdDownload, MdSendTimeExtension} from "react-icons/md";
+import Loader from "../../../widgets/Loader/Loader.tsx";
 
 export const ModelsPage = () => {
 	const [data, setData] = useState<dataForTableDownLoadModelsItem[]>()
@@ -87,50 +88,54 @@ export const ModelsPage = () => {
 			</div>
 		</section>
 		{
-			data && <section className='section'>
-				<h2>Результат</h2>
-                <div className='models-head'>
-                    <div>
-                        <h4>Для кого модель (e-mail)</h4>
-                        <div className='input-wrap'>
-                            <input
-                                onChange={(event => validateEmail(event.currentTarget.value))}
-                                defaultValue={email}
-                            />
-                        </div>
-                    </div>
-                    <Button
-                        title='Скачать всё'
-                        onClick={downloadAll}
-                        className='btn btn-secondary'
-                        icon={<MdDownload />}
-                    />
-                </div>
-                <div className='table-wrap'>
-                    <table className='table'>
-						<thead>
-							<tr>
-								<th>Артикул</th>
-								<th>Полочный остаток</th>
-								<th>Общее кол-во</th>
-								<th>Скачать</th>
-								<th>Статус загрузки</th>
-							</tr>
-                        </thead>
-                        <tbody>
-						{
-							data?.map(itm => <tr>
-								<td>{itm.vendorCode}</td>
-								<td>{itm.freeQuantity}</td>
-								<td>{itm.allQuantity}</td>
-								<td></td>
-								<td></td>
-							</tr>)
-						}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+			loading
+				? <Loader />
+				: data && <section className='section'>
+					<h2>Результат</h2>
+					<div className='models-head'>
+						<div>
+							<h4>Для кого модель (e-mail)</h4>
+							<div className='input-wrap'>
+								<input
+									onChange={(event => validateEmail(event.currentTarget.value))}
+									defaultValue={email}
+								/>
+							</div>
+						</div>
+						<Button
+							title='Скачать всё'
+							onClick={downloadAll}
+							className='btn btn-secondary'
+							icon={<MdDownload />}
+						/>
+					</div>
+					<div className='table-wrap'>
+						<table className='table'>
+							<thead>
+								<tr>
+									<th>Артикул</th>
+									<th>Полочный остаток</th>
+									<th>Общее кол-во</th>
+									<th>Скачать</th>
+									<th>Статус загрузки</th>
+								</tr>
+							</thead>
+							<tbody>
+							{
+								data?.map(itm => <tr>
+									<td>{itm.vendorCode}</td>
+									<td>{itm.freeQuantity}</td>
+									<td>{itm.allQuantity}</td>
+									<td className='download'>
+										<MdDownload />
+									</td>
+									<td></td>
+								</tr>)
+							}
+							</tbody>
+						</table>
+					</div>
+				</section>
 		}
 	</>
 };

@@ -14,9 +14,9 @@ export const SearchVendorCode: FC<SearchVendorCodeProps> = ({ updateFilter }) =>
 	const doSearch = async () => {
 		if (!vendorCode) return
 
-		await getFilterDataFromVendorCode(vendorCode).then((result) => {
+		await getFilterDataFromVendorCode(vendorCode).then((result: sendData) => {
 			console.log({result})
-			setIncorrectVendorCode(!!result)
+			setIncorrectVendorCode(Object.keys(result).length <= 0)
 			updateFilter(result)
 		})
 

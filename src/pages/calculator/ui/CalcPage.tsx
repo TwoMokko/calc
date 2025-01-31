@@ -10,6 +10,7 @@ import { useSearchFilterParams } from "../../../shared/hooks/useSearchFilterPara
 import { fetchData, sendDataForOptions } from "../api/fetches.ts";
 import { SelectCardMultipleTree } from "../../../shared/ui/SelectCardMultipleTree.tsx";
 import {SearchVendorCode} from "./SearchVendorCode.tsx";
+import Loader from "../../../widgets/Loader/Loader.tsx";
 
 export const CalcPage = (): ReactNode => {
     /** Constants */
@@ -160,10 +161,7 @@ export const CalcPage = (): ReactNode => {
     /** Build DOM */
     /* Проверка, пришли ли данные для отрисовки DOM  */
     if (!data)
-        return <div className='loading'>
-            <div></div>
-            <div>Загрузка</div>
-        </div>
+        return <Loader />
 
 
     /* Отрисовка DOM */

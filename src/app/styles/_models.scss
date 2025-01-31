@@ -17,3 +17,11 @@
 		margin-left: auto;
 	}
 }
+
+td.download {
+
+	> svg {
+		color: $colorBtnAccent;
+		cursor: pointer;
+	}
+}
