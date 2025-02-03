@@ -67,9 +67,13 @@
 		//width: calc(100% / 11);
 		width: 4%;
 
-	//	&:not(:first-child) {
-	//		text-align: center;
-	//	}
+		&.center {
+			text-align: center;
+		}
+
+		//&:not(:first-child) {
+		//	text-align: center;
+		//}
 	}
 
 	thead {

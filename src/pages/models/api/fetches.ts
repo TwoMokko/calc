@@ -1,7 +1,7 @@
 import { domains } from "../../../app/types/global.ts";
-import { dataForTableDownLoadModelsItem } from "../config/types.ts";
+import { dataForTableDownLoadModels } from "../config/types.ts";
 
-export const getDataForTableDownload = async (vendorCodes: string[]): Promise<dataForTableDownLoadModelsItem[]> => {
+export const getDataForTableDownload = async (vendorCodes: string[]): Promise<dataForTableDownLoadModels[]> => {
 	return await fetch(`${domains.MODELS}/api/v1/models`, {
 		method: 'POST',
 		headers: {

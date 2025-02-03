@@ -1,10 +1,11 @@
 @use "sass:map";
 @use "variables/variable" as *;
 
-.loading {
+.loader {
   margin: 100px auto;
   text-align: center;
   color: $colorBorderInput;
+
   > div:nth-child(1) {
     margin: auto;
     display: block;
@@ -14,6 +15,7 @@
     border: 3px solid $colorBorderInput;
     border-radius: 20px;
     box-sizing: border-box;
+
     &:before {
       content: '';
       position: absolute;
@@ -34,4 +36,72 @@
 @keyframes ballbns {
   0% {  left: 0; transform: translateX(0%); }
   100% {  left: 100%; transform: translateX(-100%); }
+}
+
+.mini-loader {
+  width: 100%;
+  height: 4.8px;
+  display: inline-block;
+  position: relative;
+  background: $colorBackgroundMain;
+  overflow: hidden;
+  border-radius: 4px;
+
+  &::after {
+    content: '';
+    width: 40%;
+    height: 4.8px;
+    background: $colorBtnAccent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+    animation: animloader 2s linear infinite;
+  }
+
+  @keyframes animloader {
+    0% {
+      left: 0;
+      transform: translateX(-100%);
+    }
+    100% {
+      left: 100%;
+      transform: translateX(0%);
+    }
+  }
+
+}
+
+.rotate {
+  animation: 10s linear 0s normal none infinite running rotate;
+  -webkit-animation: 5s linear 0s normal none infinite running rotate;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.shake {
+  /* Запустите анимацию встряхивания и сделайте так, чтобы анимация длилась 0,5 секунды */
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }

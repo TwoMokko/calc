@@ -59,7 +59,7 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 						title={'Скачать'}
 						onClick={downloadModel}
 						className='btn btn-accent'
-						icon={loading ? <LuLoader/> : <MdDownload/>}
+						icon={loading ? <LuLoader className='rotate'/> : <MdDownload/>}
 					/>
 				</div>
 			</div>

@@ -11,6 +11,7 @@ import { ModelSection } from "./sections/ModelSection.tsx";
 import { GeneralInfoSection } from "./sections/GeneralInfoSection.tsx";
 import { CharacteristicsSection } from "./sections/CharacteristicsSection.tsx";
 import { MaterialsSection } from "./sections/MaterialsSection.tsx";
+import {Loader} from "../../../widgets/Loader/Loader.tsx";
 
 
 // const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
@@ -79,10 +80,7 @@ export function ProductPage(): ReactNode {
     /** Build DOM */
     /* Проверка, пришли ли данные для отрисовки DOM  */
     if (!data)
-        return <div className='loading'>
-            <div></div>
-            <div>Загрузка</div>
-        </div>
+        return <Loader />
 
     /* Если ответ приходит со статусом ошибки 404, то отрисовать компонент Error  */
     if (data.status == 404)

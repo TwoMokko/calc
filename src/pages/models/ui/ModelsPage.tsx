@@ -2,43 +2,75 @@ import { PiCubeFill } from "react-icons/pi";
 import { Button } from "../../../shared/ui/Button.tsx";
 import { useState } from "react";
 // import { getDataForTableDownload } from "../api/fetches.ts";
-import { dataForTableDownLoadModelsItem } from "../config/types.ts";
-import {LuLoader} from "react-icons/lu";
-import {MdDownload, MdSendTimeExtension} from "react-icons/md";
-import Loader from "../../../widgets/Loader/Loader.tsx";
+import { dataForTableDownLoadModels } from "../config/types.ts";
+import { LuLoader } from "react-icons/lu";
+import { MdDownload, MdSendTimeExtension } from "react-icons/md";
+import { Loader } from "../../../widgets/Loader/Loader.tsx";
+import { domains } from "../../../app/types/global.ts";
 
+const emailForInternalUse = 'Для внутреннего использования'
+
+// TODO: оптимизировать компонент, разнести по логичным местам
 export const ModelsPage = () => {
-	const [data, setData] = useState<dataForTableDownLoadModelsItem[]>()
+	/** Constants */
+	const [data, setData] = useState<dataForTableDownLoadModels>()
 	const [vendorCodes, setVendorCodes] = useState<string[]>()
 	const [loading, setLoading] = useState<boolean>(false)
-	const [email, setEmail] = useState<string>('Для внутреннего использования')
+	const [loadingVendorCodes, setLoadingVendorCodes] = useState<string[]>([])
+	const [email, setEmail] = useState<string>(emailForInternalUse)
+	const [emailValid, setEmailValid] = useState<boolean>(true)
 
-	const doSearch = async () => {
-		console.log('do search', vendorCodes)
+	const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu
+
+	/** Constants (functions) */
+	// При нажатии на кнопку Генерировать отправляется запрос на список данных
+	// (которые потом будут в таблице отрисовываться)
+	const doGenerate = async () => {
+		console.log('do generate', vendorCodes)
 		setLoading(true)
 		setTimeout(() => {
-			setData([
-				{
-					vendorCode: 'string',
-					freeQuantity: 'string',
-					allQuantity: 'string',
-				},
-				{
-					vendorCode: 'string1',
-					freeQuantity: 'string1',
-					allQuantity: 'string1',
-				},
-				{
-					vendorCode: 'string2',
-					freeQuantity: 'string2',
-					allQuantity: 'string2',
-				},
-			])
+			setData({
+				errors: [
+					{
+						id: 2,
+						vendorCode: 'CMC-FLD',
+						message: 'такого не существует'
+					},
+					{
+						id: 7,
+						vendorCode: 'C-FLD',
+						message: 'нет 3d модели'
+					}
+				],
+				data: [
+					{
+						vendorCode: 'CMC-8M-4N.FLD.RU',
+						freeQuantity: 'string',
+						allQuantity: 'string',
+						price: 123
+					},
+					{
+						vendorCode: 'CUA-8M.FLD.RU',
+						freeQuantity: 'string1',
+						allQuantity: 'string1',
+						price: 111
+					},
+					{
+						vendorCode: 'CTA-16M.FLD.RU',
+						freeQuantity: 'string2',
+						allQuantity: 'string2',
+						price: 145
+					},
+				]
+			})
+
 			setLoading(false)
 		}, 1000)
-		// setData(await getDataForTableDownload(vendorCodes ?? []))
+		// if (vendorCodes.length > 0) setData(await getDataForTableDownload(vendorCodes))
 	}
 
+	// Из textarea (строки) создается массив артикулов (через перенос строки),
+	// Дубликаты удаляются, вызывается при onChange на textarea
 	const validateVendorCodes = (value: string) => {
 		const vendorCodesAll = value.split(/\r?\n/)
 		const vendorCodesSort: string[] = []
@@ -50,16 +82,47 @@ export const ModelsPage = () => {
 		setVendorCodes(vendorCodesSort)
 	}
 
-	const validateEmail = (value: string) => {
-		// проверка на емайл
-
-		setEmail(value)
+	// Скачать всё, бежит по пришедшим данным (у которых есть модель) и вызывает функцию скачивания файла (параметр - артикул)
+	const downloadAll = async () => {
+		if (emailValid && data?.data)
+			for await (const itm of data.data) await downloadModel(itm.vendorCode)
 	}
 
-	const downloadAll = () => {
-		console.log('all download')
+	// Скачивание одного файла через тег anchor
+	const downloadModel = async (currentVendorCode: string) => {
+		if (emailValid) {
+			setLoadingVendorCodes(prev => [...prev, currentVendorCode])
+			const anchor: HTMLAnchorElement = document.createElement('a')
+			anchor.href = `${domains.MODELS}/api/v1/models/load/${currentVendorCode}?format=stp`
+			// anchor.download = `${currentVendorCode}.${format}`
+			anchor.download = `${currentVendorCode}.stp`
+			anchor.click()
+
+			await new Promise((res) => {
+				setTimeout(res, 1000)
+			})
+			setLoadingVendorCodes(prev => prev.filter(vCode => vCode != currentVendorCode))
+		}
 	}
 
+	// const downloadModel = (currentVendorCode: string) => {
+	// 	console.log({emailValid})
+	// 	if (emailValid) {
+	// 		console.log('oops')
+	// 		setLoadingVendorCodes(prev => [...prev, currentVendorCode])
+	// 		getFileModel(currentVendorCode, () => {
+	// 			const anchor: HTMLAnchorElement = document.createElement('a')
+	// 			anchor.href = `${domains.MODELS}/api/v1/models/load/${currentVendorCode}?format=stp`
+	// 			// anchor.download = `${currentVendorCode}.${format}`
+	// 			anchor.download = `${currentVendorCode}.stp`
+	// 			anchor.click()
+	//
+	// 			setLoadingVendorCodes(prev => prev.filter(itm => itm != currentVendorCode))
+	// 		})
+	// 	}
+	// }
+
+	/** Build DOM */
 	return <>
 		<div className='calc-top-wrap'>
 			<div className='calc-top'>
@@ -81,23 +144,35 @@ export const ModelsPage = () => {
 			<div className='models-btn-wrap'>
 				<Button
 					title='Генерировать'
-					onClick={doSearch}
+					onClick={doGenerate}
 					className='btn btn-accent'
-					icon={loading ? <LuLoader/> : <MdSendTimeExtension />}
+					icon={loading ? <LuLoader className='rotate'/> : <MdSendTimeExtension />}
 				/>
 			</div>
+
+			{
+				// вынести отдельно в компонент error
+				data?.errors && <div className='error-wrap'>
+					{
+						data?.errors?.map(itm => <div key={itm.id}>
+							<strong>{itm.vendorCode}</strong>: {itm.message}
+						</div>)
+					}
+                </div>
+			}
 		</section>
 		{
 			loading
-				? <Loader />
+				? <Loader/>
 				: data && <section className='section'>
-					<h2>Результат</h2>
-					<div className='models-head'>
-						<div>
+                <h2>Результат</h2>
+                <div className='models-head'>
+				<div>
 							<h4>Для кого модель (e-mail)</h4>
-							<div className='input-wrap'>
+							<div className={`input-wrap ${!emailValid ? 'error' : ''}`}>
 								<input
-									onChange={(event => validateEmail(event.currentTarget.value))}
+									onChange={(event => setEmail(event.currentTarget.value))}
+                                    onBlur={() => setEmailValid(email == emailForInternalUse ? true : EMAIL_REGEXP.test(email))}
 									defaultValue={email}
 								/>
 							</div>
@@ -114,22 +189,27 @@ export const ModelsPage = () => {
 							<thead>
 								<tr>
 									<th>Артикул</th>
-									<th>Полочный остаток</th>
-									<th>Общее кол-во</th>
-									<th>Скачать</th>
-									<th>Статус загрузки</th>
+									<th className='center'>Полочный остаток</th>
+									<th className='center'>Общее кол-во</th>
+									<th className='center'>Цена</th>
+									<th className='center'>Скачать</th>
 								</tr>
 							</thead>
 							<tbody>
 							{
-								data?.map(itm => <tr>
+								data?.data.map(itm => <tr key={itm.vendorCode}>
 									<td>{itm.vendorCode}</td>
-									<td>{itm.freeQuantity}</td>
-									<td>{itm.allQuantity}</td>
-									<td className='download'>
-										<MdDownload />
+									<td className='center'>{itm.freeQuantity}</td>
+									<td className='center'>{itm.allQuantity}</td>
+									<td className='center'>{itm.price}</td>
+									<td className='center download'>
+										{
+											loadingVendorCodes.includes(itm.vendorCode)
+												? <span className='mini-loader'/>
+												: <MdDownload onClick={() => downloadModel(itm.vendorCode)} />
+										}
+
 									</td>
-									<td></td>
 								</tr>)
 							}
 							</tbody>

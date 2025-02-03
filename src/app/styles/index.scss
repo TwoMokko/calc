@@ -265,6 +265,13 @@ mark {
     padding-top: 40px;
 }
 
+.error-wrap {
+    background-color: $colorErrorBg;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
 .sort-wrap {
     display: flex;
     gap: 20px;

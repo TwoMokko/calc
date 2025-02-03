@@ -4,13 +4,13 @@ import { SelectCardMultiple } from "../../../shared/ui/SelectCardMultiple.tsx";
 import { SelectCard } from "../../../shared/ui/SelectCard.tsx";
 import { Connection } from "./Connection.tsx";
 import { TableCalc } from "./TableCalc.tsx";
-import {connection, FilterOptionType, optionsData, physicalCharacteristics} from "../config/types.ts";
+import { connection, FilterOptionType, optionsData, physicalCharacteristics } from "../config/types.ts";
 import { Top } from "./Top.tsx";
 import { useSearchFilterParams } from "../../../shared/hooks/useSearchFilterParams.ts";
 import { fetchData, sendDataForOptions } from "../api/fetches.ts";
 import { SelectCardMultipleTree } from "../../../shared/ui/SelectCardMultipleTree.tsx";
-import {SearchVendorCode} from "./SearchVendorCode.tsx";
-import Loader from "../../../widgets/Loader/Loader.tsx";
+import { SearchVendorCode } from "./SearchVendorCode.tsx";
+import { Loader } from "../../../widgets/Loader/Loader.tsx";
 
 export const CalcPage = (): ReactNode => {
     /** Constants */
