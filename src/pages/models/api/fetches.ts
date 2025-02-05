@@ -1,8 +1,8 @@
 import { domains } from "../../../app/types/global.ts";
 import { dataForTableDownLoadModels } from "../config/types.ts";
 
-export const getDataForTableDownload = async (vendorCodes: string[]): Promise<dataForTableDownLoadModels[]> => {
-	return await fetch(`${domains.MODELS}/api/v1/models`, {
+export const getDataForTableDownload = async (vendorCodes: string[]): Promise<dataForTableDownLoadModels> => {
+	return await fetch(`${domains.PRODUCT}/api/_3DModels`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json;charset=utf-8'

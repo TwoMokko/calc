@@ -7,6 +7,7 @@ import { LuLoader } from "react-icons/lu";
 import { MdDownload, MdSendTimeExtension } from "react-icons/md";
 import { Loader } from "../../../widgets/Loader/Loader.tsx";
 import { domains } from "../../../app/types/global.ts";
+import {getDataForTableDownload} from "../api/fetches.ts";
 
 const emailForInternalUse = 'Для внутреннего использования'
 
@@ -28,46 +29,10 @@ export const ModelsPage = () => {
 	const doGenerate = async () => {
 		console.log('do generate', vendorCodes)
 		setLoading(true)
-		setTimeout(() => {
-			setData({
-				errors: [
-					{
-						id: 2,
-						vendorCode: 'CMC-FLD',
-						message: 'такого не существует'
-					},
-					{
-						id: 7,
-						vendorCode: 'C-FLD',
-						message: 'нет 3d модели'
-					}
-				],
-				data: [
-					{
-						vendorCode: 'CMC-8M-4N.FLD.RU',
-						freeQuantity: 'string',
-						allQuantity: 'string',
-						price: 123
-					},
-					{
-						vendorCode: 'CUA-8M.FLD.RU',
-						freeQuantity: 'string1',
-						allQuantity: 'string1',
-						price: 111
-					},
-					{
-						vendorCode: 'CTA-16M.FLD.RU',
-						freeQuantity: 'string2',
-						allQuantity: 'string2',
-						price: 145
-					},
-				]
-			})
 
-			setLoading(false)
-		}, 1000)
-		// if (vendorCodes.length > 0) setData(await getDataForTableDownload(vendorCodes))
-	}
+		if (vendorCodes) setData(await getDataForTableDownload(vendorCodes))
+		setLoading(false)
+		}
 
 	// Из textarea (строки) создается массив артикулов (через перенос строки),
 	// Дубликаты удаляются, вызывается при onChange на textarea
@@ -164,15 +129,15 @@ export const ModelsPage = () => {
 		{
 			loading
 				? <Loader/>
-				: data && <section className='section'>
-                <h2>Результат</h2>
-                <div className='models-head'>
-				<div>
+				: data?.data  && <section className='section'>
+					<h2>Результат</h2>
+					<div className='models-head'>
+						<div>
 							<h4>Для кого модель (e-mail)</h4>
 							<div className={`input-wrap ${!emailValid ? 'error' : ''}`}>
 								<input
 									onChange={(event => setEmail(event.currentTarget.value))}
-                                    onBlur={() => setEmailValid(email == emailForInternalUse ? true : EMAIL_REGEXP.test(email))}
+									onBlur={() => setEmailValid(email == emailForInternalUse ? true : EMAIL_REGEXP.test(email))}
 									defaultValue={email}
 								/>
 							</div>
@@ -181,23 +146,23 @@ export const ModelsPage = () => {
 							title='Скачать всё'
 							onClick={downloadAll}
 							className='btn btn-secondary'
-							icon={<MdDownload />}
+							icon={<MdDownload/>}
 						/>
 					</div>
 					<div className='table-wrap'>
 						<table className='table'>
 							<thead>
-								<tr>
-									<th>Артикул</th>
-									<th className='center'>Полочный остаток</th>
-									<th className='center'>Общее кол-во</th>
-									<th className='center'>Цена</th>
-									<th className='center'>Скачать</th>
-								</tr>
+							<tr>
+								<th>Артикул</th>
+								<th className='center'>Полочный остаток</th>
+								<th className='center'>Общее кол-во</th>
+								<th className='center'>Цена</th>
+								<th className='center'>Скачать</th>
+							</tr>
 							</thead>
 							<tbody>
 							{
-								data?.data.map(itm => <tr key={itm.vendorCode}>
+								data?.data?.map(itm => <tr key={itm.vendorCode}>
 									<td>{itm.vendorCode}</td>
 									<td className='center'>{itm.freeQuantity}</td>
 									<td className='center'>{itm.allQuantity}</td>
@@ -206,7 +171,7 @@ export const ModelsPage = () => {
 										{
 											loadingVendorCodes.includes(itm.vendorCode)
 												? <span className='mini-loader'/>
-												: <MdDownload onClick={() => downloadModel(itm.vendorCode)} />
+												: <MdDownload onClick={() => downloadModel(itm.vendorCode)}/>
 										}
 
 									</td>

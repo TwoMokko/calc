@@ -12,6 +12,6 @@ interface dataForTableDownLoadModelsError {
 }
 
 export type dataForTableDownLoadModels = {
-	errors?: dataForTableDownLoadModelsError[] | null,
-	data: dataForTableDownLoadModelsItem[]
+	errors?: dataForTableDownLoadModelsError[],
+	data?: dataForTableDownLoadModelsItem[]
 }
