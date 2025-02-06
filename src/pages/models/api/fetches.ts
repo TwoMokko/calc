@@ -12,7 +12,7 @@ export const getDataForTableDownload = async (vendorCodes: string[]): Promise<da
 		.then(res => res.json())
 }
 
-export const getFileModel = async (vendorCode: string, callBack: () => void): Promise<any> => {
+export const getStatusDownloadFileModel = async (vendorCode: string, callBack: () => void): Promise<any> => {
 	return await fetch(`${domains.MODELS}/api/v1/models/load/${vendorCode}`, {
 		method: 'GET',
 		headers: {

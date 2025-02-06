@@ -57,8 +57,9 @@ export const ModelsPage = () => {
 	const downloadModel = async (currentVendorCode: string) => {
 		if (emailValid) {
 			setLoadingVendorCodes(prev => [...prev, currentVendorCode])
+			const fromSpecPage = true
 			const anchor: HTMLAnchorElement = document.createElement('a')
-			anchor.href = `${domains.MODELS}/api/v1/models/load/${currentVendorCode}?format=stp`
+			anchor.href = `${domains.MODELS}/api/v1/models/load/${currentVendorCode}?format=stp&?fromSpecPage=${fromSpecPage}`
 			// anchor.download = `${currentVendorCode}.${format}`
 			anchor.download = `${currentVendorCode}.stp`
 			anchor.click()

@@ -4,7 +4,7 @@ import { domains } from "../../../../app/types/global.ts";
 import { Button } from "../../../../shared/ui/Button.tsx";
 import { MdDownload } from "react-icons/md";
 import { LuLoader } from "react-icons/lu";
-import { getFileModel } from "../../../models/api/fetches.ts";
+import { getStatusDownloadFileModel } from "../../../models/api/fetches.ts";
 
 
 const formats = [
@@ -27,7 +27,7 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 
 	const downloadModel = () => {
 		setLoading(true)
-		getFileModel(currentVendorCode, () => {
+		getStatusDownloadFileModel(currentVendorCode, () => {
 			const anchor: HTMLAnchorElement = document.createElement('a')
 			anchor.href = `${domains.MODELS}/api/v1/models/load/${currentVendorCode}?format=${format}`
 			anchor.download = `${currentVendorCode}.${format}`
