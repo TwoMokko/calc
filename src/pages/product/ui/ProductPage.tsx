@@ -11,7 +11,7 @@ import { ModelSection } from "./sections/ModelSection.tsx";
 import { GeneralInfoSection } from "./sections/GeneralInfoSection.tsx";
 import { CharacteristicsSection } from "./sections/CharacteristicsSection.tsx";
 import { MaterialsSection } from "./sections/MaterialsSection.tsx";
-import {Loader} from "../../../widgets/Loader/Loader.tsx";
+import { Loader } from "../../../widgets/Loader/Loader.tsx";
 
 
 // const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;

@@ -8,9 +8,13 @@ interface SearchVendorCodeProps {
 }
 
 export const SearchVendorCode: FC<SearchVendorCodeProps> = ({ updateFilter }) => {
-	const [vendorCode, setVendorCode] = useState<string>('')
-	const [incorrectVendorCode, setIncorrectVendorCode] = useState<boolean>(false)
+	/** Constants */
+	/* TODO описать константы */
+	const [vendorCode, setVendorCode] = useState<string>('')										//
+	const [incorrectVendorCode, setIncorrectVendorCode] = useState<boolean>(false)				//
 
+	/** Constants (functions) */
+	/* TODO */
 	const doSearch = async () => {
 		if (!vendorCode) return
 
@@ -22,10 +26,12 @@ export const SearchVendorCode: FC<SearchVendorCodeProps> = ({ updateFilter }) =>
 
 	}
 
+	/* Вызов поиска на  */
 	const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>): void => {
 		if (event.key === 'Enter') doSearch()
 	}
 
+	/** Build DOM */
 	return <div>
 		<h4>Поиск по артикулу</h4>
 		<div className={`input-wrap ${incorrectVendorCode ? 'error' : ''}`}>

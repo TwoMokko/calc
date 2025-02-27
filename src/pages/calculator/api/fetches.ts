@@ -58,7 +58,7 @@ export const sendDataForProductTable = async (filter: sendData, currentPage: num
 		})
 }
 
-
+/* По артикулу приходят данные, которыми заполняется переменная filter и после срабатывают запросы, завязанные на изменении фильтра */
 export const getFilterDataFromVendorCode = async (vendorCode: string): Promise<sendData> => {
 	return await fetch(`${domains.PRODUCT}/api/Split/${vendorCode}`)
 		.then(async response => {

@@ -7,13 +7,14 @@ import { LuLoader } from "react-icons/lu";
 import { MdDownload, MdSendTimeExtension } from "react-icons/md";
 import { Loader } from "../../../widgets/Loader/Loader.tsx";
 import { domains } from "../../../app/types/global.ts";
-import {getDataForTableDownload} from "../api/fetches.ts";
+import { getDataForTableDownload } from "../api/fetches.ts";
 
 const emailForInternalUse = 'Для внутреннего использования'
 
 // TODO: оптимизировать компонент, разнести по логичным местам
 export const ModelsPage = () => {
 	/** Constants */
+	/* TODO описать константы */
 	const [data, setData] = useState<dataForTableDownLoadModels>()
 	const [vendorCodes, setVendorCodes] = useState<string[]>()
 	const [loading, setLoading] = useState<boolean>(false)

@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+# Проект Калькулятор: Frontend на React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Обращение к аpi идет через fetch, домены прописаны в файле src/app/types/global.ts
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## При распаковке проекта надо выполнить две команды в терминале
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // test options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+```
+npm run dev
+```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Эта команда создаст новую версию проекта в папке dist. Эту папку надо загрузаить (обновить) на сервер. 
+```
+npm run build
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // test rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+Сам проект имеет три страницы:
+ - калькулятор (но по сути это фильтр и вывод таблицы с продукцией). Тут всё завязано на переменной filter;
+ - карточка товара (ссылка открывается, когда нажимаешь на артикул в результирующей таблице на странице калькулятора);
+ - скачивание 3д моделей (вводится список артикулов, по ним приходит ответ, какие нельзя скачать и какие можно, ну и само скачивание).
+
+Есть еще страница паспорт-мейкер, которая пока только как идея.
+
+
+
+## По этому пути есть данные languageData
+Они используются для создания опций на странице калькулятора и для сохранения-обновления url-search-params:
+```
+src/pages/calculator/config/languages.tsx
 ```

@@ -6,7 +6,7 @@ import { MdDownload } from "react-icons/md";
 import { LuLoader } from "react-icons/lu";
 import { getStatusDownloadFileModel } from "../../../models/api/fetches.ts";
 
-
+/* Все форматы, доступные для скачивания (хорошо бы бекенд присылал доступные форматы для данной модели) */
 const formats = [
 	'stp',
 	'pdf',
@@ -19,12 +19,15 @@ interface ModelSectionProps {
 }
 
 export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => {
-	const [format, setFormat] = useState<string>('stp')
-	const [loading, setLoading] = useState<boolean>(false)
-	const currentVendorCode: string = vendorCode.toLowerCase()
+	/** Constants */
+	const [format, setFormat] = useState<string>('stp')						// формат для скачивания, по умолчанию stp
+	const [loading, setLoading] = useState<boolean>(false)					// флаг для отображения компонента загрузки
+	const currentVendorCode: string = vendorCode.toLowerCase()							// артикул в верхнем регистре (можно принимать пропс уже в таком виде?)
 	// console.log(vendorCode)
 	// const currentVendorCode: string = 'cmc-8m-8r'
 
+	/** Constants (functions) */
+	/* Скачивание модели */
 	const downloadModel = () => {
 		setLoading(true)
 		getStatusDownloadFileModel(currentVendorCode, () => {
@@ -36,6 +39,7 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 		})
 	}
 
+	/** Build DOM */
 	return <section className='section'>
 		<div className='download-wrap'>
 			<div className='download-title'>Выберите формат</div>
