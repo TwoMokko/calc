@@ -209,18 +209,18 @@ mark {
 
 
 *::-webkit-scrollbar {
-    width: 14px;               /* ширина всей полосы прокрутки */
+    width: 14px;                                    /* ширина всей полосы прокрутки */
 }
 
 *::-webkit-scrollbar-track {
-    background: $colorBackgroundLight;        /* цвет зоны отслеживания */
+    background: $colorBackgroundLight;              /* цвет зоны отслеживания */
     border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: $colorBackgroundMain;    /* цвет бегунка */
-    border-radius: 7px;       /* округлось бегунка */
-    border: 3px solid $colorBackgroundLight;  /* отступ вокруг бегунка */
+    background-color: $colorBackgroundMain;         /* цвет бегунка */
+    border-radius: 7px;                             /* округлось бегунка */
+    border: 3px solid $colorBackgroundLight;        /* отступ вокруг бегунка */
 }
 
 .calc-top {
@@ -238,6 +238,10 @@ mark {
     }
     > h1 > svg {
         color: $colorIcons;
+    }
+
+    &-checkbox {
+        margin: 0 40px 0 auto;
     }
 }
 

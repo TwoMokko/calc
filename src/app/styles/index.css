@@ -1086,6 +1086,9 @@ mark {
 .calc-top > h1 > svg {
   color: #939393;
 }
+.calc-top-checkbox {
+  margin: 0 40px 0 auto;
+}
 
 .copy {
   text-align: end;

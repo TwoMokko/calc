@@ -7,10 +7,11 @@ interface ConnectionProps {
     connection: connections,
     onChange: (value: connection) => void,
     highlight?: connections,
-    onDelete?: () => void
+    onDelete?: () => void,
+    checkHideOpt?: boolean
 }
 
-export const Connection: FC<ConnectionProps> = ({value, connection, onChange, highlight, onDelete}): ReactNode => {
+export const Connection: FC<ConnectionProps> = ({value, connection, onChange, highlight, onDelete, checkHideOpt}): ReactNode => {
     /** Constants */
     const [selectedType, setSelectedType] = useState<string | undefined>(value?.connectionType)             // Значение типа подсоединения (находимся в компоненте с определенным номером подсоединения)
     const [selectedSize, setSelectedSize] = useState<string | undefined>(value?.connectionSize)             // Значение размера подсоединения (находимся в компоненте с определенным номером подсоединения)
@@ -55,6 +56,7 @@ export const Connection: FC<ConnectionProps> = ({value, connection, onChange, hi
             onChange={value => setSelectedType(value)}
             highlight={highlight?.connectionTypes}
             onDelete={() => setSelectedType(undefined)}
+            checkHideOpt={checkHideOpt}
         />
         <SelectCard
             value={value?.connectionSize}
@@ -63,6 +65,7 @@ export const Connection: FC<ConnectionProps> = ({value, connection, onChange, hi
             onChange={value => setSelectedSize(value)}
             highlight={highlight?.connectionSizes}
             onDelete={() => setSelectedSize(undefined)}
+            checkHideOpt={checkHideOpt}
         />
     </>
 }

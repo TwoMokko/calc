@@ -15,10 +15,11 @@ interface SelectCardProps {
 		color?: boolean,
 		search?: boolean,
 		reset?: boolean
-	}
+	},
+	checkHideOpt?: boolean
 }
 
-export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange, highlight, onDelete, not}): ReactNode => {
+export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange, highlight, onDelete, not, checkHideOpt}): ReactNode => {
 	/** Constants */
 	const inputRef = useRef<HTMLInputElement>(null)							// TODO: дописать
 	const [showList, setShowList] = useState<boolean>(false)					// TODO: дописать
@@ -122,6 +123,8 @@ export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange
 
 
 	/** Build DOM */
+	if (!checkHideOpt && !highlight) return <></>
+
 	return <div className={`input-search ${className}`}>
 		<div className='input-search-head'>
 			<h4>{ru[option].title}</h4>

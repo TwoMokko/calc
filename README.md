@@ -32,3 +32,5 @@ npm run build
 ```
 src/pages/calculator/config/languages.tsx
 ```
+
+Использован подход Feature-Sliced Design (FSD) для организации кода в проекте.

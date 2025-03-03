@@ -14,7 +14,7 @@ export const fetchData = async (): Promise<optionsData> => {
 }
 
 /* Запрос на получение данных для перерисовки DOM */
-export const sendDataForOptions = (filter: sendData, highlight: Function) => {
+export const sendDataForOptions = (filter: sendData, highlight: Function): void => {
 	fetch(`${domains.FILTER}/products/options`, {
 		method: 'POST',
 		headers: {
