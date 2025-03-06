@@ -12,7 +12,7 @@ interface PaginationProps {
     onChangePage: (page: number) => void
 }
 
-export const Pagination: FC<PaginationProps> = ({page, limit, onChangePage}): ReactNode => {
+const Pagination: FC<PaginationProps> = ({page, limit, onChangePage}): ReactNode => {
 
     return <div className='pagination'>
         <button
@@ -49,3 +49,5 @@ export const Pagination: FC<PaginationProps> = ({page, limit, onChangePage}): Re
         </button>
     </div>
 }
+
+export default Pagination

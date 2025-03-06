@@ -1,30 +1,25 @@
 import { ReactNode, useEffect, useState } from "react";
-import { Characters } from "./Characters.tsx";
-import { SelectCardMultiple } from "../../../shared/ui/SelectCardMultiple.tsx";
-import { SelectCard } from "../../../shared/ui/SelectCard.tsx";
-import { Connection } from "./Connection.tsx";
-import { TableCalc } from "./TableCalc.tsx";
 import { connection, FilterOptionType, optionsData, physicalCharacteristics } from "../config/types.ts";
-import { Top } from "./Top.tsx";
-import { useSearchFilterParams } from "../../../shared/hooks/useSearchFilterParams.ts";
 import { fetchData, sendDataForOptions } from "../api/fetches.ts";
-import { SelectCardMultipleTree } from "../../../shared/ui/SelectCardMultipleTree.tsx";
-import { SearchVendorCode } from "./SearchVendorCode.tsx";
-import { Loader } from "../../../widgets/Loader/Loader.tsx";
-// import useSearchController from "../../../shared/hooks/useSearchController.tsx";
+import useSearchFilterParams from "../../../shared/hooks/useSearchFilterParams.ts";
+import Loader from "../../../widgets/Loader/Loader.tsx";
+import Top from "./Top.tsx";
+import SelectCardMultipleTree from "../../../shared/ui/SelectCardMultipleTree.tsx";
+import SelectCardMultiple from "../../../shared/ui/SelectCardMultiple.tsx";
+import SelectCard from "../../../shared/ui/SelectCard.tsx";
+import Characters from "./Characters.tsx";
+import Connection from "./Connection.tsx";
+import SearchVendorCode from "./SearchVendorCode.tsx";
+import TableCalc from "./TableCalc.tsx";
 
-export const CalcPage = (): ReactNode => {
+const CalcPage = (): ReactNode => {
     /** Constants */
-    const [filter, setFilter] = useSearchFilterParams()                             // Данные, которые отправляются на сервер (выбранные опции и прочее)
-    const [data, setData] = useState<optionsData | undefined>()                     // Данные для каждой опции, которые приходят от сервера один раз в самом начале (select list: все опции)
-    const [highlight, setHighlight] = useState<optionsData | undefined>()           // Данные для каждой опции, которые приходят от сервера каждый раз (select list: опции, которые можно выбрать)
+    const [filter, setFilter] = useSearchFilterParams()                                     // Данные, которые отправляются на сервер (выбранные опции и прочее)
+    const [data, setData] = useState<optionsData | undefined>()                             // Данные для каждой опции, которые приходят от сервера один раз в самом начале (select list: все опции)
+    const [highlight, setHighlight] = useState<optionsData | undefined>()                   // Данные для каждой опции, которые приходят от сервера каждый раз (select list: опции, которые можно выбрать)
 
-    const [colorSelect, setColorSelect] = useState(false)                 // Стейт для того, чтобы не красились поля, когда calculator пустой
-    const [checkHideOpt, setCheckHideOpt] = useState(false)               // Стейт для того, чтобы показывать/скрывать опции (если не совместимо)
-
-    /* TODO: Переписать checkHideOpt так, чтобы записывалось/бралось значение в/из searchParams,
-        и вообще перепродумать, как с этим работать так, чтобы оно вписывалось во все данные */
-    // const {urls: {checkHideOpt}, setValue} = useSearchController()                  // Стейт для того, чтобы показывать/скрывать опции (если не совместимо)
+    const [colorSelect, setColorSelect] = useState<boolean>(false)                // Стейт для того, чтобы не красились поля, когда calculator пустой
+    const [checkHideOptions, setCheckHideOptions] = useState<boolean>(false)      // Стейт для того, чтобы показывать/скрывать опции (если не совместимо) TODO: localStorage
 
 
     /** UseEffects */
@@ -32,6 +27,11 @@ export const CalcPage = (): ReactNode => {
     получение и установка данных для отрисовки страницы */
     useEffect(() => {
         (async () => {
+            // Установка значения для кнопки отображения всех или только доступных опций
+            const localStorageCheckHideOptions: string|null = localStorage.getItem('checkHideOptions')
+            setCheckHideOptions(localStorageCheckHideOptions == 'true')
+
+            // Получение данных
             setData(await fetchData())
         })()
     }, [])
@@ -46,6 +46,11 @@ export const CalcPage = (): ReactNode => {
         if (data)
             sendDataForOptions(filter, setHighlight)
     }, [filter])
+
+    /* Обновлять значение в localStorage */
+    useEffect(() => {
+        localStorage.setItem('checkHideOptions', checkHideOptions ? 'true' : 'false')
+    }, [checkHideOptions]);
 
 
     /** Constants (functions) */
@@ -176,7 +181,7 @@ export const CalcPage = (): ReactNode => {
             doReset={doReset}
             filter={filter}
             onDeleteAtChoiceString={onDeleteAtChoiceString}
-            checkHideOpt={setCheckHideOpt}
+            checkHideOptions={{val: checkHideOptions, setVal: setCheckHideOptions}}
         />
 
         <section className={`section ${colorSelect ? '' : 'not-color'}`}>
@@ -232,7 +237,7 @@ export const CalcPage = (): ReactNode => {
                             onChange={(value) => onChangeOption(option.key, value)}
                             onDelete={() => onDeleteOption(option.key)}
                             highlight={highlight?.options?.find(itm => itm.key == option.key)?.value}
-                            checkHideOpt={checkHideOpt}
+                            checkHideOpt={checkHideOptions}
                         />
                     })
                 }
@@ -253,7 +258,7 @@ export const CalcPage = (): ReactNode => {
                             onChange={value => onChangeConnection(value)}
                             onDelete={() => onDeleteConnection(connection)}
                             highlight={highlight?.connections?.find(itm => itm.connectionNo == connection.connectionNo)}
-                            checkHideOpt={checkHideOpt}
+                            checkHideOpt={checkHideOptions}
                         />
                     })
                 }
@@ -265,3 +270,5 @@ export const CalcPage = (): ReactNode => {
         </section>
     </>
 }
+
+export default CalcPage

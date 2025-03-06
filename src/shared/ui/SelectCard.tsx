@@ -19,7 +19,7 @@ interface SelectCardProps {
 	checkHideOpt?: boolean
 }
 
-export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange, highlight, onDelete, not, checkHideOpt}): ReactNode => {
+const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange, highlight, onDelete, not, checkHideOpt}): ReactNode => {
 	/** Constants */
 	const inputRef = useRef<HTMLInputElement>(null)							// TODO: дописать
 	const [showList, setShowList] = useState<boolean>(false)					// TODO: дописать
@@ -53,6 +53,8 @@ export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange
 	/** UseEffects */
 	/* При инициализации компонента TODO: дописать */
 	useEffect(() => {
+
+
 		const method = () => {
 			if (inputRef.current != document.activeElement)
 				setShowList(false)
@@ -123,7 +125,7 @@ export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange
 
 
 	/** Build DOM */
-	if (!checkHideOpt && !highlight) return <></>
+	if (!checkHideOpt && !highlight && !value) return <></>
 
 	return <div className={`input-search ${className}`}>
 		<div className='input-search-head'>
@@ -200,3 +202,5 @@ export const SelectCard: FC<SelectCardProps> = ({value, option, values, onChange
 		</div>
 	</div>
 }
+
+export default SelectCard

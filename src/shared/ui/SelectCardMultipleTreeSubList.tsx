@@ -14,7 +14,7 @@ interface SelectCardMultipleTreeSubListProps {
 	checked: string[],
 }
 
-export const SelectCardMultipleTreeSubList: FC<SelectCardMultipleTreeSubListProps> = ({onChange, highlight, treeData, focusInput, checked}): ReactNode => {
+const SelectCardMultipleTreeSubList: FC<SelectCardMultipleTreeSubListProps> = ({onChange, highlight, treeData, focusInput, checked}): ReactNode => {
 	/** Constants */
 	const [showSubList, setShowSubList] = useState(false)							// Состояние видимости внутреннего списка (детей)
 
@@ -87,3 +87,5 @@ export const SelectCardMultipleTreeSubList: FC<SelectCardMultipleTreeSubListProp
 		}
 	</>
 }
+
+export default SelectCardMultipleTreeSubList

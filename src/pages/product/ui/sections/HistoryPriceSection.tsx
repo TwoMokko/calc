@@ -1,5 +1,5 @@
-import { TableProd } from "../TableProd.tsx";
 import { FC, ReactNode } from "react";
+import TableProd from "../TableProd.tsx";
 
 interface HistoryPriceSectionProps {
 	data: {
@@ -10,7 +10,7 @@ interface HistoryPriceSectionProps {
 	}[]
 }
 
-export const HistoryPriceSection: FC<HistoryPriceSectionProps> = ({data}): ReactNode => {
+const HistoryPriceSection: FC<HistoryPriceSectionProps> = ({data}): ReactNode => {
 	// if (!data) return <></>
 
 	return <div className='product-history-price-wrap'>
@@ -21,3 +21,5 @@ export const HistoryPriceSection: FC<HistoryPriceSectionProps> = ({data}): React
 		/>
 	</div>
 }
+
+export default HistoryPriceSection

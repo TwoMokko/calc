@@ -1,18 +1,18 @@
 import { FC, ReactNode } from "react";
-import { MdCalculate } from "react-icons/md";
-import { Button } from "../../../shared/ui/Button.tsx";
-import { OptionsLine } from "./OptionsLine.tsx";
 import { connection, physicalCharacteristics, sendData } from "../config/types.ts";
+import { MdCalculate } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import OptionsLine from "./OptionsLine.tsx";
+import Button from "../../../shared/ui/Button.tsx";
 
 interface TopProps {
     doReset: () => void,
     filter: sendData,
     onDeleteAtChoiceString: (funcName: string, key: string | connection | keyof physicalCharacteristics) => void,
-    checkHideOpt: (checked: boolean) => void
+    checkHideOptions: { val: boolean, setVal: (checked: boolean) => void }
 }
 
-export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString, checkHideOpt}): ReactNode => {
+const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString, checkHideOptions}): ReactNode => {
 
     return <div className='calc-top-wrap'>
         <div className='calc-top'>
@@ -22,7 +22,12 @@ export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString, chec
             </h1>
             <div className='calc-top-checkbox'>
                 <label className='input-search-list-item'>
-                    <input className='hide' type='checkbox' onChange={(event) => checkHideOpt(event.target.checked)}/>
+                    <input
+                        className='hide'
+                        type='checkbox'
+                        checked={checkHideOptions.val}
+                        onChange={(event) => checkHideOptions.setVal(event.target.checked)}
+                    />
                     <div className='check'>Все опции</div>
                 </label>
             </div>
@@ -39,3 +44,5 @@ export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString, chec
         />
     </div>
 }
+
+export default Top

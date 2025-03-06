@@ -4,7 +4,7 @@ interface MaterialsSectionProps {
 	data: { [key: string]: string }
 }
 
-export const MaterialsSection: FC<MaterialsSectionProps> = ({data}): ReactNode => {
+const MaterialsSection: FC<MaterialsSectionProps> = ({data}): ReactNode => {
 
 	return <section className='section'>
 		<h2>Материалы</h2>
@@ -18,3 +18,5 @@ export const MaterialsSection: FC<MaterialsSectionProps> = ({data}): ReactNode =
 		}
 	</section>
 }
+
+export default MaterialsSection

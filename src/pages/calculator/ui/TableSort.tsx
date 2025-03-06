@@ -1,6 +1,6 @@
-import { SelectCard } from "../../../shared/ui/SelectCard.tsx";
 import { TiThMenu } from "react-icons/ti";
-import {FC} from "react";
+import { FC } from "react";
+import SelectCard from "../../../shared/ui/SelectCard.tsx";
 
 interface TableProps {
 	setValue: (key: string, value?: string) => void,

@@ -3,7 +3,7 @@ import { ReactNode, useState } from "react";
 import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarRightCollapse } from "react-icons/tb";
 import { ruSidebarLinks } from "../config/data.tsx";
 
-export const Sidebar = (): ReactNode => {
+const Sidebar = (): ReactNode => {
     const [collapsed, setCollapsed] = useState<boolean>(true)
 
     return <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
@@ -32,3 +32,5 @@ export const Sidebar = (): ReactNode => {
         </button>
     </aside>
 }
+
+export default Sidebar

@@ -3,7 +3,7 @@ interface TablePassProps {
 
 }
 
-export const TablePass = ({}: TablePassProps) => {
+const TablePass = ({}: TablePassProps) => {
 	return <div>
 		<div className='table-wrap'>
 			<table className='table'>
@@ -81,4 +81,6 @@ export const TablePass = ({}: TablePassProps) => {
 		</div>
 		<div>+ Редактировать таблицу счёта</div>
 	</div>
-};
+}
+
+export default TablePass

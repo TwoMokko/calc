@@ -13,7 +13,7 @@ interface SelectCardMultipleProps {
 	highlight?: string[]
 }
 
-export const SelectCardMultiple: FC<SelectCardMultipleProps> = ({title, value, values, onChange, highlight}): ReactNode => {
+const SelectCardMultiple: FC<SelectCardMultipleProps> = ({title, value, values, onChange, highlight}): ReactNode => {
 	/** Constants */
 	const inputRef = useRef<HTMLInputElement>(null)						// TODO: дописать
 	const [showList, setShowList] = useState(false)						// TODO: дописать
@@ -189,3 +189,5 @@ export const SelectCardMultiple: FC<SelectCardMultipleProps> = ({title, value, v
 		</div>
 	</div>
 }
+
+export default SelectCardMultiple

@@ -7,7 +7,7 @@ interface ChoiceOptionsStringProps {
 	onDeleteAtChoiceString: (funcName: string, key: string | connection | keyof physicalCharacteristics) => void,
 }
 
-export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceString}): ReactNode => {
+const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceString}): ReactNode => {
 	/** Constants */
 	const [show, setShow] = useState<boolean>(false)					// отвечает за то, показать или срыть весь компонент
 
@@ -98,3 +98,5 @@ export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtCho
 		}
 	</div>
 }
+
+export default OptionsLine

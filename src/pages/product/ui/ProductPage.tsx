@@ -1,22 +1,22 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { productData, tableHistoryPrices } from "../config/types.ts";
-import { Breadcrumbs } from "../../../shared/ui/Breadcrumbs.tsx";
 import { MdCalculate } from "react-icons/md";
-import { Error } from "../../../widgets/PageError/ui/Error.tsx";
 import { getDataForProduct } from "../api/fetches.ts";
-import { HistoryPriceSection } from "./sections/HistoryPriceSection.tsx";
-import { StockAvailabilitySection } from "./sections/StockAvailabilitySection.tsx";
-import { ModelSection } from "./sections/ModelSection.tsx";
-import { GeneralInfoSection } from "./sections/GeneralInfoSection.tsx";
-import { CharacteristicsSection } from "./sections/CharacteristicsSection.tsx";
-import { MaterialsSection } from "./sections/MaterialsSection.tsx";
-import { Loader } from "../../../widgets/Loader/Loader.tsx";
+import Breadcrumbs from "../../../shared/ui/Breadcrumbs.tsx";
+import Error from "../../../widgets/PageError/ui/Error.tsx";
+import HistoryPriceSection from "./sections/HistoryPriceSection.tsx";
+import StockAvailabilitySection from "./sections/StockAvailabilitySection.tsx";
+import ModelSection from "./sections/ModelSection.tsx";
+import GeneralInfoSection from "./sections/GeneralInfoSection.tsx";
+import CharacteristicsSection from "./sections/CharacteristicsSection.tsx";
+import MaterialsSection from "./sections/MaterialsSection.tsx";
+import Loader from "../../../widgets/Loader/Loader.tsx";
 
 
 // const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 
-export function ProductPage(): ReactNode {
+const ProductPage = (): ReactNode => {
     /** Constants */
     const [data, setData] = useState<productData | undefined>()         // Данные, получаемые из запроса по артикулу
     const {article} = useParams()                                       // Артикль продукции, из адресной строки
@@ -131,3 +131,5 @@ export function ProductPage(): ReactNode {
 
     </>
 }
+
+export default ProductPage

@@ -11,7 +11,7 @@ interface InputCardProps {
     placeholder?: string
 }
 
-export const InputCard: FC<InputCardProps> = ({value, char, title, className, onInput, icon, placeholder}): ReactNode => {
+const InputCard: FC<InputCardProps> = ({value, char, title, className, onInput, icon, placeholder}): ReactNode => {
     /** Constants */
     const [currentValue, setCurrentValue] = useState<string>('')                // Значение в поле input
 
@@ -49,3 +49,5 @@ export const InputCard: FC<InputCardProps> = ({value, char, title, className, on
         </div>
     </div>
 }
+
+export default InputCard

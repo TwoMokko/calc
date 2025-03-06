@@ -6,7 +6,7 @@ interface TableHoverProps {
 	imagePath?: string
 }
 
-export const TableHover: FC<TableHoverProps> = ({isHover, coordinateHover, imagePath}): ReactNode => {
+const TableHover: FC<TableHoverProps> = ({isHover, coordinateHover, imagePath}): ReactNode => {
 	/** Constants */
 	/* TODO что за компонент */
 	// Надо придумать, как установить координаты раньше, чем изменить дисплей (тут или в TableCalc.trigger)
@@ -33,3 +33,5 @@ export const TableHover: FC<TableHoverProps> = ({isHover, coordinateHover, image
 		<img alt='img' src={imagePath ?? ''}/>
 	</div>
 }
+
+export default TableHover

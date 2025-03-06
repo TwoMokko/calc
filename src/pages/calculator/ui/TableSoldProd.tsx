@@ -1,8 +1,8 @@
 import { soldProducts } from "../config/types.ts";
 import React, {FC, Fragment, useState} from "react";
-import { Button } from "../../../shared/ui/Button.tsx";
 import { IoImage } from "react-icons/io5";
-import { TableHover } from "./TableHover.tsx";
+import Button from "../../../shared/ui/Button.tsx";
+import TableHover from "./TableHover.tsx";
 
 interface TableSortProps {
 	loading: boolean,

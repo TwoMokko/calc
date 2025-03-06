@@ -1,10 +1,10 @@
 import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { sendData, soldProducts } from "../config/types.ts";
-import { Pagination } from "../../../shared/ui/Pagination.tsx";
-import useSearchController from "../../../shared/hooks/useSearchController.tsx";
 import { sendDataForProductTable } from "../api/fetches.ts";
+import useSearchController from "../../../shared/hooks/useSearchController.tsx";
 import TableSort from "./TableSort.tsx";
 import TableSoldProd from "./TableSoldProd.tsx";
+import Pagination from "../../../shared/ui/Pagination.tsx";
 
 interface TableCalcProps {
 	filter: sendData,
@@ -12,9 +12,9 @@ interface TableCalcProps {
 	defaultPage?: number
 }
 
-export const TableCalc: FC<TableCalcProps> = ({filter}): ReactNode => {
+const TableCalc: FC<TableCalcProps> = ({filter}): ReactNode => {
 	/** Constants */
-	const {urls: {page, sort, size, outputList}, setValue} = useSearchController()
+	const { urls: { page, sort, size, outputList }, setValue } = useSearchController()
 	const [limit, setLimit] = useState<number>(1)																// Номер последней страницы (кол-во страниц)
 	const [rows, setRows] = useState<soldProducts[]>([])														// Данные для строк в таблице, которые приходят с сервера
 	const [loading, setLoading] = useState<boolean>(false)													// Состояние загрузки
@@ -68,7 +68,6 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): ReactNode => {
 	return <>
 		<TableSort setValue={setValue} outputList={outputList} sort={sort} size={size}/>
 
-
 		{!rows?.length
 			? <div className='not-found'>По вашему запросу ничего не найдено, измените данные
 				поиска</div>
@@ -86,3 +85,5 @@ export const TableCalc: FC<TableCalcProps> = ({filter}): ReactNode => {
 		}
 	</>
 }
+
+export default TableCalc

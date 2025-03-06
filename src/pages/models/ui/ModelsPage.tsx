@@ -1,18 +1,17 @@
 import { PiCubeFill } from "react-icons/pi";
-import { Button } from "../../../shared/ui/Button.tsx";
 import { useState } from "react";
-// import { getDataForTableDownload } from "../api/fetches.ts";
 import { dataForTableDownLoadModels } from "../config/types.ts";
 import { LuLoader } from "react-icons/lu";
 import { MdDownload, MdSendTimeExtension } from "react-icons/md";
-import { Loader } from "../../../widgets/Loader/Loader.tsx";
 import { domains } from "../../../app/types/global.ts";
 import { getDataForTableDownload } from "../api/fetches.ts";
+import Loader from "../../../widgets/Loader/Loader.tsx";
+import Button from "../../../shared/ui/Button.tsx";
 
 const emailForInternalUse = 'Для внутреннего использования'
 
 // TODO: оптимизировать компонент, разнести по логичным местам
-export const ModelsPage = () => {
+const ModelsPage = () => {
 	/** Constants */
 	/* TODO описать константы */
 	const [data, setData] = useState<dataForTableDownLoadModels>()
@@ -29,11 +28,13 @@ export const ModelsPage = () => {
 	// (которые потом будут в таблице отрисовываться)
 	const doGenerate = async () => {
 		console.log('do generate', vendorCodes)
+		// TODO: проверить, поменялось ли что-то в textarea, а точнее массив vendorCodes (и если нет, то return)
+
 		setLoading(true)
 
 		if (vendorCodes) setData(await getDataForTableDownload(vendorCodes))
 		setLoading(false)
-		}
+	}
 
 	// Из textarea (строки) создается массив артикулов (через перенос строки),
 	// Дубликаты удаляются, вызывается при onChange на textarea
@@ -185,4 +186,6 @@ export const ModelsPage = () => {
 				</section>
 		}
 	</>
-};
+}
+
+export default ModelsPage

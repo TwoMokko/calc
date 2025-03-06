@@ -5,7 +5,7 @@ import { ru } from "../../pages/calculator/config/languages.tsx";
 
 type UpdateFilter = ((prevState: sendData) => sendData) | sendData
 
-export const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where?: string) => void] => {
+const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where?: string) => void] => {
 	const {urls, set} = useSearchController()
 	const [filter, setFilter] = useState<sendData | undefined>(undefined)
 
@@ -108,3 +108,5 @@ export const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter
 
 	return [filter ? filter : {}, updateFilter]
 }
+
+export default useSearchFilterParams

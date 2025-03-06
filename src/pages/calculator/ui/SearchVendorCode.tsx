@@ -7,7 +7,7 @@ interface SearchVendorCodeProps {
 	updateFilter: (dataForFiler: sendData) => void
 }
 
-export const SearchVendorCode: FC<SearchVendorCodeProps> = ({ updateFilter }) => {
+const SearchVendorCode: FC<SearchVendorCodeProps> = ({ updateFilter }) => {
 	/** Constants */
 	/* TODO описать константы */
 	const [vendorCode, setVendorCode] = useState<string>('')										//
@@ -46,4 +46,6 @@ export const SearchVendorCode: FC<SearchVendorCodeProps> = ({ updateFilter }) =>
 			/>
 		</div>
 	</div>
-};
+}
+
+export default SearchVendorCode

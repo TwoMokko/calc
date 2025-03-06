@@ -1,10 +1,10 @@
 import { FC, ReactNode, useState } from "react";
-import { SelectCard } from "../../../../shared/ui/SelectCard.tsx";
 import { domains } from "../../../../app/types/global.ts";
-import { Button } from "../../../../shared/ui/Button.tsx";
 import { MdDownload } from "react-icons/md";
 import { LuLoader } from "react-icons/lu";
 import { getStatusDownloadFileModel } from "../../../models/api/fetches.ts";
+import SelectCard from "../../../../shared/ui/SelectCard.tsx";
+import Button from "../../../../shared/ui/Button.tsx";
 
 /* Все форматы, доступные для скачивания (хорошо бы бекенд присылал доступные форматы для данной модели) */
 const formats = [
@@ -18,7 +18,7 @@ interface ModelSectionProps {
 	vendorCode: string
 }
 
-export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => {
+const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => {
 	/** Constants */
 	const [format, setFormat] = useState<string>('stp')						// формат для скачивания, по умолчанию stp
 	const [loading, setLoading] = useState<boolean>(false)					// флаг для отображения компонента загрузки
@@ -70,3 +70,5 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 		</div>
 	</section>
 }
+
+export default ModelSection

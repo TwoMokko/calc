@@ -7,7 +7,7 @@ interface TableProdProps {
     columnsHead: string[],
 }
 
-export const TableProd: FC<TableProdProps> = ({data, className, columnsHead}) => {
+const TableProd: FC<TableProdProps> = ({data, className, columnsHead}) => {
     return data.length > 0 && <table className={className}>
         <thead>
         <tr>
@@ -27,3 +27,5 @@ export const TableProd: FC<TableProdProps> = ({data, className, columnsHead}) =>
         </tbody>
     </table>
 }
+
+export default TableProd

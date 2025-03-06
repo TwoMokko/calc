@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
-import { Sidebar } from "../../widgets/Sidebar/ui/Sidebar.tsx";
 import { SearchContextProvider } from "../../shared/hooks/useSearchController.tsx";
+import Sidebar from "../../widgets/Sidebar/ui/Sidebar.tsx";
 
 
-export const Layout = () => {
+const Layout = () => {
 
     return <>
         <Sidebar></Sidebar>
@@ -17,3 +17,5 @@ export const Layout = () => {
     </>
 
 }
+
+export default Layout

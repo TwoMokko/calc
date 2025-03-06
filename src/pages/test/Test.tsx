@@ -1,8 +1,10 @@
 /* Заглушка для несуществующих страниц */
 import {ReactNode} from "react";
 
-export function Test(): ReactNode {
+const Test = (): ReactNode => {
     return <>
         <div className='test-page'>test</div>
     </>
 }
+
+export default Test

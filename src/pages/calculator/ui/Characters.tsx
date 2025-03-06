@@ -1,8 +1,8 @@
-import {FC, ReactNode, useEffect, useState} from "react";
-import { InputCard } from "../../../shared/ui/InputCard.tsx";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { physicalCharacteristics } from "../config/types.ts";
 import { isEqual } from "lodash";
 import { ru } from "../config/languages.tsx";
+import InputCard from "../../../shared/ui/InputCard.tsx";
 
 /* Нужно, чтобы создать определенное количество полей (должны совпадать с languages). Переписать, чтобы автоматизировать */
 const characteristic: string[] = [
@@ -19,7 +19,7 @@ interface CharactersProps {
 	onChange: (chars?: physicalCharacteristics) => void,
 }
 
-export const Characters: FC<CharactersProps> = ({values, onChange}): ReactNode => {
+const Characters: FC<CharactersProps> = ({values, onChange}): ReactNode => {
 	/** Constants */
 	const [chars, setChars] = useState<physicalCharacteristics | undefined>(values)					// Состояние для работы с характеристиками внутри компонента
 
@@ -63,3 +63,5 @@ export const Characters: FC<CharactersProps> = ({values, onChange}): ReactNode =
 		}
 	</>
 }
+
+export default Characters
