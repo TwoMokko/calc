@@ -37,3 +37,9 @@ export type productData = {
 	tableHistoryPrices: tableHistoryPrices[],
 	oneCString: string
 }
+
+export type similarProductData = {
+	vendorCode: string,
+	img: string,
+	properties: { name: string, value: string }[]
+}

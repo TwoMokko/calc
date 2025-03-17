@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { productData, tableHistoryPrices } from "../config/types.ts";
+import {productData, similarProductData, tableHistoryPrices} from "../config/types.ts";
 import { MdCalculate } from "react-icons/md";
 import { getDataForProduct } from "../api/fetches.ts";
 import Breadcrumbs from "../../../shared/ui/Breadcrumbs.tsx";
@@ -12,9 +12,49 @@ import GeneralInfoSection from "./sections/GeneralInfoSection.tsx";
 import CharacteristicsSection from "./sections/CharacteristicsSection.tsx";
 import MaterialsSection from "./sections/MaterialsSection.tsx";
 import Loader from "../../../widgets/Loader/Loader.tsx";
+import SimilarProductsSection from "./sections/SimilarProductsSection.tsx";
 
 
 // const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+
+const testDataSimilar: similarProductData[] = [
+    {
+        vendorCode: "HB2-H-8M.FLD.RU",
+        img:"5.jpg",
+        properties: [
+            { name: "Тип", value: "Шаровый кран" },
+            { name: "Цена",value:"111.19" },
+            { name: "Cv",value:"2.34" },
+            { name: "Dn",value:"6.4" },
+            { name: "Давление",value:"414bar" },
+            { name: "Температура",value:"от -54С до 148C" },
+        ],
+    },
+    {
+        vendorCode: "HB2-H-8M.FLD.RU",
+        img:"15.jpg",
+        properties: [
+            { name: "Тип", value: "Шаровый кран" },
+            { name: "Цена",value:"111.19" },
+            { name: "Cv",value:"2.34" },
+            { name: "Dn",value:"6.4" },
+            { name: "Давление",value:"414bar" },
+            { name: "Температура",value:"от -54С до 148C" },
+        ],
+    },
+    {
+        vendorCode: "HB2-H-8M.FLD.RU",
+        img:"21.jpg",
+        properties: [
+            { name: "Тип", value: "Шаровый кран" },
+            { name: "Цена",value:"111.19" },
+            { name: "Cv",value:"2.34" },
+            { name: "Dn",value:"6.4" },
+            { name: "Давление",value:"414bar" },
+            { name: "Температура",value:"от -54С до 148C" },
+        ],
+    },
+]
 
 const ProductPage = (): ReactNode => {
     /** Constants */
@@ -127,7 +167,7 @@ const ProductPage = (): ReactNode => {
             </div>
         </div>
 
-
+        <SimilarProductsSection data={testDataSimilar} />
 
     </>
 }

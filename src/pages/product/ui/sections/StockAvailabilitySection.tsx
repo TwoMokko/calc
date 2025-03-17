@@ -6,7 +6,7 @@ interface StockAvailabilitySectionProps {
 	data: productData
 }
 
-const StockAvailabilitySection: FC<StockAvailabilitySectionProps> = ({data}): ReactNode => {
+const StockAvailabilitySection: FC<StockAvailabilitySectionProps> = ({ data }): ReactNode => {
 	return <section className='section'>
 		{data.stockAvailability &&
 			<div className='product-history-price-wrap'>
