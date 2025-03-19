@@ -1,0 +1,36 @@
+{
+  "productType": null,
+  "geometricConfig": null,
+  "type": [
+    "CTA"
+  ],
+  "options": [
+    {
+      "key": "o_comp",
+      "value": "-"
+    },
+    {
+      "key": "o_serie",
+      "value": "CTA"
+    },
+    {
+      "key": "o_sog",
+      "value": "-"
+    },
+    {
+      "key": "o_os",
+      "value": "-"
+    },
+    {
+      "key": "o_bod_mat",
+      "value": "-"
+    }
+  ],
+  "connections": [
+    {
+      "connectionNo": 1,
+      "connectionType": null,
+      "connectionSize": "12M"
+    }
+  ]
+}
