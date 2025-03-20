@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { ru } from "../../pages/calculator/config/languages.tsx";
+import { ru } from "../../features/calculator/config/filterLabels.tsx";
 
 // TODO: одинаковые методы, вынести куда-то?
 

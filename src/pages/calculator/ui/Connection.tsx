@@ -1,5 +1,5 @@
 import { useState, useEffect, FC, ReactNode } from "react";
-import { connection, connections } from "../config/types.ts";
+import { connection, connections } from "../../../features/calculator/model/types.ts";
 import SelectCard from "../../../shared/ui/SelectCard.tsx";
 
 interface ConnectionProps {

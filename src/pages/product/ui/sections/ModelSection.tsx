@@ -1,8 +1,8 @@
 import { FC, ReactNode, useState } from "react";
-import { domains } from "../../../../app/types/global.ts";
+import { domains } from "../../../../app/model/global.ts";
 import { MdDownload } from "react-icons/md";
 import { LuLoader } from "react-icons/lu";
-import { getStatusDownloadFileModel } from "../../../models/api/fetches.ts";
+import { getStatusDownloadFileModel } from "../../../../features/models/api/fetches.ts";
 import SelectCard from "../../../../shared/ui/SelectCard.tsx";
 import Button from "../../../../shared/ui/Button.tsx";
 

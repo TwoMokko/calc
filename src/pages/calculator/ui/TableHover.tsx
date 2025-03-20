@@ -7,8 +7,9 @@ interface TableHoverProps {
 }
 
 const TableHover: FC<TableHoverProps> = ({isHover, coordinateHover, imagePath}): ReactNode => {
+	/* Этот компонент нужен для отображения картинки при наведении на конфигурацию в результирующей таблице */
+
 	/** Constants */
-	/* TODO что за компонент */
 	// Надо придумать, как установить координаты раньше, чем изменить дисплей (тут или в TableCalc.trigger)
 	const style = coordinateHover && isHover ? {
 		left: coordinateHover.x,

@@ -1,11 +1,11 @@
 import { PiCubeFill } from "react-icons/pi";
 import { useState } from "react";
-import { dataForTableDownLoadModels } from "../config/types.ts";
+import { dataForTableDownLoadModels } from "../../../features/models/model/types.ts";
 import { LuLoader } from "react-icons/lu";
 import { MdDownload, MdSendTimeExtension } from "react-icons/md";
-import { domains } from "../../../app/types/global.ts";
-import { getDataForTableDownload } from "../api/fetches.ts";
-import Loader from "../../../widgets/Loader/Loader.tsx";
+import { domains } from "../../../app/model/global.ts";
+import { getDataForTableDownload } from "../../../features/models/api/fetches.ts";
+import Loader from "../../../widgets/Loader/ui/Loader.tsx";
 import Button from "../../../shared/ui/Button.tsx";
 
 const emailForInternalUse = 'Для внутреннего использования'
@@ -13,14 +13,14 @@ const emailForInternalUse = 'Для внутреннего использова�
 // TODO: оптимизировать компонент, разнести по логичным местам
 const ModelsPage = () => {
 	/** Constants */
-	/* TODO описать константы */
-	const [data, setData] = useState<dataForTableDownLoadModels>()
-	const [vendorCodes, setVendorCodes] = useState<string[]>()
-	const [loading, setLoading] = useState<boolean>(false)
-	const [loadingVendorCodes, setLoadingVendorCodes] = useState<string[]>([])
-	const [email, setEmail] = useState<string>(emailForInternalUse)
-	const [emailValid, setEmailValid] = useState<boolean>(true)
+	const [data, setData] = useState<dataForTableDownLoadModels>()										// Данные, которые приходят для заполнения таблицы после того, как пользователь ввёл список артикулов и нажал на кнопку Генерировать (там есть список неправильно введенных артикулов и данные для таблицы)
+	const [vendorCodes, setVendorCodes] = useState<string[]>()											// Список (массив) артикулов, которые уходят в запросе на данные ждя таблицы (для скачивания моделей)
+	const [loading, setLoading] = useState<boolean>(false)									// Флаг, чтобы показать, что идет загрузка
+	const [loadingVendorCodes, setLoadingVendorCodes] = useState<string[]>([])				// Состояние, чтобы отображать загрузку при скачивании файла
+	const [email, setEmail] = useState<string>(emailForInternalUse)										// email, который в поле ввода и который потом отправится в запросе
+	const [emailValid, setEmailValid] = useState<boolean>(true)								// Флаг, отвечающий за валидность email
 
+	/* Проверка на email */
 	const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu
 
 	/** Constants (functions) */

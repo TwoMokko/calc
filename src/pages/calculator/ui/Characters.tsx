@@ -1,7 +1,7 @@
 import { FC, ReactNode, useEffect, useState } from "react";
-import { physicalCharacteristics } from "../config/types.ts";
+import { physicalCharacteristics } from "../../../features/calculator/model/types.ts";
 import { isEqual } from "lodash";
-import { ru } from "../config/languages.tsx";
+import { ru } from "../../../features/calculator/config/filterLabels.tsx";
 import InputCard from "../../../shared/ui/InputCard.tsx";
 
 /* Нужно, чтобы создать определенное количество полей (должны совпадать с languages). Переписать, чтобы автоматизировать */

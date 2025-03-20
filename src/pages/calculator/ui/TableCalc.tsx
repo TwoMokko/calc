@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect, useRef, useState } from "react";
-import { sendData, soldProducts } from "../config/types.ts";
-import { sendDataForProductTable } from "../api/fetches.ts";
+import { sendData, soldProducts } from "../../../features/calculator/model/types.ts";
+import { sendDataForProductTable } from "../../../features/calculator/api/fetches.ts";
 import useSearchController from "../../../shared/hooks/useSearchController.tsx";
 import TableSort from "./TableSort.tsx";
 import TableSoldProd from "./TableSoldProd.tsx";

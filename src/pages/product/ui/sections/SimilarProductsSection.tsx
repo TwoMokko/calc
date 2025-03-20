@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { similarProductData } from "../../config/types.ts";
+import { similarProductData } from "../../../../features/product/config/types.ts";
 
 interface SimilarProductsSectionProps {
 	data: similarProductData[]

@@ -1,4 +1,4 @@
-import { soldProducts } from "../config/types.ts";
+import { soldProducts } from "../../../features/calculator/model/types.ts";
 import React, {FC, Fragment, useState} from "react";
 import { IoImage } from "react-icons/io5";
 import Button from "../../../shared/ui/Button.tsx";

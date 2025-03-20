@@ -46,7 +46,6 @@ const TableSort: FC<TableProps> = ({setValue, outputList, sort, size}) => {
 
 	/* Обновление состояния сортировки по значению (рус) */
 	const prepareSetOutputList = (newValue: string): void => {
-		// console.log(newValue)
 		for (const [key, value] of Object.entries(statesOutputList)) {
 			if (value === newValue) setValue('outputList', key)
 		}

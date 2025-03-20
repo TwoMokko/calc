@@ -1,10 +1,10 @@
 import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { TreeDataNode, TreeDataNodeChild } from "../../pages/calculator/config/types.ts";
+import { TreeDataNode, TreeDataNodeChild } from "../../features/calculator/model/types.ts";
 import { isEqual, uniq } from "lodash";
 import { useDebouncedCallback } from "use-debounce";
-import { ru } from "../../pages/calculator/config/languages.tsx";
-import { getTypeProducts } from "../../pages/calculator/api/fetches.ts";
+import { ru } from "../../features/calculator/config/filterLabels.tsx";
+import { getTypeProducts } from "../../features/calculator/api/fetches.ts";
 import SelectCardMultipleTreeSubList from "./SelectCardMultipleTreeSubList.tsx";
 
 // TODO: одинаковые методы, вынести куда-то?

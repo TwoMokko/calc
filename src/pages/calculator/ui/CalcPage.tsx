@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useState } from "react";
-import { connection, FilterOptionType, optionsData, physicalCharacteristics } from "../config/types.ts";
-import { fetchData, sendDataForOptions } from "../api/fetches.ts";
+import { connection, optionsData, physicalCharacteristics } from "../../../features/calculator/model/types.ts";
+import { fetchData, sendDataForOptions } from "../../../features/calculator/api/fetches.ts";
 import useSearchFilterParams from "../../../shared/hooks/useSearchFilterParams.ts";
-import Loader from "../../../widgets/Loader/Loader.tsx";
+import Loader from "../../../widgets/Loader/ui/Loader.tsx";
 import Top from "./Top.tsx";
 import SelectCardMultipleTree from "../../../shared/ui/SelectCardMultipleTree.tsx";
 import SelectCardMultiple from "../../../shared/ui/SelectCardMultiple.tsx";
@@ -11,6 +11,8 @@ import Characters from "./Characters.tsx";
 import Connection from "./Connection.tsx";
 import SearchVendorCode from "./SearchVendorCode.tsx";
 import TableCalc from "./TableCalc.tsx";
+import { isSendDataEmptyOptimized } from "../../../shared/lib/validators/isSendDataEmpty.ts";
+import { FilterOptionType } from "../../../features/calculator/model/types.ts";
 
 const CalcPage = (): ReactNode => {
     /** Constants */
@@ -38,9 +40,8 @@ const CalcPage = (): ReactNode => {
 
 
     useEffect(() => {
-        // TODO: переписать
         // После измениня фильтра проверка: если фильтр пустой, то не подкрашивать все опции
-        setColorSelect(!((!filter.physicalCharacteristics || !Object.keys(filter.physicalCharacteristics).length) && !filter.geometricConfig && (!filter.type || !filter.type.length) && (!filter.options || !filter.options.length) && !filter.connections?.length && (!filter.productType || !filter.productType.length)))
+        setColorSelect(!isSendDataEmptyOptimized(filter))
 
         // После измениня фильтра отправка запроса (с новым фильтром и функцией, которая устанавливает новые данные, которые можно выбрать )
         if (data)

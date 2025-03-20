@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { productData } from "../../config/types.ts";
+import { productData } from "../../../../features/product/config/types.ts";
 import TableProd from "../TableProd.tsx";
 
 interface StockAvailabilitySectionProps {

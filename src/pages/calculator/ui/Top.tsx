@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { connection, physicalCharacteristics, sendData } from "../config/types.ts";
+import { connection, physicalCharacteristics, sendData } from "../../../features/calculator/model/types.ts";
 import { MdCalculate } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import OptionsLine from "./OptionsLine.tsx";

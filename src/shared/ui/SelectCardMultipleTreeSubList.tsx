@@ -1,6 +1,6 @@
-import {FC, ReactNode, useEffect, useState} from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { TreeDataNode } from "../../pages/calculator/config/types.ts";
+import { TreeDataNode } from "../../features/calculator/model/types.ts";
 
 const arrayInclude = (array1: string[], array2: string[]) => {
 	return array1.length ? array1.filter(itm => array2.includes(itm)).length == array1.length : false

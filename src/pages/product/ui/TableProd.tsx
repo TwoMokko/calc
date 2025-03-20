@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { stockAvailability } from "../config/types.ts";
+import { stockAvailability } from "../../../features/product/config/types.ts";
 
 interface TableProdProps {
     data: {[key: string]: string | number}[] | stockAvailability[],

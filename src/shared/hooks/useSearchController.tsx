@@ -1,9 +1,9 @@
 import { useSearchParams } from "react-router-dom";
 import { createContext, ReactNode, useContext, useEffect, useState} from "react";
-import { ru } from "../../pages/calculator/config/languages.tsx";
-import { languageData } from "../../pages/calculator/config/types.ts";
+import { ru } from "../../features/calculator/config/filterLabels.tsx";
+import { FilterLabels } from "../../features/calculator/model/types.ts";
 export interface UrlProps {
-	[key: keyof languageData]: string | undefined
+	[key: keyof FilterLabels]: string | undefined
 }
 const convertToUrl = (data: UrlProps) => Object.entries(data)
 	.map(([key, value]) => !value || value == ru[key].default ? undefined : [key, value] as [string, string])
@@ -39,7 +39,7 @@ export const SearchContextProvider = ({children}: {children: ReactNode}):ReactNo
 	}, [])
 
 
-	const setValue = (key: keyof languageData, value?: string) => {
+	const setValue = (key: keyof FilterLabels, value?: string) => {
 		console.log('setVal', key, value, {currentUrl, getSearchParams})
 
 		setCurrentUrl(prev => {

@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect, useState } from "react";
-import { connection, physicalCharacteristics, sendData } from "../config/types.ts";
-import { ru } from "../config/languages.tsx";
+import { connection, physicalCharacteristics, sendData } from "../../../features/calculator/model/types.ts";
+import { ru } from "../../../features/calculator/config/filterLabels.tsx";
 
 interface ChoiceOptionsStringProps {
 	filter: sendData,

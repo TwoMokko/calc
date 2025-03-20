@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { productData } from "../../config/types.ts";
+import { productData } from "../../../../features/product/config/types.ts";
 import { String } from "../../../../shared/ui/String.tsx";
 import { CgClose } from "react-icons/cg";
 import { PiEqualsBold } from "react-icons/pi";

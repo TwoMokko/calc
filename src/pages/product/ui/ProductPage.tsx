@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import {productData, similarProductData, tableHistoryPrices} from "../config/types.ts";
+import {productData, similarProductData, tableHistoryPrices} from "../../../features/product/config/types.ts";
 import { MdCalculate } from "react-icons/md";
-import { getDataForProduct } from "../api/fetches.ts";
+import { getDataForProduct } from "../../../features/product/api/fetches.ts";
 import Breadcrumbs from "../../../shared/ui/Breadcrumbs.tsx";
 import Error from "../../../widgets/PageError/ui/Error.tsx";
 import HistoryPriceSection from "./sections/HistoryPriceSection.tsx";
@@ -11,12 +11,13 @@ import ModelSection from "./sections/ModelSection.tsx";
 import GeneralInfoSection from "./sections/GeneralInfoSection.tsx";
 import CharacteristicsSection from "./sections/CharacteristicsSection.tsx";
 import MaterialsSection from "./sections/MaterialsSection.tsx";
-import Loader from "../../../widgets/Loader/Loader.tsx";
+import Loader from "../../../widgets/Loader/ui/Loader.tsx";
 import SimilarProductsSection from "./sections/SimilarProductsSection.tsx";
 
 
 // const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 
+/* Тестовые данные для блока "Похожие товары" */
 const testDataSimilar: similarProductData[] = [
     {
         vendorCode: "HB2-H-8M.FLD.RU",
@@ -88,6 +89,7 @@ const ProductPage = (): ReactNode => {
     // }, [activeSection, data])
 
 
+    /* Рисует нужную секцию в блоке "История изменения цен" */
     const renderContent = useMemo((): ReactNode => {
         if (data && article)
             sections = data.tableHistoryPrices
