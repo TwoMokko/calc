@@ -1,0 +1,102 @@
+[
+    {
+        "title": "Зажимы, трубы, рукава и аксессуары",
+        "childs": [
+            {
+                "title": "Трубогибы, труборезы, фаскосниматели",
+                "key": "Pipe benders, pipe cutters, chamferers"
+            }
+        ]
+    },
+    {
+        "title": "Клапаны",
+        "childs": [
+            {
+                "title": "Обратные клапаны",
+                "key": "Check valves"
+            },
+            {
+                "title": "Манифольды",
+                "key": "Manifolds"
+            },
+            {
+                "title": "Игольчатые вентили",
+                "key": "Needle valves"
+            },
+            {
+                "title": "Манометрические вентили",
+                "key": "Pressure valves"
+            },
+            {
+                "title": "Шаровые краны",
+                "key": "Ball valves"
+            },
+            {
+                "title": "Предохранительные клапаны",
+                "key": "Relief valves"
+            },
+            {
+                "title": "Мембранные клапаны",
+                "key": "Diaphragm valves"
+            },
+            {
+                "title": "Сильфонные клапаны",
+                "key": "Bellows valves"
+            },
+            {
+                "title": "Рычажные вентили",
+                "key": "Lever valves"
+            }
+        ]
+    },
+    {
+        "title": "Фильтры",
+        "childs": [
+            {
+                "title": "Фильтры инструментальные",
+                "key": "Instrumental filters"
+            }
+        ]
+    },
+    {
+        "title": "Фитинги",
+        "childs": [
+            {
+                "title": "Под шланги",
+                "key": "For hoses"
+            },
+            {
+                "title": "Трубные фитинги",
+                "key": "Pipe fittings"
+            },
+            {
+                "title": "Приварные фитинги",
+                "key": "Weld fittings"
+            },
+            {
+                "title": "Гидравлические фитинги",
+                "key": "Hydraulic fittings"
+            },
+            {
+                "title": "Фитинги под развальцовку",
+                "key": "Flare fittings"
+            },
+            {
+                "title": "Инструменты",
+                "key": "Tools"
+            },
+            {
+                "title": "Резьбовые фитинги",
+                "key": "Threaded fittings"
+            },
+            {
+                "title": "ZCR",
+                "key": "ZCR"
+            },
+            {
+                "title": "Быстроразъемные соединения",
+                "key": "Quick Connections"
+            }
+        ]
+    }
+]

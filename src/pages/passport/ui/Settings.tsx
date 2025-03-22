@@ -1,12 +1,12 @@
-import { Button } from "../../../shared/ui/Button.tsx";
-import {useState} from "react";
-import {TbReload} from "react-icons/tb";
+import { useState } from "react";
+import { TbReload } from "react-icons/tb";
+import Button from "../../../shared/ui/Button.tsx";
 
 interface SettingsProps {
 
 }
 
-export const Settings = ({}: SettingsProps) => {
+const Settings = ({}: SettingsProps) => {
 	const [process, setProcess] = useState<boolean>(false)
 
 	return <aside>
@@ -62,4 +62,6 @@ export const Settings = ({}: SettingsProps) => {
 			Для‍ обработки нового счёта нажмите <TbReload /> вверху или‍ перезагрузите страницу
 		</div>
 	</aside>
-};
+}
+
+export default Settings

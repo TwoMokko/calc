@@ -1,11 +1,11 @@
-import {FC, ReactNode} from "react";
+import { FC, ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 interface BreadcrumbsProps {
     links: { [key: string]: string }[]
 }
 
-export const Breadcrumbs: FC<BreadcrumbsProps> = ({links}): ReactNode => {
+const Breadcrumbs: FC<BreadcrumbsProps> = ({links}): ReactNode => {
     return <div className='breadcrumbs'>
         {
             links.map(elem => {
@@ -14,3 +14,5 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({links}): ReactNode => {
         }
     </div>
 }
+
+export default Breadcrumbs

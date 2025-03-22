@@ -4,7 +4,7 @@ interface CharacteristicsSectionProps {
 	data: { [key: string]: string }
 }
 
-export const CharacteristicsSection: FC<CharacteristicsSectionProps> = ({data}): ReactNode => {
+const CharacteristicsSection: FC<CharacteristicsSectionProps> = ({data}): ReactNode => {
 
 	return <section className='section'>
 		<h2>Характеристики</h2>
@@ -18,3 +18,5 @@ export const CharacteristicsSection: FC<CharacteristicsSectionProps> = ({data}):
 		}
 	</section>
 }
+
+export default CharacteristicsSection

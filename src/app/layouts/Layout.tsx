@@ -1,17 +1,21 @@
 import { Outlet } from "react-router-dom";
-import { Sidebar } from "../../widgets/Sidebar/ui/Sidebar.tsx";
 import { SearchContextProvider } from "../../shared/hooks/useSearchController.tsx";
+import Sidebar from "../../widgets/Sidebar/ui/Sidebar.tsx";
 
 
-export const Layout = () => {
+const Layout = () => {
 
     return <>
         <Sidebar></Sidebar>
-        <main>
-            <SearchContextProvider>
-                <Outlet />
-            </SearchContextProvider>
-        </main>
+        <div className='padding-bottom'>
+            <main>
+                <SearchContextProvider>
+                    <Outlet/>
+                </SearchContextProvider>
+            </main>
+        </div>
     </>
 
 }
+
+export default Layout

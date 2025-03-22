@@ -1,0 +1,215 @@
+{
+  "rightArticul": "CMC-3M-2R.FLD.RU",
+  "type": "CMC",
+  "title": "CMC-3M-2R.FLD.RU; Штуцер серии CMC Нержавеющая сталь 316, Hy-Lok 3мм - BSPT 1/8\u0022 Наружная",
+  "priceInfo": {
+    "priceForClient": 8.6,
+    "purchasePrice": 3.4,
+    "coefficientForProductionAndDistribution": 1.15,
+    "marginFactor": 1.1,
+    "salesRatio": 2,
+    "priceFrom": "ORD3498"
+  },
+  "stockAvailability": [
+    {
+      "name": "Всего",
+      "storageLocation": null,
+      "allQuantity": 6545,
+      "postponedQuantity": 0,
+      "expectedAdmission": 0,
+      "freeQuantity": 6545,
+      "quantityOnShelf": 6545
+    },
+    {
+      "name": "BCMC-3M-2R",
+      "storageLocation": "1-3-4",
+      "allQuantity": 6545,
+      "postponedQuantity": 0,
+      "expectedAdmission": 0,
+      "freeQuantity": 6545,
+      "quantityOnShelf": 6545
+    }
+  ],
+  "tableHistoryPrices": [
+    {
+      "nameTable": "CMC-3M-2R",
+      "historyPrices": [
+        {
+          "purchasePrice": 3.4,
+          "datePrice": "01/04/2023",
+          "namePriceFor": "ORD3498",
+          "quantity": 1
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "06/21/2022",
+          "namePriceFor": "ORD3412",
+          "quantity": 2500
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "03/17/2022",
+          "namePriceFor": "ORD3366",
+          "quantity": 50
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "12/22/2021",
+          "namePriceFor": "ORD3332",
+          "quantity": 100
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "12/14/2021",
+          "namePriceFor": "ORD3328",
+          "quantity": 1200
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "11/22/2021",
+          "namePriceFor": "ORD3312",
+          "quantity": 200
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "10/01/2021",
+          "namePriceFor": "ORD3281",
+          "quantity": 250
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "09/27/2021",
+          "namePriceFor": "ORD3276",
+          "quantity": 150
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "09/24/2021",
+          "namePriceFor": "ORD3274",
+          "quantity": 250
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "09/09/2021",
+          "namePriceFor": "ORD3269",
+          "quantity": 250
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "07/28/2021",
+          "namePriceFor": "ORD3248",
+          "quantity": 150
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "07/23/2021",
+          "namePriceFor": "ORD3246",
+          "quantity": 30
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "07/19/2021",
+          "namePriceFor": "ORD3240",
+          "quantity": 300
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "07/06/2021",
+          "namePriceFor": "ORD3229",
+          "quantity": 20
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "04/19/2021",
+          "namePriceFor": "ORD3169",
+          "quantity": 120
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "04/05/2021",
+          "namePriceFor": "ORD3163",
+          "quantity": 400
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "03/30/2021",
+          "namePriceFor": "ORD3157",
+          "quantity": 400
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "03/11/2021",
+          "namePriceFor": "ORD3147",
+          "quantity": 47
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "02/22/2021",
+          "namePriceFor": "ORD3132",
+          "quantity": 700
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "02/09/2021",
+          "namePriceFor": "ORD3128",
+          "quantity": 500
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "01/12/2021",
+          "namePriceFor": "ORD3319",
+          "quantity": 1150
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "10/14/2020",
+          "namePriceFor": "ORD3058",
+          "quantity": 50
+        },
+        {
+          "purchasePrice": 3.1,
+          "datePrice": "10/12/2020",
+          "namePriceFor": "ORD3060",
+          "quantity": 250
+        }
+      ]
+    },
+    {
+      "nameTable": "B-CMC-3M-2R",
+      "historyPrices": [
+        {
+          "purchasePrice": 1.37,
+          "datePrice": "10/21/2022",
+          "namePriceFor": "ORD3480",
+          "quantity": 300
+        },
+        {
+          "purchasePrice": 1.37,
+          "datePrice": "10/19/2022",
+          "namePriceFor": "ORD3476",
+          "quantity": 300
+        },
+        {
+          "purchasePrice": 0.99,
+          "datePrice": "05/06/2020",
+          "namePriceFor": "ORD2948",
+          "quantity": 250
+        }
+      ]
+    }
+  ],
+  "oneCString": "{Кодировка$CMC-3M-2R.FLD.RU$Наименование$CMC-3M-2R.FLD.RU; Штуцер серии CMC Нержавеющая сталь 316, Hy-Lok 3мм - BSPT 1/8\u0022 Наружная$Папка$G-000000137$ВидНом$Продукция${Кодировка$BCMC-3M-2R$GUID$d2604640-2b60-11e8-81c0-00155d000a01$Наименование$BCMC-3M-2R; Корпус штуцера серии CMC Нержавеющая сталь 316, Hy-Lok 3мм - BSPT 1/8\u0022 Наружная$Папка$ВMN00147691$ВидНом$Товар$Владелец$CMC-3M-2R.FLD.RU$Количество$1$КомпСпец$С$ИмяСпец$BCMC-3M-2R{Кодировка$RCMC-3M-2R$Наименование$RCMC-3M-2R; Корпус штуцера серии CMC Нержавеющая сталь 316, Hy-Lok 3мм - BSPT 1/8\u0022 Наружная$Папка$ВMN00147691$ВидНом$Продукция$Владелец$CMC-3M-2R.FLD.RU$Количество$1$КомпСпец$С$ИмяСпец$RCMC-3M-2R{Кодировка$CMC-3M-2R$GUID$6ba4fb51-940e-4c1d-9513-c99b0bd8ba4e$Наименование$CMC-3M-2R; Штуцер серии CMC Нержавеющая сталь 316, Hy-Lok 3мм - BSPT 1/8\u0022 Наружная$Папка$G-000000137$ВидНом$Продукция$Владелец$CMC-3M-2R.FLD.RU$Количество$1$КомпСпец$С$ИмяСпец$CMC-3M-2R{",
+  "Characteristics": {
+    "Минимальная температура": "-196",
+    "Максимальная температура": "649",
+    "Основной материал": "Нержавеющая сталь 316",
+    "Подсоединение 1": "Hy-Lok 3мм",
+    "Подсоединение 2": "BSPT 1/8\u0022 Наружная"
+  },
+  "Materials": {
+    "Корпус": "S316",
+    "Переднее кольцо": "S316",
+    "Заднее кольцо": "S316",
+    "Гайка": "S316"
+  }
+}

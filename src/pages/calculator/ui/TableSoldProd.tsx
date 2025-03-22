@@ -1,8 +1,8 @@
-import { soldProducts } from "../config/types.ts";
+import { soldProducts } from "../../../features/calculator/model/types.ts";
 import React, {FC, Fragment, useState} from "react";
-import { Button } from "../../../shared/ui/Button.tsx";
 import { IoImage } from "react-icons/io5";
-import { TableHover } from "./TableHover.tsx";
+import Button from "../../../shared/ui/Button.tsx";
+import TableHover from "./TableHover.tsx";
 
 interface TableSortProps {
 	loading: boolean,
@@ -70,34 +70,36 @@ const TableSoldProd: FC<TableSortProps> = ({loading, rows, size}) => {
 			{rows.slice(0, parseInt(size ?? '20')).map((itm: soldProducts, id: number) => {
 				return <Fragment key={id}>
 					<tr>
-						<td className='vendor-code'>
-							<a
-								target='_blank'
-								href={`/prod/${itm.vendorCode}`}
-							>
-								{itm.vendorCode}
-							</a>
-							{
-								itm.types?.length && <Button
-                                    title='' onClick={() => redrawComplement(itm.vendorCode)}
-                                    className={`show-complement ${showComplement.includes(itm.vendorCode) ? '' : 'plus'} btn-secondary`}
-                                    icon={<></>}
-                                />
-							}
+						<td>
+							<div className='vendor-code'>
+								<a
+									target='_blank'
+									href={`/prod/${itm.vendorCode}`}
+								>
+									{itm.vendorCode}
+								</a>
+								{
+									itm.types?.length && <Button
+                                        title='' onClick={() => redrawComplement(itm.vendorCode)}
+                                        className={`show-complement ${showComplement.includes(itm.vendorCode) ? '' : 'plus'} btn-secondary`}
+                                        icon={<></>}
+                                    />
+								}
+							</div>
 						</td>
 						<td>{itm.quantityInStock}</td>
 						<td>{itm.totalQuantity}</td>
 						<td>{itm.connectionInfo}</td>
 						<td>
 							{
-								itm.geometricConfig && <div
+								itm.geometricConfigNew && <div
                                     className='table-configuration'
-                                    onMouseMove={(event: React.MouseEvent<HTMLDivElement>) => redrawHoverImg(event, 'https://fld.ru/images/products/h-zur-4-2.jpg')}
+                                    onMouseMove={(event: React.MouseEvent<HTMLDivElement>) => redrawHoverImg(event, itm.geometricConfigNew.path)}
                                     onMouseEnter={() => setIsHover(true)}
                                     onMouseLeave={() => setIsHover(false)}
                                 >
                                     <IoImage/>
-									{itm.geometricConfig}
+									{itm.geometricConfigNew.title}
                                 </div>
 							}
 						</td>

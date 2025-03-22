@@ -404,13 +404,45 @@ h4 {
 .product-price-calculator > div .sign {
   color: #626262;
 }
-.product-history-price-wrap {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
 .product-history-price-wrap h3 {
   margin-bottom: 10px;
+}
+.product-similar-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.product-similar-card {
+  border-radius: 10px;
+  border: 1px solid #F2F2F2;
+  padding: 20px;
+  min-height: 240px;
+  cursor: pointer;
+  display: flex;
+  gap: 20px;
+  color: #000;
+}
+.product-similar-card:hover {
+  box-shadow: 0 5px 10px 0 #F2F2F2;
+}
+.product-similar-card-img {
+  flex: 30%;
+}
+.product-similar-card-img > img {
+  object-fit: contain;
+  width: 100%;
+  height: auto;
+}
+.product-similar-card-info {
+  flex: 70%;
+}
+.product-similar-card-info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+.product-similar-card-info-row > div:first-child {
+  color: #C4C4C4;
 }
 
 /* Colors */
@@ -460,6 +492,8 @@ h4 {
 }
 
 .table {
+  display: block;
+  overflow-x: scroll;
   width: 100%;
   height: fit-content;
   border-spacing: 0;
@@ -468,7 +502,14 @@ h4 {
   font-weight: 400;
   line-height: 22px;
   white-space: nowrap;
+  table-layout: fixed;
   position: relative;
+}
+.table td, .table th {
+  width: 4%;
+}
+.table td.center, .table th.center {
+  text-align: center;
 }
 .table thead {
   padding: 14px 10px;
@@ -494,13 +535,13 @@ h4 {
   padding: 10px;
   text-align: left;
 }
-.table tbody tr td.vendor-code {
+.table tbody tr td > div.vendor-code {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
 }
-.table tbody tr td > a {
+.table tbody tr td a {
   color: #3F80D0;
 }
 .table tbody tr:not(:last-child) > td {
@@ -546,6 +587,7 @@ h4 {
   top: 0;
   bottom: 0;
   flex: none;
+  float: left;
 }
 .sidebar.collapsed {
   width: fit-content;
@@ -649,12 +691,12 @@ h4 {
 /* Для темной темы (начало) */
 /* Для темной темы (конец) */
 /* Sizes */
-.loading {
+.loader {
   margin: 100px auto;
   text-align: center;
   color: #C4C4C4;
 }
-.loading > div:nth-child(1) {
+.loader > div:nth-child(1) {
   margin: auto;
   display: block;
   position: relative;
@@ -664,7 +706,7 @@ h4 {
   border-radius: 20px;
   box-sizing: border-box;
 }
-.loading > div:nth-child(1):before {
+.loader > div:nth-child(1):before {
   content: "";
   position: absolute;
   left: 0;
@@ -675,7 +717,7 @@ h4 {
   background: #3F80D0;
   animation: ballbns 2s ease-in-out infinite alternate;
 }
-.loading > div:nth-child(2) {
+.loader > div:nth-child(2) {
   margin-top: 20px;
 }
 
@@ -687,6 +729,91 @@ h4 {
   100% {
     left: 100%;
     transform: translateX(-100%);
+  }
+}
+.mini-loader {
+  width: 100%;
+  height: 4.8px;
+  display: inline-block;
+  position: relative;
+  background: #F2F2F2;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.mini-loader::after {
+  content: "";
+  width: 40%;
+  height: 4.8px;
+  background: #3F80D0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  animation: animloader 2s linear infinite;
+}
+@keyframes animloader {
+  0% {
+    left: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    left: 100%;
+    transform: translateX(0%);
+  }
+}
+
+.rotate {
+  animation: 10s linear 0s normal none infinite running rotate;
+  -webkit-animation: 5s linear 0s normal none infinite running rotate;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.shake {
+  /* Запустите анимацию встряхивания и сделайте так, чтобы анимация длилась 0,5 секунды */
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
   }
 }
 /* Colors */
@@ -801,6 +928,29 @@ h4 {
   border-bottom: 1px solid #F2F2F2;
 }
 
+/* Colors */
+/* Для темной темы (начало) */
+/* Для темной темы (конец) */
+/* Sizes */
+.models-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 30px;
+}
+.models-head .input-wrap {
+  width: 300px;
+}
+
+.models-btn-wrap button {
+  margin-left: auto;
+}
+
+td.download > svg {
+  color: #3F80D0;
+  cursor: pointer;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
@@ -822,10 +972,6 @@ body {
   position: relative;
 }
 
-#root {
-  display: flex;
-}
-
 main {
   height: fit-content;
   flex: auto;
@@ -835,7 +981,6 @@ main {
   padding: 0 30px 40px;
   border-radius: 30px;
   background-color: #F2F2F2;
-  margin-bottom: 100px;
 }
 
 .container {
@@ -875,7 +1020,11 @@ button {
 .character-type {
   margin-bottom: 20px;
 }
-.character-group-select .input-wrap {
+.character-group-select.error .input-wrap {
+  background-color: rgba(209, 91, 91, 0.1490196078);
+}
+
+.input-wrap {
   display: flex;
   gap: 10px;
   position: relative;
@@ -884,20 +1033,20 @@ button {
   border-radius: 10px;
   background-color: #FFF;
 }
-.character-group-select .input-wrap > svg {
+.input-wrap > svg {
   color: #939393;
 }
-.character-group-select.error .input-wrap {
+.input-wrap.error {
   background-color: rgba(209, 91, 91, 0.1490196078);
 }
 
-input:not(.hide), select:not(.hide) {
+input:not(.hide), select:not(.hide), textarea:not(.hide) {
   border: none;
 }
-input:not(.hide):focus-visible, select:not(.hide):focus-visible {
+input:not(.hide):focus-visible, select:not(.hide):focus-visible, textarea:not(.hide):focus-visible {
   outline: none;
 }
-input:not(.hide):not(.page-size-input), select:not(.hide):not(.page-size-input) {
+input:not(.hide):not(.page-size-input), select:not(.hide):not(.page-size-input), textarea:not(.hide):not(.page-size-input) {
   width: 100%;
 }
 
@@ -908,11 +1057,30 @@ input.show-element {
   width: 480px;
 }
 
+.textarea-wrap {
+  background-color: #F2F2F2;
+  margin-bottom: 30px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.textarea-wrap .textarea {
+  background-color: transparent;
+  resize: none;
+  field-sizing: content;
+}
+
 .section {
   padding: 20px;
   background-color: #FFF;
   border-radius: 20px;
 }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
 .block {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -955,6 +1123,9 @@ mark {
 .calc-top > h1 > svg {
   color: #939393;
 }
+.calc-top-checkbox {
+  margin: 0 40px 0 auto;
+}
 
 .copy {
   text-align: end;
@@ -976,6 +1147,13 @@ mark {
 
 .error-page {
   padding-top: 40px;
+}
+
+.error-wrap {
+  background-color: rgba(209, 91, 91, 0.1490196078);
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .sort-wrap {
@@ -1018,6 +1196,14 @@ mark {
 }
 .download-content .input-search-wrap {
   width: 243px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.padding-bottom {
+  padding-bottom: 100px;
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -7,7 +7,7 @@ interface ButtonProps {
     icon?: ReactNode
 }
 
-export const Button: FC<ButtonProps> = ({title, className, onClick, icon}): ReactNode => {
+const Button: FC<ButtonProps> = ({title, className, onClick, icon}): ReactNode => {
     return <button
         className={'btn ' + className}
         onClick={onClick}
@@ -20,3 +20,5 @@ export const Button: FC<ButtonProps> = ({title, className, onClick, icon}): Reac
         {title}
     </button>
 }
+
+export default Button

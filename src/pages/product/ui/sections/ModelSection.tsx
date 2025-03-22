@@ -1,34 +1,45 @@
 import { FC, ReactNode, useState } from "react";
-import { SelectCard } from "../../../../shared/ui/SelectCard.tsx";
-import { domains } from "../../../../app/types/global.ts";
-import { Button } from "../../../../shared/ui/Button.tsx";
+import { domains } from "../../../../app/model/global.ts";
 import { MdDownload } from "react-icons/md";
-import { getFileModel } from "../../api/fetches.ts";
 import { LuLoader } from "react-icons/lu";
+import { getStatusDownloadFileModel } from "../../../../features/models/api/fetches.ts";
+import SelectCard from "../../../../shared/ui/SelectCard.tsx";
+import Button from "../../../../shared/ui/Button.tsx";
 
+/* Все форматы, доступные для скачивания (хорошо бы бекенд присылал доступные форматы для данной модели) */
+const formats = [
+	'stp',
+	'pdf',
+	'm3d',
+	'cdw',
+]
 
 interface ModelSectionProps {
 	vendorCode: string
 }
 
-export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => {
-	const [format, setFormat] = useState<string>('stp')
-	const [loading, setLoading] = useState<boolean>(false)
-	const currentVendorCode: string = vendorCode.toLowerCase()
+const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => {
+	/** Constants */
+	const [format, setFormat] = useState<string>('stp')						// формат для скачивания, по умолчанию stp
+	const [loading, setLoading] = useState<boolean>(false)					// флаг для отображения компонента загрузки
+	const currentVendorCode: string = vendorCode.toLowerCase()							// артикул в верхнем регистре (можно принимать пропс уже в таком виде?)
 	// console.log(vendorCode)
 	// const currentVendorCode: string = 'cmc-8m-8r'
 
+	/** Constants (functions) */
+	/* Скачивание модели */
 	const downloadModel = () => {
 		setLoading(true)
-		getFileModel(currentVendorCode, () => {
+		getStatusDownloadFileModel(currentVendorCode, () => {
 			const anchor: HTMLAnchorElement = document.createElement('a')
-			anchor.href = `${domains.MODELS}/api/v1/models/load/${currentVendorCode}`
+			anchor.href = `${domains.MODELS}/api/v1/models/load/${currentVendorCode}?format=${format}`
 			anchor.download = `${currentVendorCode}.${format}`
 			anchor.click()
 			setLoading(false)
 		})
 	}
 
+	/** Build DOM */
 	return <section className='section'>
 		<div className='download-wrap'>
 			<div className='download-title'>Выберите формат</div>
@@ -36,10 +47,10 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 				<div>
 					<SelectCard
 						option={'model3d'}
-						values={['stp', 'pdf']}
+						values={formats}
 						value={'stp'}
 						onChange={(value) => setFormat(value)}
-						highlight={['stp', 'pdf', 'sss']}
+						highlight={formats}
 						not={{
 							color: true,
 							search: true,
@@ -52,10 +63,12 @@ export const ModelSection: FC<ModelSectionProps> = ({vendorCode}): ReactNode => 
 						title={'Скачать'}
 						onClick={downloadModel}
 						className='btn btn-accent'
-						icon={loading ? <LuLoader/> : <MdDownload/>}
+						icon={loading ? <LuLoader className='rotate'/> : <MdDownload/>}
 					/>
 				</div>
 			</div>
 		</div>
 	</section>
 }
+
+export default ModelSection

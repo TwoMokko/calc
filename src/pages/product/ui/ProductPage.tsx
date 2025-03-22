@@ -1,21 +1,63 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { productData, tableHistoryPrices } from "../config/types.ts";
-import { Breadcrumbs } from "../../../shared/ui/Breadcrumbs.tsx";
+import {productData, similarProductData, tableHistoryPrices} from "../../../features/product/config/types.ts";
 import { MdCalculate } from "react-icons/md";
-import { Error } from "../../../widgets/PageError/ui/Error.tsx";
-import { getDataForProduct } from "../api/fetches.ts";
-import { HistoryPriceSection } from "./sections/HistoryPriceSection.tsx";
-import { StockAvailabilitySection } from "./sections/StockAvailabilitySection.tsx";
-import { ModelSection } from "./sections/ModelSection.tsx";
-import { GeneralInfoSection } from "./sections/GeneralInfoSection.tsx";
-import { CharacteristicsSection } from "./sections/CharacteristicsSection.tsx";
-import { MaterialsSection } from "./sections/MaterialsSection.tsx";
+import { getDataForProduct } from "../../../features/product/api/fetches.ts";
+import Breadcrumbs from "../../../shared/ui/Breadcrumbs.tsx";
+import Error from "../../../widgets/PageError/ui/Error.tsx";
+import HistoryPriceSection from "./sections/HistoryPriceSection.tsx";
+import StockAvailabilitySection from "./sections/StockAvailabilitySection.tsx";
+import ModelSection from "./sections/ModelSection.tsx";
+import GeneralInfoSection from "./sections/GeneralInfoSection.tsx";
+import CharacteristicsSection from "./sections/CharacteristicsSection.tsx";
+import MaterialsSection from "./sections/MaterialsSection.tsx";
+import Loader from "../../../widgets/Loader/ui/Loader.tsx";
+import SimilarProductsSection from "./sections/SimilarProductsSection.tsx";
 
 
 // const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 
-export function ProductPage(): ReactNode {
+/* Тестовые данные для блока "Похожие товары" */
+const testDataSimilar: similarProductData[] = [
+    {
+        vendorCode: "HB2-H-8M.FLD.RU",
+        img:"5.jpg",
+        properties: [
+            { name: "Тип", value: "Шаровый кран" },
+            { name: "Цена",value:"111.19" },
+            { name: "Cv",value:"2.34" },
+            { name: "Dn",value:"6.4" },
+            { name: "Давление",value:"414bar" },
+            { name: "Температура",value:"от -54С до 148C" },
+        ],
+    },
+    {
+        vendorCode: "HB2-H-8M.FLD.RU",
+        img:"15.jpg",
+        properties: [
+            { name: "Тип", value: "Шаровый кран" },
+            { name: "Цена",value:"111.19" },
+            { name: "Cv",value:"2.34" },
+            { name: "Dn",value:"6.4" },
+            { name: "Давление",value:"414bar" },
+            { name: "Температура",value:"от -54С до 148C" },
+        ],
+    },
+    {
+        vendorCode: "HB2-H-8M.FLD.RU",
+        img:"21.jpg",
+        properties: [
+            { name: "Тип", value: "Шаровый кран" },
+            { name: "Цена",value:"111.19" },
+            { name: "Cv",value:"2.34" },
+            { name: "Dn",value:"6.4" },
+            { name: "Давление",value:"414bar" },
+            { name: "Температура",value:"от -54С до 148C" },
+        ],
+    },
+]
+
+const ProductPage = (): ReactNode => {
     /** Constants */
     const [data, setData] = useState<productData | undefined>()         // Данные, получаемые из запроса по артикулу
     const {article} = useParams()                                       // Артикль продукции, из адресной строки
@@ -47,6 +89,7 @@ export function ProductPage(): ReactNode {
     // }, [activeSection, data])
 
 
+    /* Рисует нужную секцию в блоке "История изменения цен" */
     const renderContent = useMemo((): ReactNode => {
         if (data && article)
             sections = data.tableHistoryPrices
@@ -79,10 +122,7 @@ export function ProductPage(): ReactNode {
     /** Build DOM */
     /* Проверка, пришли ли данные для отрисовки DOM  */
     if (!data)
-        return <div className='loading'>
-            <div></div>
-            <div>Загрузка</div>
-        </div>
+        return <Loader />
 
     /* Если ответ приходит со статусом ошибки 404, то отрисовать компонент Error  */
     if (data.status == 404)
@@ -129,7 +169,9 @@ export function ProductPage(): ReactNode {
             </div>
         </div>
 
-
+        <SimilarProductsSection data={testDataSimilar} />
 
     </>
 }
+
+export default ProductPage

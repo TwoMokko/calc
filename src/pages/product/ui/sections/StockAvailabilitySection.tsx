@@ -1,17 +1,18 @@
 import { FC, ReactNode } from "react";
-import { TableProd } from "../TableProd.tsx";
-import { productData } from "../../config/types.ts";
+import { productData } from "../../../../features/product/config/types.ts";
+import TableProd from "../TableProd.tsx";
 
 interface StockAvailabilitySectionProps {
 	data: productData
 }
 
-export const StockAvailabilitySection: FC<StockAvailabilitySectionProps> = ({data}): ReactNode => {
-		return <section className='section'>
-			{data.stockAvailability &&
-				<div className='product-history-price-wrap'>
-					<div>
-						<h2>Наличие на складе</h2>
+const StockAvailabilitySection: FC<StockAvailabilitySectionProps> = ({ data }): ReactNode => {
+	return <section className='section'>
+		{data.stockAvailability &&
+			<div className='product-history-price-wrap'>
+				<div>
+					<h2>Наличие на складе</h2>
+					<div className='table-wrap'>
 						<TableProd
 							data={data.stockAvailability}
 							className='table'
@@ -19,6 +20,9 @@ export const StockAvailabilitySection: FC<StockAvailabilitySectionProps> = ({dat
 						/>
 					</div>
 				</div>
-			}
-		</section>
+			</div>
+		}
+	</section>
 }
+
+export default StockAvailabilitySection

@@ -1,11 +1,12 @@
-import useSearchController, {UrlProps} from "./useSearchController.tsx";
+import useSearchController, { UrlProps } from "./useSearchController.tsx";
 import { useEffect, useState } from "react";
-import { FilterOptionType, physicalCharacteristics, sendData } from "../../pages/calculator/config/types.ts";
-import { ru } from "../../pages/calculator/config/languages.tsx";
+import { physicalCharacteristics, sendData } from "../../features/calculator/model/types.ts";
+import { ru } from "../../features/calculator/config/filterLabels.tsx";
+import { FilterOptionType } from "../../features/calculator/model/types.ts";
 
 type UpdateFilter = ((prevState: sendData) => sendData) | sendData
 
-export const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where?: string) => void] => {
+const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter, where?: string) => void] => {
 	const {urls, set} = useSearchController()
 	const [filter, setFilter] = useState<sendData | undefined>(undefined)
 
@@ -108,3 +109,5 @@ export const useSearchFilterParams = (): [sendData, (changedFilter: UpdateFilter
 
 	return [filter ? filter : {}, updateFilter]
 }
+
+export default useSearchFilterParams

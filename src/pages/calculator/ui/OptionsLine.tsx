@@ -1,13 +1,13 @@
 import { FC, ReactNode, useEffect, useState } from "react";
-import { connection, physicalCharacteristics, sendData } from "../config/types.ts";
-import { ru } from "../config/languages.tsx";
+import { connection, physicalCharacteristics, sendData } from "../../../features/calculator/model/types.ts";
+import { ru } from "../../../features/calculator/config/filterLabels.tsx";
 
 interface ChoiceOptionsStringProps {
 	filter: sendData,
 	onDeleteAtChoiceString: (funcName: string, key: string | connection | keyof physicalCharacteristics) => void,
 }
 
-export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceString}): ReactNode => {
+const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtChoiceString}): ReactNode => {
 	/** Constants */
 	const [show, setShow] = useState<boolean>(false)					// отвечает за то, показать или срыть весь компонент
 
@@ -98,3 +98,5 @@ export const OptionsLine: FC<ChoiceOptionsStringProps> = ({filter, onDeleteAtCho
 		}
 	</div>
 }
+
+export default OptionsLine

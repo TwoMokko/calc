@@ -1,24 +1,24 @@
 import { NavLink } from "react-router-dom";
 import { ReactNode, useState } from "react";
 import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarRightCollapse } from "react-icons/tb";
-import { ruSidebarLinks } from "../config/data.tsx";
+import { ruSidebarLinks } from "../../../app/config/sidebar";
 
-export const Sidebar = (): ReactNode => {
+const Sidebar = (): ReactNode => {
     const [collapsed, setCollapsed] = useState<boolean>(true)
 
     return <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
         {
-            ruSidebarLinks.map(elem => {
+            ruSidebarLinks.map(link => { if (!link.isDisabled)
                 return <NavLink
-                    key={elem.title}
-                    title={elem.title} // TODO: сделать ховер только, когда сайдбар сложен
-                    to={`/${elem.route}`}
+                    key={link.route}
+                    title={link.title} // TODO: сделать ховер только, когда сайдбар сложен
+                    to={`/${link.route}`}
                     className={({ isActive, isPending }) =>
                         isPending ? 'pending' : isActive ? 'active' : ''
                     }
                 >
-                    {elem.icon}
-                    <div className='sidebar-text'>{elem.title}</div>
+                    {link.icon}
+                    <div className='sidebar-text'>{link.title}</div>
                 </NavLink>
             })
         }
@@ -32,3 +32,5 @@ export const Sidebar = (): ReactNode => {
         </button>
     </aside>
 }
+
+export default Sidebar

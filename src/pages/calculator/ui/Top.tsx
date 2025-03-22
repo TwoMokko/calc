@@ -1,17 +1,18 @@
-import {FC, ReactNode} from "react";
+import { FC, ReactNode } from "react";
+import { connection, physicalCharacteristics, sendData } from "../../../features/calculator/model/types.ts";
 import { MdCalculate } from "react-icons/md";
-import { Button } from "../../../shared/ui/Button.tsx";
-import { OptionsLine } from "./OptionsLine.tsx";
-import { connection, physicalCharacteristics, sendData } from "../config/types.ts";
 import { RxCross2 } from "react-icons/rx";
+import OptionsLine from "./OptionsLine.tsx";
+import Button from "../../../shared/ui/Button.tsx";
 
 interface TopProps {
     doReset: () => void,
     filter: sendData,
-    onDeleteAtChoiceString: (funcName: string, key: string | connection | keyof physicalCharacteristics) => void
+    onDeleteAtChoiceString: (funcName: string, key: string | connection | keyof physicalCharacteristics) => void,
+    checkHideOptions: { val: boolean, setVal: (checked: boolean) => void }
 }
 
-export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString}): ReactNode => {
+const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString, checkHideOptions}): ReactNode => {
 
     return <div className='calc-top-wrap'>
         <div className='calc-top'>
@@ -19,6 +20,17 @@ export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString}): Re
                 <MdCalculate/>
                 <span>Поиск по характеристикам</span>
             </h1>
+            <div className='calc-top-checkbox'>
+                <label className='input-search-list-item'>
+                    <input
+                        className='hide'
+                        type='checkbox'
+                        checked={checkHideOptions.val}
+                        onChange={(event) => checkHideOptions.setVal(event.target.checked)}
+                    />
+                    <div className='check'>Все опции</div>
+                </label>
+            </div>
             <Button
                 title='Очистить всё'
                 className='reset btn-secondary'
@@ -32,3 +44,5 @@ export const Top: FC<TopProps> = ({doReset, filter, onDeleteAtChoiceString}): Re
         />
     </div>
 }
+
+export default Top

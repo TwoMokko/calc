@@ -1,11 +1,11 @@
-import {FC, ReactNode, useEffect, useRef, useState} from "react";
+import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { TreeDataNode, TreeDataNodeChild } from "../../pages/calculator/config/types.ts";
-import { SelectCardMultipleTreeSubList } from "./SelectCardMultipleTreeSubList.tsx";
+import { TreeDataNode, TreeDataNodeChild } from "../../features/calculator/model/types.ts";
 import { isEqual, uniq } from "lodash";
 import { useDebouncedCallback } from "use-debounce";
-import { ru } from "../../pages/calculator/config/languages.tsx";
-import { getTypeProducts } from "../../pages/calculator/api/fetches.ts";
+import { ru } from "../../features/calculator/config/filterLabels.tsx";
+import { getTypeProducts } from "../../features/calculator/api/fetches.ts";
+import SelectCardMultipleTreeSubList from "./SelectCardMultipleTreeSubList.tsx";
 
 // TODO: одинаковые методы, вынести куда-то?
 
@@ -18,7 +18,7 @@ interface SelectCardMultipleTreeProps {
 	valuesFilter?: string[]
 }
 
-export const SelectCardMultipleTree: FC<SelectCardMultipleTreeProps> = ({title, onChange, highlight, valuesFilter}): ReactNode => {
+const SelectCardMultipleTree: FC<SelectCardMultipleTreeProps> = ({title, onChange, highlight, valuesFilter}): ReactNode => {
 	/** Constants */
 	const inputRef = useRef<HTMLInputElement>(null)											// TODO: дописать
 	const [showList, setShowList] = useState(false)											// TODO: дописать
@@ -201,3 +201,5 @@ export const SelectCardMultipleTree: FC<SelectCardMultipleTreeProps> = ({title, 
 		</div>
 	</div>
 }
+
+export default SelectCardMultipleTree

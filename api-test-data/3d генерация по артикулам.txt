@@ -1,0 +1,23 @@
+{
+    "errors": null,
+    "data": [
+        {
+            "vendorCode": "DN-06L.FLD.RU",
+            "freeQuantity": "1253",
+            "allQuantity": "1253",
+            "price": 2.94
+        },
+        {
+            "vendorCode": "DMC-06L-02N.FLD.RU",
+            "freeQuantity": "21",
+            "allQuantity": "21",
+            "price": 8.8
+        },
+        {
+            "vendorCode": "DN-06L-STEL.FLD.RU",
+            "freeQuantity": "44745",
+            "allQuantity": "53890",
+            "price": 0.69
+        }
+    ]
+}

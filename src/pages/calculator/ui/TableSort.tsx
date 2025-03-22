@@ -1,6 +1,6 @@
-import { SelectCard } from "../../../shared/ui/SelectCard.tsx";
 import { TiThMenu } from "react-icons/ti";
-import {FC} from "react";
+import { FC } from "react";
+import SelectCard from "../../../shared/ui/SelectCard.tsx";
 
 interface TableProps {
 	setValue: (key: string, value?: string) => void,
@@ -46,7 +46,6 @@ const TableSort: FC<TableProps> = ({setValue, outputList, sort, size}) => {
 
 	/* Обновление состояния сортировки по значению (рус) */
 	const prepareSetOutputList = (newValue: string): void => {
-		// console.log(newValue)
 		for (const [key, value] of Object.entries(statesOutputList)) {
 			if (value === newValue) setValue('outputList', key)
 		}

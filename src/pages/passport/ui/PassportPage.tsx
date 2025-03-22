@@ -1,14 +1,14 @@
+import { ReactNode } from "react";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import { MdFolder } from "react-icons/md";
 import { FaFilePen } from "react-icons/fa6";
 import { FaFile } from "react-icons/fa";
-import './passportPage.css'
 import { TbReload } from "react-icons/tb";
-import { Settings } from "./Settings.tsx";
-import { TablePass } from "./TablePass.tsx";
-import {ReactNode} from "react";
+import './passportPage.css'
+import TablePass from "./TablePass.tsx";
+import Settings from "./Settings.tsx";
 
-export const PassportPage = (): ReactNode => {
+const PassportPage = (): ReactNode => {
 	return <>
 		<div className='calc-top-wrap'>
 			<div className='calc-top'>
@@ -36,3 +36,5 @@ export const PassportPage = (): ReactNode => {
 		</section>
 	</>
 }
+
+export default PassportPage

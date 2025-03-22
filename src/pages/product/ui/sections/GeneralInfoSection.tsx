@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { productData } from "../../config/types.ts";
+import { productData } from "../../../../features/product/config/types.ts";
 import { String } from "../../../../shared/ui/String.tsx";
 import { CgClose } from "react-icons/cg";
 import { PiEqualsBold } from "react-icons/pi";
@@ -9,7 +9,7 @@ interface CharacteristicSectionProps {
 	data: productData
 }
 
-export const GeneralInfoSection: FC<CharacteristicSectionProps> = ({data}): ReactNode => {
+const GeneralInfoSection: FC<CharacteristicSectionProps> = ({data}): ReactNode => {
 	return <>
 		<section className='product-info block-prod section'>
 			<h2>Общая информация</h2>
@@ -61,3 +61,5 @@ export const GeneralInfoSection: FC<CharacteristicSectionProps> = ({data}): Reac
 		</section>
 	</>
 }
+
+export default GeneralInfoSection

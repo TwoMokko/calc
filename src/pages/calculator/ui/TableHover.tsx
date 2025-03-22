@@ -6,8 +6,10 @@ interface TableHoverProps {
 	imagePath?: string
 }
 
-export const TableHover: FC<TableHoverProps> = ({isHover, coordinateHover, imagePath}): ReactNode => {
+const TableHover: FC<TableHoverProps> = ({isHover, coordinateHover, imagePath}): ReactNode => {
+	/* Этот компонент нужен для отображения картинки при наведении на конфигурацию в результирующей таблице */
 
+	/** Constants */
 	// Надо придумать, как установить координаты раньше, чем изменить дисплей (тут или в TableCalc.trigger)
 	const style = coordinateHover && isHover ? {
 		left: coordinateHover.x,
@@ -17,12 +19,14 @@ export const TableHover: FC<TableHoverProps> = ({isHover, coordinateHover, image
 		display: 'none',
 	}
 
+	/** UseEffects */
 	useEffect(() => {
 		if (!isHover) {
 			return
 		}
 	}, [isHover]);
 
+	/** Build DOM */
 	return <div
 		className='table-configuration-img'
 		style={style}
@@ -30,3 +34,5 @@ export const TableHover: FC<TableHoverProps> = ({isHover, coordinateHover, image
 		<img alt='img' src={imagePath ?? ''}/>
 	</div>
 }
+
+export default TableHover

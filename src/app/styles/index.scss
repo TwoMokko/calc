@@ -15,6 +15,7 @@
 @import "breadcrumbs";
 @import "colorSelect";
 @import "tableList";
+@import "models";
 
 * {
     box-sizing: border-box;
@@ -41,7 +42,7 @@ body {
 }
 
 #root {
-    display: flex;
+    //display: flex;
 }
 
 main {
@@ -56,7 +57,7 @@ main {
     padding: 0 30px 40px;
     border-radius: 30px;
     background-color: $colorBackgroundMain;
-    margin-bottom: 100px;
+    //margin-bottom: 100px;
     //background-color: #E8E8E8;
     //> div:first-child {
     //    padding-top: 40px;
@@ -104,18 +105,6 @@ button {
     }
     &-group {
         &-select {
-            .input-wrap {
-                display: flex;
-                gap: 10px;
-                position: relative;
-                padding: 10px 14px;
-                border: 1px solid $colorBorderInput;
-                border-radius: 10px;
-                background-color: $colorBackgroundLight;
-                > svg {
-                    color: $colorIcons;
-                }
-            }
 
             &.error {
                 .input-wrap {
@@ -126,7 +115,24 @@ button {
     }
 }
 
-input, select {
+.input-wrap {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    padding: 10px 14px;
+    border: 1px solid $colorBorderInput;
+    border-radius: 10px;
+    background-color: $colorBackgroundLight;
+    > svg {
+        color: $colorIcons;
+    }
+
+    &.error {
+        background-color: $colorErrorBg;
+    }
+}
+
+input, select, textarea {
     &:not(.hide) {
         border: none;
         //padding: 14px 14px;
@@ -157,12 +163,32 @@ input {
     }
 }
 
+.textarea-wrap {
+    background-color: $colorBackgroundMain;
+    margin-bottom: 30px;
+    padding: 10px;
+    border-radius: 10px;
+
+    .textarea {
+        background-color: transparent;
+        resize: none;
+        field-sizing: content;
+    }
+}
+
 .section {
     padding: 20px;
     background-color: $colorBackgroundLight;
     border-radius: 20px;
     &:not(:last-child) {
         //margin-bottom: 30px;
+    }
+
+    &-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
     }
 }
 
@@ -183,18 +209,18 @@ mark {
 
 
 *::-webkit-scrollbar {
-    width: 14px;               /* ширина всей полосы прокрутки */
+    width: 14px;                                    /* ширина всей полосы прокрутки */
 }
 
 *::-webkit-scrollbar-track {
-    background: $colorBackgroundLight;        /* цвет зоны отслеживания */
+    background: $colorBackgroundLight;              /* цвет зоны отслеживания */
     border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: $colorBackgroundMain;    /* цвет бегунка */
-    border-radius: 7px;       /* округлось бегунка */
-    border: 3px solid $colorBackgroundLight;  /* отступ вокруг бегунка */
+    background-color: $colorBackgroundMain;         /* цвет бегунка */
+    border-radius: 7px;                             /* округлось бегунка */
+    border: 3px solid $colorBackgroundLight;        /* отступ вокруг бегунка */
 }
 
 .calc-top {
@@ -212,6 +238,10 @@ mark {
     }
     > h1 > svg {
         color: $colorIcons;
+    }
+
+    &-checkbox {
+        margin: 0 40px 0 auto;
     }
 }
 
@@ -237,6 +267,13 @@ mark {
 
 .error-page {
     padding-top: 40px;
+}
+
+.error-wrap {
+    background-color: $colorErrorBg;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .sort-wrap {
@@ -285,4 +322,12 @@ mark {
             width: 243px;
         }
     }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.padding-bottom {
+    padding-bottom: 100px;
 }

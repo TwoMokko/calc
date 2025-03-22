@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { stockAvailability } from "../config/types.ts";
+import { stockAvailability } from "../../../features/product/config/types.ts";
 
 interface TableProdProps {
     data: {[key: string]: string | number}[] | stockAvailability[],
@@ -7,7 +7,7 @@ interface TableProdProps {
     columnsHead: string[],
 }
 
-export const TableProd: FC<TableProdProps> = ({data, className, columnsHead}) => {
+const TableProd: FC<TableProdProps> = ({data, className, columnsHead}) => {
     return data.length > 0 && <table className={className}>
         <thead>
         <tr>
@@ -27,3 +27,5 @@ export const TableProd: FC<TableProdProps> = ({data, className, columnsHead}) =>
         </tbody>
     </table>
 }
+
+export default TableProd
