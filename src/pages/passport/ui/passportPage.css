@@ -1,0 +1,54 @@
+@charset "UTF-8";
+/* Colors */
+/* Для темной темы (начало) */
+/* Для темной темы (конец) */
+/* Sizes */
+.pass-top {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.pass-top-folder {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.pass-top-folder > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #FFF;
+  padding: 10px 18px;
+  border-radius: 8px;
+}
+.pass-top-folder > div svg {
+  color: #939393;
+}
+.pass-top-folder > span {
+  font-weight: 600;
+}
+.pass-top .reload {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: fit-content;
+  padding: 10px 18px;
+  font-size: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  background-color: #FFF;
+}
+.pass-top .reload > span {
+  font-weight: 600;
+}
+.pass-top .reload > svg {
+  color: #3F80D0;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=passportPage.css.map */
